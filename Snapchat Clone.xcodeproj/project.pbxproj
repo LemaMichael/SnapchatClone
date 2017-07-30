@@ -7,14 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0E258B1F2DD2F100FB00B6 /* ringtone_bff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */; };
+		4C0E258C1F2DD2F100FB00B6 /* ringtone_full.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */; };
+		4C0E258D1F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25891F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a */; };
+		4C0E258E1F2DD2F100FB00B6 /* ringtone_outgoing.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E258A1F2DD2F100FB00B6 /* ringtone_outgoing.m4a */; };
+		4C0E25911F2DD2FE00FB00B6 /* SC_scanned.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */; };
+		4C0E25921F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */; };
 		4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6187671F2DC237001245ED /* AppDelegate.swift */; };
 		4C61876A1F2DC237001245ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6187691F2DC237001245ED /* ViewController.swift */; };
 		4C61876D1F2DC237001245ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C61876B1F2DC237001245ED /* Main.storyboard */; };
 		4C61876F1F2DC237001245ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C61876E1F2DC237001245ED /* Assets.xcassets */; };
 		4C6187721F2DC237001245ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C6187701F2DC237001245ED /* LaunchScreen.storyboard */; };
+		4C61877D1F2DC8C8001245ED /* boop_boop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C61877A1F2DC8C8001245ED /* boop_boop.m4a */; };
+		4C61877E1F2DC8C8001245ED /* chat_received.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C61877B1F2DC8C8001245ED /* chat_received.m4a */; };
+		4C61877F1F2DC8C8001245ED /* chat_sent.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C61877C1F2DC8C8001245ED /* chat_sent.m4a */; };
+		4C6187821F2DCEA1001245ED /* generic_push.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C6187801F2DCEA1001245ED /* generic_push.mp3 */; };
+		4C6187831F2DCEA1001245ED /* hang_up.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C6187811F2DCEA1001245ED /* hang_up.m4a */; };
+		4CADBC921F2DDA9800CCB9E9 /* Pinch Animation in Resources */ = {isa = PBXBuildFile; fileRef = 4CADBC911F2DDA9800CCB9E9 /* Pinch Animation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone_bff.mp3; sourceTree = "<group>"; };
+		4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone_full.mp3; sourceTree = "<group>"; };
+		4C0E25891F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ringtone_outgoing_bff.m4a; sourceTree = "<group>"; };
+		4C0E258A1F2DD2F100FB00B6 /* ringtone_outgoing.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ringtone_outgoing.m4a; sourceTree = "<group>"; };
+		4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SC_scanned.mp3; sourceTree = "<group>"; };
+		4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SC_SwipeToSend.m4a; sourceTree = "<group>"; };
 		4C6187641F2DC237001245ED /* Snapchat Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snapchat Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C6187671F2DC237001245ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C6187691F2DC237001245ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +40,13 @@
 		4C61876E1F2DC237001245ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C6187711F2DC237001245ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C6187731F2DC237001245ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C61877A1F2DC8C8001245ED /* boop_boop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = boop_boop.m4a; sourceTree = "<group>"; };
+		4C61877B1F2DC8C8001245ED /* chat_received.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = chat_received.m4a; sourceTree = "<group>"; };
+		4C61877C1F2DC8C8001245ED /* chat_sent.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = chat_sent.m4a; sourceTree = "<group>"; };
+		4C6187801F2DCEA1001245ED /* generic_push.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = generic_push.mp3; sourceTree = "<group>"; };
+		4C6187811F2DCEA1001245ED /* hang_up.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = hang_up.m4a; sourceTree = "<group>"; };
+		4C6187841F2DCED0001245ED /* left_call.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = left_call.m4a; sourceTree = "<group>"; };
+		4CADBC911F2DDA9800CCB9E9 /* Pinch Animation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Pinch Animation"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +83,31 @@
 				4C6187691F2DC237001245ED /* ViewController.swift */,
 				4C61876B1F2DC237001245ED /* Main.storyboard */,
 				4C61876E1F2DC237001245ED /* Assets.xcassets */,
+				4C6187791F2DC8B9001245ED /* Sounds */,
 				4C6187701F2DC237001245ED /* LaunchScreen.storyboard */,
+				4CADBC911F2DDA9800CCB9E9 /* Pinch Animation */,
 				4C6187731F2DC237001245ED /* Info.plist */,
 			);
 			path = "Snapchat Clone";
+			sourceTree = "<group>";
+		};
+		4C6187791F2DC8B9001245ED /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				4C61877A1F2DC8C8001245ED /* boop_boop.m4a */,
+				4C61877B1F2DC8C8001245ED /* chat_received.m4a */,
+				4C61877C1F2DC8C8001245ED /* chat_sent.m4a */,
+				4C6187801F2DCEA1001245ED /* generic_push.mp3 */,
+				4C6187811F2DCEA1001245ED /* hang_up.m4a */,
+				4C6187841F2DCED0001245ED /* left_call.m4a */,
+				4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */,
+				4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */,
+				4C0E25891F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a */,
+				4C0E258A1F2DD2F100FB00B6 /* ringtone_outgoing.m4a */,
+				4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */,
+				4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,9 +170,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C61877E1F2DC8C8001245ED /* chat_received.m4a in Resources */,
+				4C0E25911F2DD2FE00FB00B6 /* SC_scanned.mp3 in Resources */,
+				4C61877D1F2DC8C8001245ED /* boop_boop.m4a in Resources */,
+				4C6187821F2DCEA1001245ED /* generic_push.mp3 in Resources */,
+				4C0E258B1F2DD2F100FB00B6 /* ringtone_bff.mp3 in Resources */,
+				4C0E258C1F2DD2F100FB00B6 /* ringtone_full.mp3 in Resources */,
 				4C6187721F2DC237001245ED /* LaunchScreen.storyboard in Resources */,
 				4C61876F1F2DC237001245ED /* Assets.xcassets in Resources */,
+				4C6187831F2DCEA1001245ED /* hang_up.m4a in Resources */,
+				4CADBC921F2DDA9800CCB9E9 /* Pinch Animation in Resources */,
+				4C61877F1F2DC8C8001245ED /* chat_sent.m4a in Resources */,
 				4C61876D1F2DC237001245ED /* Main.storyboard in Resources */,
+				4C0E258E1F2DD2F100FB00B6 /* ringtone_outgoing.m4a in Resources */,
+				4C0E258D1F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a in Resources */,
+				4C0E25921F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +327,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MichaeLema.Snapchat-Clone";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -282,6 +341,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MichaeLema.Snapchat-Clone";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -304,6 +364,7 @@
 				4C6187781F2DC237001245ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
