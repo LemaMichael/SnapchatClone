@@ -13,8 +13,10 @@
 		4C0E258E1F2DD2F100FB00B6 /* ringtone_outgoing.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E258A1F2DD2F100FB00B6 /* ringtone_outgoing.m4a */; };
 		4C0E25911F2DD2FE00FB00B6 /* SC_scanned.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */; };
 		4C0E25921F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */; };
+		4C5926161F33131A0007480E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5926151F33131A0007480E /* ColorExtension.swift */; };
+		4C5926191F3319E60007480E /* NameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5926181F3319E60007480E /* NameController.swift */; };
 		4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6187671F2DC237001245ED /* AppDelegate.swift */; };
-		4C61876A1F2DC237001245ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6187691F2DC237001245ED /* ViewController.swift */; };
+		4C61876A1F2DC237001245ED /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6187691F2DC237001245ED /* WelcomeController.swift */; };
 		4C61876D1F2DC237001245ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C61876B1F2DC237001245ED /* Main.storyboard */; };
 		4C61876F1F2DC237001245ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C61876E1F2DC237001245ED /* Assets.xcassets */; };
 		4C6187721F2DC237001245ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C6187701F2DC237001245ED /* LaunchScreen.storyboard */; };
@@ -24,6 +26,7 @@
 		4C6187821F2DCEA1001245ED /* generic_push.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C6187801F2DCEA1001245ED /* generic_push.mp3 */; };
 		4C6187831F2DCEA1001245ED /* hang_up.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C6187811F2DCEA1001245ED /* hang_up.m4a */; };
 		4CB8BC801F33087900EA3F89 /* ReadMe in Resources */ = {isa = PBXBuildFile; fileRef = 4CB8BC7F1F33087900EA3F89 /* ReadMe */; };
+		4CB8BC831F330F5200EA3F89 /* ConstraintsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB8BC821F330F5200EA3F89 /* ConstraintsExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,9 +36,11 @@
 		4C0E258A1F2DD2F100FB00B6 /* ringtone_outgoing.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ringtone_outgoing.m4a; sourceTree = "<group>"; };
 		4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SC_scanned.mp3; sourceTree = "<group>"; };
 		4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SC_SwipeToSend.m4a; sourceTree = "<group>"; };
+		4C5926151F33131A0007480E /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		4C5926181F3319E60007480E /* NameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameController.swift; sourceTree = "<group>"; };
 		4C6187641F2DC237001245ED /* Snapchat Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snapchat Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C6187671F2DC237001245ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4C6187691F2DC237001245ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4C6187691F2DC237001245ED /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		4C61876C1F2DC237001245ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C61876E1F2DC237001245ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C6187711F2DC237001245ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 		4C6187811F2DCEA1001245ED /* hang_up.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = hang_up.m4a; sourceTree = "<group>"; };
 		4C6187841F2DCED0001245ED /* left_call.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = left_call.m4a; sourceTree = "<group>"; };
 		4CB8BC7F1F33087900EA3F89 /* ReadMe */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe; sourceTree = "<group>"; };
+		4CB8BC821F330F5200EA3F89 /* ConstraintsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C5926171F3319BB0007480E /* Sign Up */ = {
+			isa = PBXGroup;
+			children = (
+				4C5926181F3319E60007480E /* NameController.swift */,
+			);
+			name = "Sign Up";
+			sourceTree = "<group>";
+		};
 		4C61875B1F2DC237001245ED = {
 			isa = PBXGroup;
 			children = (
@@ -80,13 +94,15 @@
 			isa = PBXGroup;
 			children = (
 				4C6187671F2DC237001245ED /* AppDelegate.swift */,
-				4C6187691F2DC237001245ED /* ViewController.swift */,
-				4C61876B1F2DC237001245ED /* Main.storyboard */,
+				4C6187691F2DC237001245ED /* WelcomeController.swift */,
+				4C5926171F3319BB0007480E /* Sign Up */,
 				4C61876E1F2DC237001245ED /* Assets.xcassets */,
 				4C6187791F2DC8B9001245ED /* Sounds */,
 				4C6187701F2DC237001245ED /* LaunchScreen.storyboard */,
+				4C61876B1F2DC237001245ED /* Main.storyboard */,
 				4C6187731F2DC237001245ED /* Info.plist */,
 				4CB8BC7F1F33087900EA3F89 /* ReadMe */,
+				4CB8BC811F330F3600EA3F89 /* Extensions */,
 			);
 			path = "Snapchat Clone";
 			sourceTree = "<group>";
@@ -108,6 +124,15 @@
 				4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */,
 			);
 			name = Sounds;
+			sourceTree = "<group>";
+		};
+		4CB8BC811F330F3600EA3F89 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4CB8BC821F330F5200EA3F89 /* ConstraintsExtension.swift */,
+				4C5926151F33131A0007480E /* ColorExtension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,8 +220,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C61876A1F2DC237001245ED /* ViewController.swift in Sources */,
+				4CB8BC831F330F5200EA3F89 /* ConstraintsExtension.swift in Sources */,
+				4C61876A1F2DC237001245ED /* WelcomeController.swift in Sources */,
 				4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */,
+				4C5926161F33131A0007480E /* ColorExtension.swift in Sources */,
+				4C5926191F3319E60007480E /* NameController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
