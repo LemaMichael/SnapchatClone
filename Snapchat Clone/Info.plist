@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Save your creative Snaps to your Camera Roll and more.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Use your microphone to record awesome audio for Snaps and more.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Use your camera to take awesome Snaps and more.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
