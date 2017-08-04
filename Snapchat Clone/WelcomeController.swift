@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class WelcomeController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class WelcomeController: UIViewController {
     
     //: MARK: - Display user's front facing camera
     let captureSession = AVCaptureSession()
@@ -166,12 +166,6 @@ class WelcomeController: UIViewController, AVCaptureVideoDataOutputSampleBufferD
             }
             
             captureSession.commitConfiguration()
-            
-            //: Must provide a queue on which callbacks should be invoked
-            let queue = DispatchQueue(label: "cameraQueue")
-            dataOutput.setSampleBufferDelegate(self, queue: queue)
-
-            
             
         }
     }
