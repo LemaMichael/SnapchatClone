@@ -20,7 +20,7 @@ class WelcomeController: UIViewController {
     //: MARK: - Display snap icon and buttons
     let snapImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.rgb(red: 254, green: 250, blue: 55).withAlphaComponent(0.981)
+        imageView.backgroundColor = UIColor.rgb(red: 254, green: 250, blue: 55).withAlphaComponent(0.978)
         //: Maintain Ghost Icon image centered inside UIImageViwe
         imageView.contentMode = .center
         return imageView
@@ -135,7 +135,15 @@ class WelcomeController: UIViewController {
             }
             
         } catch let err {
+            
+            //: If we get here, that means the camera cannot record
             print(err.localizedDescription)
+            view.addSubview(snapImageView)
+            
+            //Set up snapImageView's constraints
+            view.addConstraintsWithFormat(format: "H:|[v0]|", views: snapImageView)
+            view.addConstraintsWithFormat(format: "V:|[v0][v1(80)][v2(80)]|", views: snapImageView, loginButton, signUpButton)
+            return
         }
         
         
