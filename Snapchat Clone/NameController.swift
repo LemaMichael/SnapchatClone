@@ -14,23 +14,22 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor.red
-        
-        /*
-         scrollView.clipsToBounds = true
-         scrollView.isMultipleTouchEnabled = true
-         scrollView.contentMode = .scaleAspectFill
-         scrollView.bounces = true
-         */
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.alwaysBounceVertical = true
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
         return scrollView
+    }()
+    
+    //: This view will contain the labels & textfields
+    let contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        return view
     }()
     
     let questionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir-Heavy", size: 22)
+        label.font = UIFont(name: "Avenir-Medium", size: 21)
         label.text = "What's your name?"
         return label
     }()
@@ -46,6 +45,11 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
     
     let firstNameTextField: UITextField = {
         let textField = UITextField()
+        textField.font = UIFont(name: "Avenir-Medium", size: 16)
+
+        //: Set border Style to be underlined
+        textField.setUnderlinedBorder()
+        
         return textField
     }()
     
@@ -60,53 +64,69 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
     
     let lastNameTextField: UITextField = {
         let textField = UITextField()
+        textField.font = UIFont(name: "Avenir-Medium", size: 16)
+        
+        //: Set border Style to be underlined
+        textField.setUnderlinedBorder()
         return textField
     }()
     
     let agreementTextField: UITextView = {
         let textView = UITextView()
         textView.textAlignment = .center
-        textView.font = UIFont(name: "Avenir-Medium", size: 11)
-        //: Display links
-        //textField.isSelectable = true
-        //textField.dataDetectorTypes = UIDataDetectorTypes.all
-        let attributedString = NSMutableAttributedString(string: "By tapping Sign Up & Accept, you agree to the Terms of Service and Privacy Policy")
-        attributedString.addAttributes([NSLinkAttributeName : NSURL(string: "https://en.wikipedia.org/wiki/Terms_of_service" )!, NSForegroundColorAttributeName : UIColor.blue], range: NSMakeRange(10, 15))
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+       
         
-        // textView.delegate = (self as! UITextViewDelegate)
+        let attributedString = NSMutableAttributedString(string: "By tapping Sign Up & Accept, you agree to the Terms of Service and Privacy Policy.")
+        
+        //: 'Terms of Service' and 'Privacy Policy' are hyperlink texts
+        attributedString.addAttribute(NSLinkAttributeName, value: "https://en.wikipedia.org/wiki/Terms_of_service", range: NSRange(location: 46, length: 16))
+        attributedString.addAttribute(NSLinkAttributeName, value: "https://en.wikipedia.org/wiki/Privacy_policy", range: NSRange(location: 66, length: 15))
         textView.attributedText = attributedString
-        
-        
-        
+        //: The default font for NSAttributedString objects is Helvetica 12-point, therefore change it
+        textView.font = UIFont(name: "Avenir-Medium", size: 11)
+
+   
         return textView
     }()
     
     
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        return true
-    }
-    
-    
-    
-    
-    
+
+    //: MARK: - viewDidLoad
     override func viewDidLoad() {
         
         view.backgroundColor = UIColor.white
         setUpNavigationBar()
         
         self.view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         
-        scrollView.addSubview(questionLabel)
-        scrollView.addSubview(firstNameLabel)
-        scrollView.addSubview(firstNameTextField)
-        scrollView.addSubview(lastNameLabel)
-        scrollView.addSubview(lastNameTextField)
-        scrollView.addSubview(agreementTextField)
+        //: The view controller should not automatically adjust its scroll view insets or there will be a mismatch in the content view positioning
+        self.automaticallyAdjustsScrollViewInsets = false
+        
+        contentView.addSubview(questionLabel)
+        contentView.addSubview(firstNameLabel)
+        contentView.addSubview(firstNameTextField)
+        contentView.addSubview(lastNameLabel)
+        contentView.addSubview(lastNameTextField)
+        contentView.addSubview(agreementTextField)
         setUpViews()
         
-        
+        //: Needed to call textView(_ textView: shouldInteractWith URL:)
+        agreementTextField.delegate = self
+
+     
     }
+    
+    
+    //: MARK: viewDidAppear
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //: This view will be added to the window using an animation.
+        firstNameTextField.becomeFirstResponder()
+    }
+    
     
     //: MARK: - Set up Navigation Bar
     func setUpNavigationBar() {
@@ -130,24 +150,33 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
     
     //: MARK: - Set up Views
     func setUpViews() {
-        //view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)
-        //view.addConstraintsWithFormat(format: "V:|[v0]|", views: scrollView)
-        view.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .right, relatedBy: .equal, toItem: self.view, attribute: .right, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0))
+        
+        //: Using scroll view with auto layout in 3 steps
+        //: 1 - Set the scroll view constraints
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)
+        view.addConstraintsWithFormat(format: "V:|[v0]|", views: scrollView)
+        
+        //: 2- Set the content view (a subview of scroll view) constraints
+        scrollView.addConstraintsWithFormat(format: "H:|[v0]|", views: contentView)
+        scrollView.addConstraintsWithFormat(format: "V:|[v0]|", views: contentView)
+        
+        //: 3- Set equal width and equal height for the content view (without this, Layout issue: 'Scrollable content size is ambiguous for UIScrollView.')
+        view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 0))
+
         
         
-        scrollView.addConstraintsWithFormat(format: "H:|[v0]|", views: questionLabel)
-        scrollView.addConstraintsWithFormat(format: "H:|[v0]", views: firstNameLabel)
-        scrollView.addConstraintsWithFormat(format: "H:|[v0]|", views: firstNameTextField)
-        scrollView.addConstraintsWithFormat(format: "H:|[v0]|", views: lastNameLabel)
-        scrollView.addConstraintsWithFormat(format: "H:|[v0]|", views: lastNameTextField)
-        scrollView.addConstraintsWithFormat(format: "H:|[v0]|", views: agreementTextField)
+        contentView.addConstraintsWithFormat(format: "H:|[v0]|", views: questionLabel)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: firstNameLabel)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: firstNameTextField)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: lastNameLabel)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: lastNameTextField)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: agreementTextField)
         
-        scrollView.addConstraintsWithFormat(format: "V:|-50-[v0]-20-[v1]-4-[v2(40)]-8-[v3]-4-[v4(40)]-20-[v5(25)]", views: questionLabel, firstNameLabel, firstNameTextField, lastNameLabel, lastNameTextField, agreementTextField)
+        //: 44 points seems to be the height of the navigation bar
+        contentView.addConstraintsWithFormat(format: "V:|-44-[v0]-20-[v1(11)][v2(35)]-14-[v3(11)][v4(35)]-10-[v5(50)]", views: questionLabel, firstNameLabel, firstNameTextField, lastNameLabel, lastNameTextField, agreementTextField)
         
-        
+    
         
     }
     
