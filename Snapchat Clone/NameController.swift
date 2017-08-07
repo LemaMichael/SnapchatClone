@@ -9,7 +9,7 @@
 import UIKit
 
 
-class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate {
+class NameController: UIViewController, UITextFieldDelegate {
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -45,11 +45,19 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
     
     let firstNameTextField: UITextField = {
         let textField = UITextField()
+        //: Hide the suggestion list above keyboard
+        textField.autocorrectionType = .no
+        //: Change the reutn key type
+        textField.returnKeyType = .next
+        //: 'Will automatically disable return key when text has zero-length contents, and will automatically enable when text widget has non-zero-length contents'
+        textField.enablesReturnKeyAutomatically = true
         textField.font = UIFont(name: "Avenir-Medium", size: 16)
-
+        
         //: Set border Style to be underlined
         textField.setUnderlinedBorder()
         
+        //: Set the tag so textFieldShouldReturn can determine the textField
+        textField.tag = 0
         return textField
     }()
     
@@ -64,10 +72,20 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
     
     let lastNameTextField: UITextField = {
         let textField = UITextField()
+        //: Hide the suggestion list above keyboard
+        textField.autocorrectionType = .no
+        //: Change the return key type
+        textField.returnKeyType = .next
+        //: 'Will automatically disable return key when text has zero-length contents, and will automatically enable when text widget has non-zero-length contents'
+        textField.enablesReturnKeyAutomatically = true
         textField.font = UIFont(name: "Avenir-Medium", size: 16)
         
         //: Set border Style to be underlined
         textField.setUnderlinedBorder()
+        
+        //: Set the tag so textFieldShouldReturn can determine the textField
+        textField.tag = 1
+        
         return textField
     }()
     
@@ -76,25 +94,39 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
         textView.textAlignment = .center
         textView.isScrollEnabled = false
         textView.isEditable = false
-       
+        
         
         let attributedString = NSMutableAttributedString(string: "By tapping Sign Up & Accept, you agree to the Terms of Service and Privacy Policy.")
-        
         //: 'Terms of Service' and 'Privacy Policy' are hyperlink texts
         attributedString.addAttribute(NSLinkAttributeName, value: "https://en.wikipedia.org/wiki/Terms_of_service", range: NSRange(location: 46, length: 16))
         attributedString.addAttribute(NSLinkAttributeName, value: "https://en.wikipedia.org/wiki/Privacy_policy", range: NSRange(location: 66, length: 15))
         textView.attributedText = attributedString
         //: The default font for NSAttributedString objects is Helvetica 12-point, therefore change it
         textView.font = UIFont(name: "Avenir-Medium", size: 11)
-
-   
         return textView
     }()
     
     
-
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        //: This must be the firstNameTextField where the user tapped 'Next', therefore go the the lastNameTextField
+        if textField.tag == 0 {
+            firstNameTextField.resignFirstResponder()
+            lastNameTextField.becomeFirstResponder()
+        } else if textField.tag == 1 {
+            //: If the user tapped 'Next' again, dismiss the keyboard and move on to the next view
+            textField.resignFirstResponder()
+            navigationController?.pushViewController(WelcomeController(), animated: false)
+        }
+        return false
+        
+    }
+    
+    
+    
     //: MARK: - viewDidLoad
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
         setUpNavigationBar()
@@ -113,14 +145,16 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
         contentView.addSubview(agreementTextField)
         setUpViews()
         
-        //: Needed to call textView(_ textView: shouldInteractWith URL:)
-        agreementTextField.delegate = self
-
-     
+        //: Set the delegate for each text field
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        
+        
+        
     }
     
     
-    //: MARK: viewDidAppear
+    //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //: This view will be added to the window using an animation.
@@ -163,7 +197,7 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
         //: 3- Set equal width and equal height for the content view (without this, Layout issue: 'Scrollable content size is ambiguous for UIScrollView.')
         view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 0))
-
+        
         
         
         contentView.addConstraintsWithFormat(format: "H:|[v0]|", views: questionLabel)
@@ -176,7 +210,7 @@ class NameController: UIViewController, UIScrollViewDelegate, UITextViewDelegate
         //: 44 points seems to be the height of the navigation bar
         contentView.addConstraintsWithFormat(format: "V:|-44-[v0]-20-[v1(11)][v2(35)]-14-[v3(11)][v4(35)]-10-[v5(50)]", views: questionLabel, firstNameLabel, firstNameTextField, lastNameLabel, lastNameTextField, agreementTextField)
         
-    
+        
         
     }
     
