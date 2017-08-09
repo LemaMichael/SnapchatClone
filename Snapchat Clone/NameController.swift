@@ -125,7 +125,7 @@ class NameController: UIViewController, UITextFieldDelegate {
         button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         
         //: Make the button rounded
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = 23
         button.layer.masksToBounds = true
         return button
     }()
@@ -239,40 +239,16 @@ class NameController: UIViewController, UITextFieldDelegate {
         contentView.addSubview(lastNameLabel)
         contentView.addSubview(lastNameTextField)
         contentView.addSubview(agreementTextField)
-        contentView.addSubview(signUpButton)
+        view.addSubview(signUpButton) //scrollView.superview?.addSubview(signUpButton)
+
         setUpViews()
         
         //: Set the delegate for each text field
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
         
-//        bottomConstraint = NSLayoutConstraint(item: signUpButton, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
-//        contentView.addConstraint(bottomConstraint!)
-        
-//        //: Implement a listener for when the keyboard will show
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillShow, object: nil)
-//        //: Implement a listener for whent the keybord will dismiss itself8
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillHide, object: nil)
-        
     }
     
-    //: The bottomConstraint for the sign up buttom will be updated when the keyboard shows up
-    var bottomConstraint: NSLayoutConstraint?
-    
-    //: MARK: - Keyboard handler
-    func handleKeyboardNotification(notification: NSNotification) {
-        
-        if let userInfo = notification.userInfo {
-            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
-            //: Check the notification.name to see if the keyboard will show
-            let isKeyboardShowing = notification.name == .UIKeyboardWillShow
-            
-            //: The bottom constraint will move up when the keyboard displays 
-            bottomConstraint?.constant = isKeyboardShowing ? -(keyboardFrame!.height) : -(keyboardFrame!.height)
-            self.view.layoutIfNeeded()
-        }
-        
-    }
  
     
     
@@ -340,12 +316,12 @@ class NameController: UIViewController, UITextFieldDelegate {
         contentView.addConstraintsWithFormat(format: "V:|-44-[v0]-20-[v1(11)][v2(35)]-14-[v3(11)][v4(35)]-10-[v5(50)]", views: questionLabel, firstNameLabel, firstNameTextField, lastNameLabel, lastNameTextField, agreementTextField)
         
         //: Constraints for sign up button
-        contentView.addConstraintsWithFormat(format: "V:[v0(50)]-300-|", views: signUpButton)
-        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: signUpButton)
-        //contentView.addConstraintsWithFormat(format: "V:[v0(50)]", views: signUpButton)
+        view.addConstraintsWithFormat(format: "H:|-60-[v0]-60-|", views: signUpButton)
+        view.addConstraintsWithFormat(format: "V:[v0(46)]", views: signUpButton)
+        
+        //: 216 points is the height of the keyboard, 25 points is for spacing between the keyboard and the sign up button
+        view.addConstraint(NSLayoutConstraint(item: signUpButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -(216 + 25)) )
 
-        
-        
     }
     
     
