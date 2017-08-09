@@ -11,6 +11,9 @@ import UIKit
 
 class NameController: UIViewController, UITextFieldDelegate {
     
+    let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
+    let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor.red
@@ -58,6 +61,9 @@ class NameController: UIViewController, UITextFieldDelegate {
         
         //: Set the tag so textFieldShouldReturn can determine the textField
         textField.tag = 0
+        
+        //: Detect text field changes
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     }()
     
@@ -86,6 +92,10 @@ class NameController: UIViewController, UITextFieldDelegate {
         //: Set the tag so textFieldShouldReturn can determine the textField
         textField.tag = 1
         
+        //: Detect text field changes
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        
         return textField
     }()
     
@@ -106,7 +116,35 @@ class NameController: UIViewController, UITextFieldDelegate {
         return textView
     }()
     
+    let signUpButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("Sign Up & Accept", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 17)
+        button.backgroundColor = UIColor.rgb(red: 185, green: 192, blue: 199)
+        button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        
+        //: Make the button rounded
+        button.layer.cornerRadius = 25
+        button.layer.masksToBounds = true
+        return button
+    }()
     
+    
+    //: MARK: - Sign Up button tapped
+    func signUpButtonTapped() {
+        //: If the sign up button color is not purple, do nothing, else we are good to go because there is at least one valid text in either text fields.
+        if (signUpButton.backgroundColor != purpleButtonColor) {
+            return
+        } else {
+            //: Snapchat goes back to the firstNameTextField when the user goes back from the new viewController (BirthdayController)
+            firstNameTextField.becomeFirstResponder()
+            navigationController?.pushViewController(BirthdayController(), animated: false)
+        }
+        
+    }
+    
+    //: MARK: - Text Field methods
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         //: This must be the firstNameTextField where the user tapped 'Next', therefore go the the lastNameTextField
@@ -114,15 +152,73 @@ class NameController: UIViewController, UITextFieldDelegate {
             firstNameTextField.resignFirstResponder()
             lastNameTextField.becomeFirstResponder()
         } else if textField.tag == 1 {
-            //: If the user tapped 'Next' again, dismiss the keyboard and move on to the next view
-            textField.resignFirstResponder()
-            navigationController?.pushViewController(WelcomeController(), animated: false)
+            //: If the user tapped 'Next' again, check if there is a valid text in either firstName or lastName Text fields.
+            lastNameTextField.resignFirstResponder()
+            
+            
+            //: If the sign up button color is purple, we are good to go because there is at least one valid text in either text fields.
+            if signUpButton.backgroundColor == purpleButtonColor {
+                //: Snapchat goes back to the firstNameTextField when the user goes back from the new viewController (BirthdayController)
+                firstNameTextField.becomeFirstResponder()
+                navigationController?.pushViewController(BirthdayController(), animated: false)
+            } else {
+                //: Both text fields are empty, therefore go to the firstNameTextField
+                firstNameTextField.becomeFirstResponder()
+            }
+            
         }
         return false
-        
     }
     
     
+    func textFieldDidChange(textField: UITextField) {
+        
+        //: If the text is valid, change the sign up button color
+        if let validText = textField.text {
+            //: Check if the text is not empty (including only white spaces)
+            if !(validText.trimmingCharacters(in: .whitespaces).isEmpty) {
+                //: If the purple background is already set, don't do anything
+                if !(signUpButton.backgroundColor == purpleButtonColor) {
+                    signUpButton.backgroundColor = purpleButtonColor
+                }
+            } else {
+                //: If firstNameTextField is a valid text, but lastNameTextField is not, don't change the color
+                
+                //: If firstNameTextField is having its text changed, check if lastNameTextField has a valid text before changing to original color
+                if textField.tag == 0 {
+                    
+                    if let lastNameValidText = lastNameTextField.text {
+                        if !(lastNameValidText.trimmingCharacters(in: .whitespaces).isEmpty) {
+                            //: Leave the button as is, since there is a valid text
+                            return
+                        } else {
+                            //: Set the sign up button to its original color (dark gray) if it's not already set.
+                            if !(signUpButton.backgroundColor == grayButtonColor) {
+                                signUpButton.backgroundColor = grayButtonColor
+                            }
+                        }
+                        
+                    }
+                }
+                //: If lastNameTextField is a valid text, but firstNameTextField is not, don't change the color
+                else if textField.tag == 1 {
+                    
+                    if let firstNameValidText = firstNameTextField.text {
+                        if !(firstNameValidText.trimmingCharacters(in: .whitespaces).isEmpty) {
+                            //: Leave the button as is, since there is a valid text
+                            return
+                        } else {
+                            //: Set the sign up button to its original color (dark gray) if it's not already set.
+                            if !(signUpButton.backgroundColor == grayButtonColor) {
+                                signUpButton.backgroundColor = grayButtonColor
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     
     //: MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -143,15 +239,41 @@ class NameController: UIViewController, UITextFieldDelegate {
         contentView.addSubview(lastNameLabel)
         contentView.addSubview(lastNameTextField)
         contentView.addSubview(agreementTextField)
+        contentView.addSubview(signUpButton)
         setUpViews()
         
         //: Set the delegate for each text field
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
         
+//        bottomConstraint = NSLayoutConstraint(item: signUpButton, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
+//        contentView.addConstraint(bottomConstraint!)
         
+//        //: Implement a listener for when the keyboard will show
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillShow, object: nil)
+//        //: Implement a listener for whent the keybord will dismiss itself8
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillHide, object: nil)
         
     }
+    
+    //: The bottomConstraint for the sign up buttom will be updated when the keyboard shows up
+    var bottomConstraint: NSLayoutConstraint?
+    
+    //: MARK: - Keyboard handler
+    func handleKeyboardNotification(notification: NSNotification) {
+        
+        if let userInfo = notification.userInfo {
+            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
+            //: Check the notification.name to see if the keyboard will show
+            let isKeyboardShowing = notification.name == .UIKeyboardWillShow
+            
+            //: The bottom constraint will move up when the keyboard displays 
+            bottomConstraint?.constant = isKeyboardShowing ? -(keyboardFrame!.height) : -(keyboardFrame!.height)
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+ 
     
     
     //: MARK: - viewDidAppear
@@ -159,6 +281,13 @@ class NameController: UIViewController, UITextFieldDelegate {
         super.viewDidAppear(animated)
         //: This view will be added to the window using an animation.
         firstNameTextField.becomeFirstResponder()
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //: Modify your UI before the view is presented to the screen ex: making signUpButton rounded
+  
     }
     
     
@@ -210,6 +339,11 @@ class NameController: UIViewController, UITextFieldDelegate {
         //: 44 points seems to be the height of the navigation bar
         contentView.addConstraintsWithFormat(format: "V:|-44-[v0]-20-[v1(11)][v2(35)]-14-[v3(11)][v4(35)]-10-[v5(50)]", views: questionLabel, firstNameLabel, firstNameTextField, lastNameLabel, lastNameTextField, agreementTextField)
         
+        //: Constraints for sign up button
+        contentView.addConstraintsWithFormat(format: "V:[v0(50)]-300-|", views: signUpButton)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: signUpButton)
+        //contentView.addConstraintsWithFormat(format: "V:[v0(50)]", views: signUpButton)
+
         
         
     }
