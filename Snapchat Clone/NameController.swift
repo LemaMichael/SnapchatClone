@@ -32,7 +32,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     let questionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir-Medium", size: 21)
+        label.font = UIFont(name: "Avenir-Medium", size: 19)
         label.text = "What's your name?"
         return label
     }()
@@ -114,16 +114,16 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         return textView
     }()
     
-    let signUpButton: UIButton = {
+    lazy var signUpButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Sign Up & Accept", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 17)
-        button.backgroundColor = UIColor.rgb(red: 185, green: 192, blue: 199)
+        button.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 14)
+        button.backgroundColor = self.grayButtonColor
         button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-        
-        //: Make the button rounded
-        button.layer.cornerRadius = 23
+
+        //: Make the button round
+        button.layer.cornerRadius = 22
         button.layer.masksToBounds = true
         return button
     }()
@@ -325,7 +325,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 0))
         
         
-        contentView.addConstraintsWithFormat(format: "H:|[v0]|", views: questionLabel)
+        contentView.addConstraintsWithFormat(format: "H:|-75-[v0]-75-|", views: questionLabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: firstNameLabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: firstNameTextField)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: lastNameLabel)
@@ -336,8 +336,8 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         contentView.addConstraintsWithFormat(format: "V:|-44-[v0]-20-[v1(11)][v2(35)]-14-[v3(11)][v4(35)]-10-[v5(50)]", views: questionLabel, firstNameLabel, firstNameTextField, lastNameLabel, lastNameTextField, agreementTextField)
         
         //: Constraints for sign up button
-        view.addConstraintsWithFormat(format: "H:|-60-[v0]-60-|", views: signUpButton)
-        view.addConstraintsWithFormat(format: "V:[v0(46)]", views: signUpButton)
+        view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: signUpButton)
+        view.addConstraintsWithFormat(format: "V:[v0(44)]", views: signUpButton)
         
         //: 216 points is the height of the keyboard, 25 points is for spacing between the keyboard and the sign up button
         view.addConstraint(NSLayoutConstraint(item: signUpButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -(216 + 25)) )
