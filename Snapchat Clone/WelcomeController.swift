@@ -16,7 +16,6 @@ class WelcomeController: UIViewController {
     var videoLayer: CALayer!
     var captureDevice: AVCaptureDevice!
     
-    
     //: MARK: - Display snap icon and buttons
     let snapImageView: UIImageView = {
         let imageView = UIImageView()
@@ -50,16 +49,12 @@ class WelcomeController: UIViewController {
     }()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(loginButton)
         view.addSubview(signUpButton)
         setUpViews()
-        
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,7 +67,6 @@ class WelcomeController: UIViewController {
         
         //: Setup the camera
         setUpCamera()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -81,32 +75,24 @@ class WelcomeController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    
-    
     //: Hide the status bar
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    
     func setUpViews() {
-        
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: loginButton)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: signUpButton)
         view.addConstraintsWithFormat(format: "V:[v0(80)][v1(80)]|", views: loginButton, signUpButton)
     }
     
-    
     //: MARK: - Button targers
     func showHappyGhost() {
         snapImageView.image = UIImage(named: "Happy Icon")
     }
-    
     func hideHappyGhost() {
         snapImageView.image = UIImage(named: "Icon")
     }
-    
-    
     func pushToNameController() {
         self.captureSession.stopRunning()
         self.navigationController?.pushViewController(NameController(), animated: false)
@@ -115,25 +101,21 @@ class WelcomeController: UIViewController {
     //: MARK: - Set up Camera
     func setUpCamera() {
         captureSession.sessionPreset = AVCaptureSessionPresetPhoto
-        
         //: Find devices by device type located in the front of the system hardware
         if let availableDevices = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: AVCaptureDevicePosition.front).devices {
             captureDevice = availableDevices.first
             beginCaptureSession()
         }
-        
     }
     
     func beginCaptureSession() {
         
         do {
             let captureDeviceInput = try AVCaptureDeviceInput(device: captureDevice)
-            
             //: Add the device input just once each time the view will appear
             if captureSession.inputs.isEmpty {
                 self.captureSession.addInput(captureDeviceInput)
             }
-            
         } catch let err {
             
             //: If we get here, that means the camera cannot record
@@ -146,7 +128,6 @@ class WelcomeController: UIViewController {
             return
         }
         
-        
         if let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession) {
             
             videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -158,7 +139,7 @@ class WelcomeController: UIViewController {
             let reducedHeight: CGFloat = screenHeight - 160
             
             videoLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: reducedHeight)
-
+            
             //: Now that the videoLayer's frame is set, we can set the snapImageView frame as well
             snapImageView.frame = videoLayer.frame
             view.addSubview(snapImageView)
@@ -174,9 +155,6 @@ class WelcomeController: UIViewController {
             }
             
             captureSession.commitConfiguration()
-            
         }
     }
- 
-    
 }

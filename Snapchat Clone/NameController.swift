@@ -127,6 +127,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         button.layer.masksToBounds = true
         return button
     }()
+    
     var buttonYposition: CGFloat!
     var difference: CGFloat!
     
@@ -216,7 +217,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     }
     
     //: MARK: - ScrollView DidScroll
-    //: TODO: Fix the repetitive code.
+    //: TODO: Fix the repetitive code or find a better way to do this.
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset: CGFloat = -scrollView.contentOffset.y
         //print("The current offset is \(offset)")
@@ -287,7 +288,6 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         let height = self.scrollView.frame.height
         print("The height of the contentView is: \(height)" )
         difference = height + buttonYposition
-        
     }
     
     //: MARK: - Set up Navigation Bar
@@ -301,7 +301,6 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
-        
     }
     
     //: Go back to WelcomeController
@@ -342,7 +341,6 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         //: 216 points is the height of the keyboard, 25 points is for spacing between the keyboard and the sign up button
         view.addConstraint(NSLayoutConstraint(item: signUpButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -(216 + 25)) )
-
     }
     
     //: Hide the status bar
