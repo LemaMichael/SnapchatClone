@@ -8,17 +8,17 @@
 
 import UIKit
 
-
-class NameController: UIViewController, UITextFieldDelegate {
+class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
     
     let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     
-    let scrollView: UIScrollView = {
+    lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor.red
         scrollView.showsVerticalScrollIndicator = false
         scrollView.alwaysBounceVertical = true
+        scrollView.delegate = self
         return scrollView
     }()
     
@@ -95,7 +95,6 @@ class NameController: UIViewController, UITextFieldDelegate {
         //: Detect text field changes
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
-        
         return textField
     }()
     
@@ -104,7 +103,6 @@ class NameController: UIViewController, UITextFieldDelegate {
         textView.textAlignment = .center
         textView.isScrollEnabled = false
         textView.isEditable = false
-        
         
         let attributedString = NSMutableAttributedString(string: "By tapping Sign Up & Accept, you agree to the Terms of Service and Privacy Policy.")
         //: 'Terms of Service' and 'Privacy Policy' are hyperlink texts
@@ -129,7 +127,8 @@ class NameController: UIViewController, UITextFieldDelegate {
         button.layer.masksToBounds = true
         return button
     }()
-    
+    var buttonYposition: CGFloat!
+    var difference: CGFloat!
     
     //: MARK: - Sign Up button tapped
     func signUpButtonTapped() {
@@ -141,7 +140,6 @@ class NameController: UIViewController, UITextFieldDelegate {
             firstNameTextField.becomeFirstResponder()
             navigationController?.pushViewController(BirthdayController(), animated: false)
         }
-        
     }
     
     //: MARK: - Text Field methods
@@ -155,7 +153,6 @@ class NameController: UIViewController, UITextFieldDelegate {
             //: If the user tapped 'Next' again, check if there is a valid text in either firstName or lastName Text fields.
             lastNameTextField.resignFirstResponder()
             
-            
             //: If the sign up button color is purple, we are good to go because there is at least one valid text in either text fields.
             if signUpButton.backgroundColor == purpleButtonColor {
                 //: Snapchat goes back to the firstNameTextField when the user goes back from the new viewController (BirthdayController)
@@ -165,12 +162,11 @@ class NameController: UIViewController, UITextFieldDelegate {
                 //: Both text fields are empty, therefore go to the firstNameTextField
                 firstNameTextField.becomeFirstResponder()
             }
-            
         }
         return false
     }
     
-    
+    //: TODO: Find a better way to do this.
     func textFieldDidChange(textField: UITextField) {
         
         //: If the text is valid, change the sign up button color
@@ -218,7 +214,34 @@ class NameController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
+    
+    //: MARK: - ScrollView DidScroll
+    //: TODO: Fix the repetitive code.
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset: CGFloat = -scrollView.contentOffset.y
+        //print("The current offset is \(offset)")
+        
+        //: For iphone 5 or below
+        if UIScreen.main.bounds.height < 667 {
+            //: The added numbers after the difference is the height, which were written for the constraints
+            let percentage: CGFloat = (offset) / (difference)
+            agreementTextField.alpha = (1 - percentage)
+            lastNameTextField.alpha = 1.0 - ((offset) / (difference + 45 + 50))
+            lastNameLabel.alpha = 1.0 - ((offset) / (difference + 56 + 50))
+            firstNameTextField.alpha = 1.0 - ((offset) / (difference + 105 + 50))
+            firstNameLabel.alpha = 1.0 - ((offset) / (difference + 116 + 50))
+            questionLabel.alpha = 1.0 - ((offset) / (difference + 130 + 50))
+        } else {
+            //: For iphone 6 and above
+            let percentage: CGFloat = (offset) / (2 * difference)
+            agreementTextField.alpha = (1 - percentage)
+            lastNameTextField.alpha = 1.0 - ((offset) / (2 * difference + 45 + 50))
+            lastNameLabel.alpha = 1.0 - ((offset) / (2 * difference + 56 + 50))
+            firstNameTextField.alpha = 1.0 - ((offset) / (2 * difference + 105 + 50))
+            firstNameLabel.alpha = 1.0 - ((offset) / (2 * difference + 116 + 50))
+            questionLabel.alpha = 1.0 - ((offset) / (2 * difference + 130 + 50))
+        }
+    }
     
     //: MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -242,14 +265,10 @@ class NameController: UIViewController, UITextFieldDelegate {
         view.addSubview(signUpButton) //scrollView.superview?.addSubview(signUpButton)
 
         setUpViews()
-        
         //: Set the delegate for each text field
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
-        
     }
-    
- 
     
     
     //: MARK: - viewDidAppear
@@ -257,15 +276,19 @@ class NameController: UIViewController, UITextFieldDelegate {
         super.viewDidAppear(animated)
         //: This view will be added to the window using an animation.
         firstNameTextField.becomeFirstResponder()
-        
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        //: Modify your UI before the view is presented to the screen ex: making signUpButton rounded
-  
+        //: Modify your UI before the view is presented to the screen - in this case determine the height for UI elements.
+        buttonYposition = -signUpButton.frame.origin.y
+        print("The y position for button: \(buttonYposition!)")
+        let height = self.scrollView.frame.height
+        print("The height of the contentView is: \(height)" )
+        difference = height + buttonYposition
+        
     }
-    
     
     //: MARK: - Set up Navigation Bar
     func setUpNavigationBar() {
@@ -286,7 +309,6 @@ class NameController: UIViewController, UITextFieldDelegate {
         navigationController?.popViewController(animated: false)
     }
     
-    
     //: MARK: - Set up Views
     func setUpViews() {
         
@@ -302,7 +324,6 @@ class NameController: UIViewController, UITextFieldDelegate {
         //: 3- Set equal width and equal height for the content view (without this, Layout issue: 'Scrollable content size is ambiguous for UIScrollView.')
         view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 0))
-        
         
         
         contentView.addConstraintsWithFormat(format: "H:|[v0]|", views: questionLabel)
@@ -324,12 +345,9 @@ class NameController: UIViewController, UITextFieldDelegate {
 
     }
     
-    
     //: Hide the status bar
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
-    
-    
+
 }
