@@ -251,7 +251,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
-        setUpNavigationBar()
+        setUpNavigationBar(image: "BackButton")
         
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -288,24 +288,6 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         buttonYposition = -signUpButton.frame.origin.y
         let height = self.scrollView.frame.height
         difference = height + buttonYposition
-    }
-    
-    //: MARK: - Set up Navigation Bar
-    func setUpNavigationBar() {
-        //: Change back button image in Navigation Bar
-        let backButtonImage = UIImage(named: "BackButton")?.withRenderingMode(.alwaysOriginal)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(pushToWelcomeScreen))
-        
-        //: Transparent UINavigationBar
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = UIColor.clear
-    }
-    
-    func pushToWelcomeScreen() {
-        //: Go back to WelcomeController
-        navigationController?.popViewController(animated: false)
     }
     
     //: MARK: - Set up Views

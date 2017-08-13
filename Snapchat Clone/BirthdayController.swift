@@ -127,7 +127,7 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         detectDataPickerSwipe()
-        setUpNavigationBar()
+        setUpNavigationBar(image: "BackButton")
         view.addSubview(questionLabel)
         view.addSubview(birthdayLabel)
         view.addSubview(birthdayTextField)
@@ -156,17 +156,6 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
             return
         }
         BirthdayController.currentState = datePicker.date
-    }
-    
-    //: MARK: - Set up Navigation Bar
-    func setUpNavigationBar() {
-        let backbuttonImage = UIImage(named: "BackButton")?.withRenderingMode(.alwaysOriginal)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backbuttonImage, style: .plain, target: self, action: #selector(pushToNameController))
-    }
-
-    func pushToNameController() {
-        //: Go back to NameController
-        navigationController?.popViewController(animated: false)
     }
     
     //: MARK: - Set up views
