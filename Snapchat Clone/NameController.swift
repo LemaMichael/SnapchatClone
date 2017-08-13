@@ -303,8 +303,8 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         self.navigationController?.view.backgroundColor = UIColor.clear
     }
     
-    //: Go back to WelcomeController
     func pushToWelcomeScreen() {
+        //: Go back to WelcomeController
         navigationController?.popViewController(animated: false)
     }
     
@@ -347,5 +347,4 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
 }

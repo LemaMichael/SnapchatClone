@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-class BirthdayController : UIViewController {
+class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
     
-    let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
-    let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
+    private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
+    private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     
     let questionLabel: UILabel = {
         let label = UILabel()
@@ -64,19 +64,51 @@ class BirthdayController : UIViewController {
         minComponents.month = 1
         minComponents.day = 1
         datePicker.minimumDate = Calendar.current.date(from: minComponents)
+        datePicker.addTarget(self, action: #selector(dataPickerChanged), for: .valueChanged)
         return datePicker
     }()
+    //: MARK: UIDataPicker functions
+    func dataPickerChanged(datePicker: UIDatePicker) {
+        //: To display a date to a user, set the dateStyle and timeStyle properties of the date formatter
+        let dateFormatter = DateFormatter()
+        //: The following will show the month, day, and year without showing the time.
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .none
+        
+        let date = dateFormatter.string(from: datePicker.date)
+        birthdayTextField.text = date
+        continueButton.backgroundColor = purpleButtonColor
+    }
     
+    func detectDataPickerSwipe() {
+        let gestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(isScrolling))
+        gestureRecognizer.direction = [.up, .down]
+        gestureRecognizer.delegate = self
+        datePicker.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    func isScrolling(gestureRecognizer: UISwipeGestureRecognizer) {
+        //: If the data Picker is scrolling, change the button's color
+        continueButton.backgroundColor = grayButtonColor
+    }
+    
+    //: MARK: - Gesture Recognizer
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //: "returning True is guaranteed to allow simultaneous recognition." This is exactly what I need to detect a swipe inside datePicker
+        return true
+    }
     
     func continueButtonTapped() {
         print("Continue button tapped")
     }
 
+    //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
-        
+        detectDataPickerSwipe()
+        setUpNavigationBar()
         view.addSubview(questionLabel)
         view.addSubview(birthdayLabel)
         view.addSubview(birthdayTextField)
@@ -85,6 +117,18 @@ class BirthdayController : UIViewController {
         setUpViews()
     }
     
+    //: MARK: - Set up Navigation Bar
+    func setUpNavigationBar() {
+        let backbuttonImage = UIImage(named: "BackButton")?.withRenderingMode(.alwaysOriginal)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backbuttonImage, style: .plain, target: self, action: #selector(pushToNameController))
+    }
+
+    func pushToNameController() {
+        //: Go back to NameController
+        navigationController?.popViewController(animated: false)
+    }
+    
+    //: MARK: - Set up views
     func setUpViews() {
         let space = UIScreen.main.bounds.height / 5
         view.addConstraintsWithFormat(format: "H:|-65-[v0]-65-|", views: questionLabel)
@@ -96,4 +140,7 @@ class BirthdayController : UIViewController {
         view.addConstraintsWithFormat(format: "V:[v0(35)]-15-[v1(11)][v2(35)]-\(space)-[v3(44)]-25-[v4(216)]|", views: questionLabel, birthdayLabel, birthdayTextField, continueButton,datePicker)
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 }
