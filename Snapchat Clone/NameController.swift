@@ -15,7 +15,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = UIColor.red
+        scrollView.backgroundColor = UIColor.white
         scrollView.showsVerticalScrollIndicator = false
         scrollView.alwaysBounceVertical = true
         scrollView.delegate = self

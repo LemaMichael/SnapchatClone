@@ -58,6 +58,8 @@ class WelcomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //: User might be brought back to this view if they're not over 13 years old.
+        BirthdayController.currentState = nil
         
         //: Hide a navigation bar from this ViewController
         self.navigationController?.setNavigationBarHidden(true, animated: animated)

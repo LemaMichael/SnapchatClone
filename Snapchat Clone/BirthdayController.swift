@@ -37,6 +37,7 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
         let textField = UITextField()
         textField.font = UIFont(name: "Avenir-Medium", size: 16)
         textField.setUnderlinedBorder()
+        textField.isUserInteractionEnabled = false
         return textField
     }()
     
@@ -101,7 +102,24 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
     }
     
     func continueButtonTapped() {
-        print("Continue button tapped")
+        guard let text = birthdayTextField.text, !text.isEmpty else { return }
+        let birthday: Date = datePicker.date
+        let ageComponents = Calendar.current.dateComponents([.year], from: birthday, to: Date())
+        guard let age = ageComponents.year else { return }
+        
+        if age < 13 {
+            let sorryMessage = "Sorry, looks like you're not eligible for Snapchat Clone... but thanks for checking this app out!"
+            let alert = UIAlertController(title: "", message: sorryMessage, preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (_) in
+                //: NavigationController manages a stack of UIViewControllers. This will remove some controllers from the top.
+                self.navigationController?.popToRootViewController(animated: false)
+            }
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            //: Lets go to the next view! (
+            self.navigationController?.pushViewController(UsernameController(), animated: false)
+        }
     }
 
     //: MARK: - viewDidLoad
