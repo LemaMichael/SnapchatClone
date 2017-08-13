@@ -13,6 +13,8 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
     
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
+    //: Keep track of the date, 'Changing the variable for the static property changes the property in all future instances.
+    static var currentState: Date!
     
     let questionLabel: UILabel = {
         let label = UILabel()
@@ -105,7 +107,6 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
     //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor.white
         detectDataPickerSwipe()
         setUpNavigationBar()
@@ -115,6 +116,28 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(continueButton)
         view.addSubview(datePicker)
         setUpViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if (BirthdayController.currentState != nil) {
+            datePicker.date = BirthdayController.currentState
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .none
+            let date = dateFormatter.string(from: datePicker.date)
+            birthdayTextField.text = date
+            continueButton.backgroundColor = purpleButtonColor
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //: If the textField's text is empty, that means the user has not selected a date yet.
+        guard let text = birthdayTextField.text, !text.isEmpty else {
+            return
+        }
+        BirthdayController.currentState = datePicker.date
     }
     
     //: MARK: - Set up Navigation Bar

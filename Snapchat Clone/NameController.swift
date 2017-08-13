@@ -284,9 +284,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         super.viewDidLayoutSubviews()
         //: Modify your UI before the view is presented to the screen - in this case determine the height for UI elements.
         buttonYposition = -signUpButton.frame.origin.y
-        print("The y position for button: \(buttonYposition!)")
         let height = self.scrollView.frame.height
-        print("The height of the contentView is: \(height)" )
         difference = height + buttonYposition
     }
     
