@@ -10,9 +10,9 @@ import UIKit
 
 extension UIViewController {
     
-    func setUpNavigationBar(image: String?) {
+    func setUpNavigationBar(leftImage: String?) {
         //: Change back button image in Navigation Bar
-        if let backImage = image {
+        if let backImage = leftImage {
             let backButtonImage = UIImage(named: backImage)?.withRenderingMode(.alwaysOriginal)
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(popCurrentView))
         }

@@ -222,19 +222,19 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         let offset: CGFloat = -scrollView.contentOffset.y
         //print("The current offset is \(offset)")
         
-        //: For iphone 5 or below
-        if UIScreen.main.bounds.height < 667 {
-            //: The added numbers after the difference is the height, which were written for the constraints
-            let percentage: CGFloat = (offset) / (difference)
-            agreementTextField.alpha = (1 - percentage)
-            lastNameTextField.alpha = 1.0 - ((offset) / (difference + 45 + 50))
-            lastNameLabel.alpha = 1.0 - ((offset) / (difference + 56 + 50))
-            firstNameTextField.alpha = 1.0 - ((offset) / (difference + 105 + 50))
-            firstNameLabel.alpha = 1.0 - ((offset) / (difference + 116 + 50))
-            questionLabel.alpha = 1.0 - ((offset) / (difference + 130 + 50))
-        } else {
-            //: For iphone 6 and above
-            if (difference != nil) {
+        if (difference != nil) {
+            //: For iphone 5 or below
+            if UIScreen.main.bounds.height < 667 {
+                //: The added numbers after the difference is the height, which were written for the constraints
+                let percentage: CGFloat = (offset) / (difference)
+                agreementTextField.alpha = (1 - percentage)
+                lastNameTextField.alpha = 1.0 - ((offset) / (difference + 45 + 50))
+                lastNameLabel.alpha = 1.0 - ((offset) / (difference + 56 + 50))
+                firstNameTextField.alpha = 1.0 - ((offset) / (difference + 105 + 50))
+                firstNameLabel.alpha = 1.0 - ((offset) / (difference + 116 + 50))
+                questionLabel.alpha = 1.0 - ((offset) / (difference + 130 + 50))
+            } else {
+                //: For iphone 6 and above
                 let percentage: CGFloat = (offset) / (2 * difference)
                 agreementTextField.alpha = (1 - percentage)
                 lastNameTextField.alpha = 1.0 - ((offset) / (2 * difference + 45 + 50))
@@ -251,7 +251,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
-        setUpNavigationBar(image: "BackButton")
+        setUpNavigationBar(leftImage: "BackButton")
         
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)

@@ -127,7 +127,7 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         detectDataPickerSwipe()
-        setUpNavigationBar(image: "BackButton")
+        setUpNavigationBar(leftImage: "BackButton")
         view.addSubview(questionLabel)
         view.addSubview(birthdayLabel)
         view.addSubview(birthdayTextField)
