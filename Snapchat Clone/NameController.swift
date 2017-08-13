@@ -234,13 +234,15 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             questionLabel.alpha = 1.0 - ((offset) / (difference + 130 + 50))
         } else {
             //: For iphone 6 and above
-            let percentage: CGFloat = (offset) / (2 * difference)
-            agreementTextField.alpha = (1 - percentage)
-            lastNameTextField.alpha = 1.0 - ((offset) / (2 * difference + 45 + 50))
-            lastNameLabel.alpha = 1.0 - ((offset) / (2 * difference + 56 + 50))
-            firstNameTextField.alpha = 1.0 - ((offset) / (2 * difference + 105 + 50))
-            firstNameLabel.alpha = 1.0 - ((offset) / (2 * difference + 116 + 50))
-            questionLabel.alpha = 1.0 - ((offset) / (2 * difference + 130 + 50))
+            if (difference != nil) {
+                let percentage: CGFloat = (offset) / (2 * difference)
+                agreementTextField.alpha = (1 - percentage)
+                lastNameTextField.alpha = 1.0 - ((offset) / (2 * difference + 45 + 50))
+                lastNameLabel.alpha = 1.0 - ((offset) / (2 * difference + 56 + 50))
+                firstNameTextField.alpha = 1.0 - ((offset) / (2 * difference + 105 + 50))
+                firstNameLabel.alpha = 1.0 - ((offset) / (2 * difference + 116 + 50))
+                questionLabel.alpha = 1.0 - ((offset) / (2 * difference + 130 + 50))
+            }
         }
     }
     
