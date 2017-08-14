@@ -169,7 +169,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         usernameTextField.rightView = refreshButton
 
         //: Implement a listener for when the keyboard will show up
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
     }
     
     func setUpViews() {
@@ -188,7 +188,6 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: usernameTextField)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: resultLabel)
         
-    
         contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)][v1(40)]-15-[v2(11)]-3-[v3(35)]-5-[v4(35)]", views: pickUsernameLabel, descriptionLabel, usernamelabel, usernameTextField, resultLabel)
         
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
@@ -196,6 +195,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         bottomConstraint = NSLayoutConstraint(item: continueButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -25)
         view.addConstraint(bottomConstraint!)
     }
+    
     fileprivate func reapplyViews() {
         let screenCenter = UIScreen.main.bounds.height / 8
         pickUsernameLabel.removeFromSuperview()
@@ -214,14 +214,13 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: usernameTextField)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: resultLabel)
         
-        
         contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)][v1(40)]-15-[v2(11)]-3-[v3(35)]-5-[v4(35)]", views: pickUsernameLabel, descriptionLabel, usernamelabel, usernameTextField, resultLabel)
     }
     
     //: MARK: - Handle Keyboard Notification
     func handleKeyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            let keyboardFrame = userInfo[UIKeyboardFrameBeginUserInfoKey] as? CGRect
+            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
             bottomConstraint?.constant = -(keyboardFrame!.height + 25)
             reapplyViews()
         }
