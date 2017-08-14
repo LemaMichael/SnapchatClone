@@ -112,6 +112,7 @@
 				4C61876B1F2DC237001245ED /* Main.storyboard */,
 				4C6187731F2DC237001245ED /* Info.plist */,
 				4CB8BC7F1F33087900EA3F89 /* ReadMe */,
+				4CF4BCF41F4268FB003CD2BB /* Helpers */,
 				4CB8BC811F330F3600EA3F89 /* Extensions */,
 			);
 			path = "Snapchat Clone";
@@ -145,6 +146,13 @@
 				4C1848E71F40EB0A001DE8F9 /* Nav.ControllerExt.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		4CF4BCF41F4268FB003CD2BB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

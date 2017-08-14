@@ -74,7 +74,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         let label = UILabel()
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.font = UIFont(name: "Avenir-Medium", size: 11)
+        label.font = UIFont(name: "Avenir-Medium", size: 12)
         return label
     }()
     
@@ -167,7 +167,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         
         setUpViews()
         usernameTextField.rightView = refreshButton
-
+        
         //: Implement a listener for when the keyboard will show up
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
     }
@@ -223,6 +223,8 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
             bottomConstraint?.constant = -(keyboardFrame!.height + 25)
             reapplyViews()
+            //: userNameTextField doesn't respond to the user input without the following line
+            usernameTextField.becomeFirstResponder()
         }
     }
    
