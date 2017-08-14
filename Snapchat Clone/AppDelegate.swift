@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = UINavigationController(rootViewController: WelcomeController())
-        //window?.rootViewController = UINavigationController(rootViewController: UsernameController())
+        //window?.rootViewController = UINavigationController(rootViewController: WelcomeController())
+        window?.rootViewController = UINavigationController(rootViewController: UsernameController())
         return true
     }
 
