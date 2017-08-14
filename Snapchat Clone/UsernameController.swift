@@ -14,7 +14,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     private var bottomConstraint: NSLayoutConstraint?
-
+    private let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.")
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -70,6 +70,14 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         return textField
     }()
     
+    let resultLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.font = UIFont(name: "Avenir-Medium", size: 11)
+        return label
+    }()
+    
     lazy var refreshButton: UIButton = {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -102,11 +110,33 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         guard let text = textField.text else {
             return
         }
+        
         if !text.isEmpty {
-            refreshButton.isHidden = false
+            let firstLetter = text.characters.first!
+            let isNumber = Int(String(describing: firstLetter))
             
+            if text.trimmingCharacters(in: .whitespaces).characters.count < 3 {
+                //: Username cannot be less than 3 characters
+                resultLabel.text = "Oops! Usernames must be at least 3 characters 📝"
+                resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                refreshButton.isHidden = false
+            } else if (isNumber != nil) {
+                //: Username cannot start with a number
+                resultLabel.text = "Oops! Usernames must start with a letter 🔠"
+                resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+            } else if text.rangeOfCharacter(from: characterset.inverted) != nil {
+                //: Check if text contains special characters. When you invert a character set you get a new set that has every character except those from the original set.
+                resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
+                resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+            } else {
+                //: Username is valid
+                resultLabel.text = "Username available"
+                resultLabel.textColor = UIColor.rgb(red: 206, green: 212, blue: 218)
+            }
         } else {
+            //: Text is empty
             refreshButton.isHidden = true
+            resultLabel.text = nil
         }
         
     }
@@ -132,6 +162,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(usernamelabel)
         contentView.addSubview(usernameTextField)
+        contentView.addSubview(resultLabel)
         view.addSubview(continueButton)
         
         setUpViews()
@@ -155,8 +186,10 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: descriptionLabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: usernamelabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: usernameTextField)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: resultLabel)
+        
     
-        contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)][v1(40)]-15-[v2(11)]-3-[v3(35)]", views: pickUsernameLabel, descriptionLabel, usernamelabel, usernameTextField)
+        contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)][v1(40)]-15-[v2(11)]-3-[v3(35)]-5-[v4(35)]", views: pickUsernameLabel, descriptionLabel, usernamelabel, usernameTextField, resultLabel)
         
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
         view.addConstraintsWithFormat(format: "V:[v0(44)]", views: continueButton)
@@ -169,16 +202,20 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         descriptionLabel.removeFromSuperview()
         usernamelabel.removeFromSuperview()
         usernameTextField.removeFromSuperview()
+        resultLabel.removeFromSuperview()
         contentView.addSubview(pickUsernameLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(usernamelabel)
         contentView.addSubview(usernameTextField)
+        contentView.addSubview(resultLabel)
         contentView.addConstraintsWithFormat(format: "H:|-75-[v0]-75-|", views: pickUsernameLabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: descriptionLabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: usernamelabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: usernameTextField)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: resultLabel)
         
-        contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)][v1(40)]-15-[v2(11)]-3-[v3(35)]", views: pickUsernameLabel, descriptionLabel, usernamelabel, usernameTextField)
+        
+        contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)][v1(40)]-15-[v2(11)]-3-[v3(35)]-5-[v4(35)]", views: pickUsernameLabel, descriptionLabel, usernamelabel, usernameTextField, resultLabel)
     }
     
     //: MARK: - Handle Keyboard Notification
