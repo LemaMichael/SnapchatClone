@@ -217,7 +217,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     }
     
     //: MARK: - ScrollView DidScroll
-    //: TODO: Fix the repetitive code or find a better way to do this.
+    //: FIXME: Fix the repetitive code or find a better way to do this.
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset: CGFloat = -scrollView.contentOffset.y
         //print("The current offset is \(offset)")
@@ -281,7 +281,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         firstNameTextField.becomeFirstResponder()
     }
     
-    
+    //: MARK: - viewDidLayoutSubviews
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //: Modify your UI before the view is presented to the screen - in this case determine the height for UI elements.

@@ -16,7 +16,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     private var bottomConstraint: NSLayoutConstraint?
     
     private let validList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_."
-    private let knownCharacterSet = CharacterSet(charactersIn: " []{}#%^*+=\\|~<>€£¥•,?!'@&$)(;:/\"")
+    private let invalidCharacterSet = CharacterSet(charactersIn: " []{}#%^*+=\\|~<>€£¥•,?!'@&$)(;:/\"")
     private lazy var characterSet = CharacterSet()
     private var viewsWereSet = false
 
@@ -105,9 +105,10 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         return button
     }()
     
-    var count = 0
+    //: FIXME: - Refresh Button action (find a better way to do this)
     func refreshTapped() {
         print("Refresh button tapped")
+        var count = 0
         guard let text = usernameTextField.text else {
             return
         }
@@ -127,7 +128,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             
             if containsSpecialChar {
                 print("I am inside containsSpecialChar")
-                let components = text.components(separatedBy: knownCharacterSet)
+                let components = text.components(separatedBy: invalidCharacterSet)
                 let newText = components.joined(separator: "")
                 print("The new text without spec. is \(newText)")
                 currentText = newText
@@ -157,14 +158,12 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
                 }
                 print("The new text is \(currentText)")
                 isLessthan3 = false
-               
 
                 if previous == currentText {
                     print("I shouldn't be here!")
                     currentText = ""
                     isLessthan3 = true
                     //isFirstCharNumber = isFirstCharANumber(text: currentText)
-                    
                 }
                 isFirstCharNumber = isFirstCharANumber(text: currentText)
                 isOver15Char = isOver15Character(text: currentText)
@@ -186,7 +185,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         usernameTextField.insertText(currentText)
         
     }
-    
+    //: MARK: - Functions to determine valid username
     func isLessThan3Char(text: String) -> Bool {
         return text.trimmingCharacters(in: .whitespaces).characters.count < 3
     }
@@ -205,6 +204,14 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         return text.characters.count > 15
     }
     
+    func newString() -> String {
+        var newString = ""
+        let randomVal = arc4random_uniform(UInt32(validList.characters.count))
+        newString  += "\(validList[validList.index(validList.startIndex, offsetBy: Int(randomVal))])"
+        return newString
+    }
+    
+    //: MARK: - Text Field methods
     func textFieldDidChange(textField: UITextField) {
         print("text has changed")
         guard let text = textField.text else {
@@ -216,7 +223,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             let isNumber = Int(String(describing: firstLetter))
             
             if text.trimmingCharacters(in: .whitespaces).characters.count < 3 {
-                if text.rangeOfCharacter(from: knownCharacterSet) == nil  && text.rangeOfCharacter(from: characterSet) == nil  {
+                if text.rangeOfCharacter(from: invalidCharacterSet) == nil  && text.rangeOfCharacter(from: characterSet) == nil  {
                     refreshButton.isHidden = true
                     resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
                     resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
@@ -237,7 +244,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
                 resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
             } else if text.rangeOfCharacter(from: characterSet.inverted) != nil {
                 refreshButton.isHidden = true
-                if text.rangeOfCharacter(from: knownCharacterSet) != nil {
+                if text.rangeOfCharacter(from: invalidCharacterSet) != nil {
                     refreshButton.isHidden = false
                 }
                 //: Check if text contains special characters. When you invert a character set you get a new set that has every character except those from the original set.
@@ -263,19 +270,12 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         print("Text field is active now")
     }
     
+    //: MARK: - Handle continue button
     func continueButtonTapped() {
         print("Button tapped!")
     }
-    
-    //: MARK: Return random string
-    func newString() -> String {
-        var newString = ""
-        let randomVal = arc4random_uniform(UInt32(validList.characters.count))
-        newString  += "\(validList[validList.index(validList.startIndex, offsetBy: Int(randomVal))])"
-        return newString
-    }
-    
-    
+
+    //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -303,6 +303,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
     }
     
+    //: MARK: - Adjust views
     func setUpViews() {
         let screenCenter = UIScreen.main.bounds.height / 3.5
         //: ScrollView & contentView constraints
