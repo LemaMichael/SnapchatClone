@@ -275,8 +275,13 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         }
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("Text field is active now")
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //: This is similiar to when continue button is tapped
+        if continueButton.backgroundColor != purpleButtonColor {
+            return false
+        }
+        self.navigationController?.pushViewController(PasswordController(), animated: false)
+        return true
     }
     
     //: MARK: - Handle continue button
@@ -286,7 +291,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         }
         print("You tapped me and you are a valid user")
         //: The user has a valid username and is ready to setup password
-        navigationController?.pushViewController(PasswordController(), animated: false)
+        self.navigationController?.pushViewController(PasswordController(), animated: false)
     }
     
     //: MARK: - scrollViewDidScroll
