@@ -15,11 +15,11 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     private var bottomConstraint: NSLayoutConstraint?
     
-    let validList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_."
+    private let validList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_."
+    private let knownCharacterSet = CharacterSet(charactersIn: " []{}#%^*+=\\|~<>€£¥•,?!'@&$)(;:/\"")
     private lazy var characterSet = CharacterSet()
     private var viewsWereSet = false
 
-    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .red
@@ -105,11 +105,104 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         return button
     }()
     
+    var count = 0
     func refreshTapped() {
         print("Refresh button tapped")
-        guard var text = usernameTextField.text else {
+        guard let text = usernameTextField.text else {
             return
         }
+        
+        var isLessthan3 = isLessThan3Char(text: text)
+        var isFirstCharNumber = isFirstCharANumber(text: text)
+        var containsSpecialChar = containsInvalidChar(text: text)
+        var isOver15Char = isOver15Character(text: text)
+        print("-----------------------------")
+        print("isLessthan3: \(isLessthan3)\nisFirstCharNumber:\(isFirstCharNumber)\ncontainsSpecialChar:\(containsSpecialChar)\nisOver15Char:\(isOver15Char)")
+        var currentText = text
+
+        while isLessthan3 || isFirstCharNumber || containsSpecialChar || isOver15Char {
+            count += 1
+            print("The currentText is: \(currentText)")
+            print(count)
+            
+            if containsSpecialChar {
+                print("I am inside containsSpecialChar")
+                let components = text.components(separatedBy: knownCharacterSet)
+                let newText = components.joined(separator: "")
+                print("The new text without spec. is \(newText)")
+                currentText = newText
+                isLessthan3 = isLessThan3Char(text: currentText)
+                isFirstCharNumber = isFirstCharANumber(text: currentText)
+                isOver15Char = isOver15Character(text: currentText)
+                containsSpecialChar = false
+            }
+            
+            if isFirstCharNumber {
+                print("I am inside isFirstCharNumber")
+                let newText = currentText.replacingCharacters(in: currentText.startIndex..<currentText.index(after: currentText.startIndex), with: newString())
+                print("The first char is now \(newText)")
+                currentText = newText
+                isLessthan3 = isLessThan3Char(text: currentText)
+                isFirstCharNumber = isFirstCharANumber(text: currentText)
+                isOver15Char = isOver15Character(text: currentText)
+            }
+            
+            if isLessthan3 {
+                let previous = currentText
+                print("I am inside isLessthan3")
+                let currentCharCount = currentText.trimmingCharacters(in: .whitespaces).characters.count
+                print("currentCharCount is \(currentCharCount)")
+                for _ in currentCharCount..<3 {
+                    currentText += newString()
+                }
+                print("The new text is \(currentText)")
+                isLessthan3 = false
+               
+
+                if previous == currentText {
+                    print("I shouldn't be here!")
+                    currentText = ""
+                    isLessthan3 = true
+                    //isFirstCharNumber = isFirstCharANumber(text: currentText)
+                    
+                }
+                isFirstCharNumber = isFirstCharANumber(text: currentText)
+                isOver15Char = isOver15Character(text: currentText)
+            }
+            if isOver15Char {
+                print("I am inside isOver15Char")
+                let index = currentText.index(currentText.startIndex, offsetBy: 15)
+                currentText = currentText.substring(to: index)
+                print("Current text has shortened to: \(currentText)")
+                isLessthan3 = isLessThan3Char(text: currentText)
+                isFirstCharNumber = isFirstCharANumber(text: currentText)
+                isOver15Char = false
+                //isOver15Char = isOver15Character(text: currentText)
+                //containsSpecialChar = containsInvalidChar(text: currentText)
+            }
+        }
+        print("the final value is now \(currentText)")
+        usernameTextField.text = nil
+        usernameTextField.insertText(currentText)
+        
+    }
+    
+    func isLessThan3Char(text: String) -> Bool {
+        return text.trimmingCharacters(in: .whitespaces).characters.count < 3
+    }
+    func isFirstCharANumber(text: String) -> Bool {
+        //: Will return true if first char is an int.
+        if let firstChar = text.characters.first {
+            return Int(String(describing: firstChar)) != nil
+        }
+        return false
+    }
+    func containsInvalidChar(text: String) -> Bool {
+        //: Will return true if string has
+        return text.rangeOfCharacter(from: characterSet.inverted) != nil
+    }
+    func isOver15Character(text: String) -> Bool {
+        return text.characters.count > 15
     }
     
     func textFieldDidChange(textField: UITextField) {
@@ -118,10 +211,22 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             return
         }
         if !text.isEmpty {
+            refreshButton.isHidden = false
             let firstLetter = text.characters.first!
             let isNumber = Int(String(describing: firstLetter))
             
             if text.trimmingCharacters(in: .whitespaces).characters.count < 3 {
+                if text.rangeOfCharacter(from: knownCharacterSet) == nil  && text.rangeOfCharacter(from: characterSet) == nil  {
+                    refreshButton.isHidden = true
+                    resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
+                    resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                } else {
+                    resultLabel.text = "Oops! Usernames must be at least 3 characters 📝"
+                    resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                    refreshButton.isHidden = false
+                }
+                
+            } else if text.trimmingCharacters(in: .whitespaces).characters.count < 3 {
                 //: Username cannot be less than 3 characters
                 resultLabel.text = "Oops! Usernames must be at least 3 characters 📝"
                 resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
@@ -131,10 +236,15 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
                 resultLabel.text = "Oops! Usernames must start with a letter 🔠"
                 resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
             } else if text.rangeOfCharacter(from: characterSet.inverted) != nil {
+                refreshButton.isHidden = true
+                if text.rangeOfCharacter(from: knownCharacterSet) != nil {
+                    refreshButton.isHidden = false
+                }
                 //: Check if text contains special characters. When you invert a character set you get a new set that has every character except those from the original set.
                 resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
                 resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
             } else if text.characters.count > 15 {
+                refreshButton.isHidden = false
                 resultLabel.text = "Oops! Usernames cannot be longer than 15 characters 📖"
                 resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
             } else {
