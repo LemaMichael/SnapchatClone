@@ -14,7 +14,11 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     private var bottomConstraint: NSLayoutConstraint?
-    private let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.")
+    
+    let validList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_."
+    private lazy var characterSet = CharacterSet()
+    private var viewsWereSet = false
+
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -103,6 +107,9 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     
     func refreshTapped() {
         print("Refresh button tapped")
+        guard var text = usernameTextField.text else {
+            return
+        }
     }
     
     func textFieldDidChange(textField: UITextField) {
@@ -110,7 +117,6 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         guard let text = textField.text else {
             return
         }
-        
         if !text.isEmpty {
             let firstLetter = text.characters.first!
             let isNumber = Int(String(describing: firstLetter))
@@ -124,12 +130,15 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
                 //: Username cannot start with a number
                 resultLabel.text = "Oops! Usernames must start with a letter 🔠"
                 resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
-            } else if text.rangeOfCharacter(from: characterset.inverted) != nil {
+            } else if text.rangeOfCharacter(from: characterSet.inverted) != nil {
                 //: Check if text contains special characters. When you invert a character set you get a new set that has every character except those from the original set.
                 resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
                 resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+            } else if text.characters.count > 15 {
+                resultLabel.text = "Oops! Usernames cannot be longer than 15 characters 📖"
+                resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
             } else {
-                //: Username is valid
+                //: Username is valid or check if it's available here
                 resultLabel.text = "Username available"
                 resultLabel.textColor = UIColor.rgb(red: 206, green: 212, blue: 218)
             }
@@ -138,7 +147,6 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             refreshButton.isHidden = true
             resultLabel.text = nil
         }
-        
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -149,8 +157,21 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         print("Button tapped!")
     }
     
+    //: MARK: Return random string
+    func newString() -> String {
+        var newString = ""
+        let randomVal = arc4random_uniform(UInt32(validList.characters.count))
+        newString  += "\(validList[validList.index(validList.startIndex, offsetBy: Int(randomVal))])"
+        return newString
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //: Set up valid characters. This will be used to check if username is valid
+        characterSet = CharacterSet(charactersIn: validList)
+        
         view.backgroundColor = .red
         setUpNavigationBar(leftImage: "BackButton")
         
@@ -198,15 +219,16 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     
     fileprivate func reapplyViews() {
         let screenCenter = UIScreen.main.bounds.height / 8
+        //: Not sure why not removing userNameTextField gives no errors
         pickUsernameLabel.removeFromSuperview()
         descriptionLabel.removeFromSuperview()
         usernamelabel.removeFromSuperview()
-        usernameTextField.removeFromSuperview()
+        //usernameTextField.removeFromSuperview()
         resultLabel.removeFromSuperview()
         contentView.addSubview(pickUsernameLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(usernamelabel)
-        contentView.addSubview(usernameTextField)
+        //contentView.addSubview(usernameTextField)
         contentView.addSubview(resultLabel)
         contentView.addConstraintsWithFormat(format: "H:|-75-[v0]-75-|", views: pickUsernameLabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: descriptionLabel)
@@ -222,9 +244,12 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         if let userInfo = notification.userInfo {
             let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
             bottomConstraint?.constant = -(keyboardFrame!.height + 25)
-            reapplyViews()
-            //: userNameTextField doesn't respond to the user input without the following line
-            usernameTextField.becomeFirstResponder()
+            
+            //: Reapplying the views should only be called once!
+            if !viewsWereSet {
+                reapplyViews()
+                viewsWereSet = true
+            }
         }
     }
    
