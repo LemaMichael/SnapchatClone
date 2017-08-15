@@ -13,6 +13,9 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     
+    private var buttonYposition: CGFloat!
+    private var difference: CGFloat!
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor.white
@@ -128,9 +131,6 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         return button
     }()
     
-    var buttonYposition: CGFloat!
-    var difference: CGFloat!
-    
     //: MARK: - Sign Up button tapped
     func signUpButtonTapped() {
         //: If the sign up button color is not purple, do nothing, else we are good to go because there is at least one valid text in either text fields.
@@ -216,7 +216,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         }
     }
     
-    //: MARK: - ScrollView DidScroll
+    //: MARK: - scrollViewDidScroll
     //: FIXME: Fix the repetitive code or find a better way to do this.
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset: CGFloat = -scrollView.contentOffset.y

@@ -13,16 +13,19 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
-    private var bottomConstraint: NSLayoutConstraint?
-    
+    private let faintRedColor = UIColor.rgb(red: 239, green: 63, blue: 90)
     private let validList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_."
     private let invalidCharacterSet = CharacterSet(charactersIn: " []{}#%^*+=\\|~<>€£¥•,?!'@&$)(;:/\"")
     private lazy var characterSet = CharacterSet()
+    
     private var viewsWereSet = false
+    private var bottomConstraint: NSLayoutConstraint?
+    private var buttonyYposition: CGFloat!
+    private var difference: CGFloat!
 
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .red
+        scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
         scrollView.alwaysBounceVertical = true
         scrollView.delegate = self
@@ -183,7 +186,6 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         print("the final value is now \(currentText)")
         usernameTextField.text = nil
         usernameTextField.insertText(currentText)
-        
     }
     //: MARK: - Functions to determine valid username
     func isLessThan3Char(text: String) -> Bool {
@@ -226,22 +228,25 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
                 if text.rangeOfCharacter(from: invalidCharacterSet) == nil  && text.rangeOfCharacter(from: characterSet) == nil  {
                     refreshButton.isHidden = true
                     resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
-                    resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                    resultLabel.textColor = faintRedColor
+                    continueButton.backgroundColor = grayButtonColor
                 } else {
                     resultLabel.text = "Oops! Usernames must be at least 3 characters 📝"
-                    resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                    resultLabel.textColor = faintRedColor
                     refreshButton.isHidden = false
+                    continueButton.backgroundColor = grayButtonColor
                 }
-                
             } else if text.trimmingCharacters(in: .whitespaces).characters.count < 3 {
                 //: Username cannot be less than 3 characters
                 resultLabel.text = "Oops! Usernames must be at least 3 characters 📝"
-                resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                resultLabel.textColor = faintRedColor
                 refreshButton.isHidden = false
+                continueButton.backgroundColor = grayButtonColor
             } else if (isNumber != nil) {
                 //: Username cannot start with a number
                 resultLabel.text = "Oops! Usernames must start with a letter 🔠"
-                resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                resultLabel.textColor = faintRedColor
+                continueButton.backgroundColor = grayButtonColor
             } else if text.rangeOfCharacter(from: characterSet.inverted) != nil {
                 refreshButton.isHidden = true
                 if text.rangeOfCharacter(from: invalidCharacterSet) != nil {
@@ -249,20 +254,24 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
                 }
                 //: Check if text contains special characters. When you invert a character set you get a new set that has every character except those from the original set.
                 resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
-                resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                resultLabel.textColor = faintRedColor
+                continueButton.backgroundColor = grayButtonColor
             } else if text.characters.count > 15 {
                 refreshButton.isHidden = false
                 resultLabel.text = "Oops! Usernames cannot be longer than 15 characters 📖"
-                resultLabel.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
+                resultLabel.textColor = faintRedColor
+                continueButton.backgroundColor = grayButtonColor
             } else {
                 //: Username is valid or check if it's available here
                 resultLabel.text = "Username available"
+                continueButton.backgroundColor = purpleButtonColor
                 resultLabel.textColor = UIColor.rgb(red: 206, green: 212, blue: 218)
             }
         } else {
             //: Text is empty
             refreshButton.isHidden = true
             resultLabel.text = nil
+            continueButton.backgroundColor = grayButtonColor
         }
     }
     
@@ -272,7 +281,39 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     
     //: MARK: - Handle continue button
     func continueButtonTapped() {
-        print("Button tapped!")
+        if continueButton.backgroundColor != purpleButtonColor {
+            return
+        }
+        print("You tapped me and you are a valid user")
+        //: The user has a valid username and is ready to setup password
+        navigationController?.pushViewController(PasswordController(), animated: false)
+    }
+    
+    //: MARK: - scrollViewDidScroll
+    //: FIXME: Find a better way to do this
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset: CGFloat = -scrollView.contentOffset.y
+        //: ViewsWereSet must be true before fading views
+        if (difference != nil) && viewsWereSet {
+            //: For iphone 5 or below
+            if UIScreen.main.bounds.height < 667 {
+                //: The added numbers after the difference is the height, which were written for the constraints
+                let percentage: CGFloat = (offset) / (difference)
+                resultLabel.alpha = (1 - percentage)
+                usernameTextField.alpha = 1.0 - ((offset) / (difference + 45 + 50))
+                usernamelabel.alpha = 1.0 - ((offset) / (difference + 56 + 50))
+                descriptionLabel.alpha = 1.0 - ((offset) / (difference + 105 + 50))
+                pickUsernameLabel.alpha = 1.0 - ((offset) / (difference + 116 + 50))
+            } else {
+                //: For iphone 6 and above
+                let percentage: CGFloat = (offset) / (2 * difference)
+                resultLabel.alpha = (1 - percentage)
+                usernameTextField.alpha = 1.0 - ((offset) / (2 * difference + 45 + 50))
+                usernamelabel.alpha = 1.0 - ((offset) / (2 * difference + 56 + 50))
+                descriptionLabel.alpha = 1.0 - ((offset) / (2 * difference + 105 + 50))
+                pickUsernameLabel.alpha = 1.0 - ((offset) / (2 * difference + 116 + 50))
+            }
+        }
     }
 
     //: MARK: - viewDidLoad
@@ -281,8 +322,8 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         
         //: Set up valid characters. This will be used to check if username is valid
         characterSet = CharacterSet(charactersIn: validList)
-        
-        view.backgroundColor = .red
+
+        view.backgroundColor = .white
         setUpNavigationBar(leftImage: "BackButton")
         
         self.view.addSubview(scrollView)
@@ -297,6 +338,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         view.addSubview(continueButton)
         
         setUpViews()
+        //: Add a button to the right side of text field.
         usernameTextField.rightView = refreshButton
         
         //: Implement a listener for when the keyboard will show up
@@ -328,6 +370,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         view.addConstraint(bottomConstraint!)
     }
     
+    //: FIXME: Not removing userNameTextField gives no errors, why?
     fileprivate func reapplyViews() {
         let screenCenter = UIScreen.main.bounds.height / 8
         //: Not sure why not removing userNameTextField gives no errors
@@ -350,6 +393,17 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)][v1(40)]-15-[v2(11)]-3-[v3(35)]-5-[v4(35)]", views: pickUsernameLabel, descriptionLabel, usernamelabel, usernameTextField, resultLabel)
     }
     
+    //: MARK: -viewDidLayoutSubviews
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        buttonyYposition = -continueButton.frame.origin.y
+        let height = self.scrollView.frame.height
+        difference = height + buttonyYposition
+        print("The buttonYposition is \(buttonyYposition)")
+        print("The difference is \(difference)")
+    }
+    
+    
     //: MARK: - Handle Keyboard Notification
     func handleKeyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
@@ -368,5 +422,4 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
 }
