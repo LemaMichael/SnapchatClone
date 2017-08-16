@@ -125,7 +125,7 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             return
         }
         //: If we are here then the password is valid
-        self.navigationController?.pushViewController(UIViewController(), animated: false)
+        self.navigationController?.pushViewController(EmailController(), animated: false)
     }
     
     func showAndHideTapped() {
@@ -194,7 +194,7 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             return false
         }
         //: If we are here then the password is valid
-        self.navigationController?.pushViewController(UIViewController(), animated: false)
+        self.navigationController?.pushViewController(EmailController(), animated: false)
         return true
     }
     
