@@ -15,6 +15,8 @@
 		4C0E25911F2DD2FE00FB00B6 /* SC_scanned.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */; };
 		4C0E25921F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */; };
 		4C1848E81F40EB0A001DE8F9 /* Nav.ControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1848E71F40EB0A001DE8F9 /* Nav.ControllerExt.swift */; };
+		4C5163AB1F445811005A7AE9 /* EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5163AA1F445811005A7AE9 /* EmailValidation.swift */; };
+		4C5163AD1F44581C005A7AE9 /* PhoneValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5163AC1F44581C005A7AE9 /* PhoneValidation.swift */; };
 		4C5926161F33131A0007480E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5926151F33131A0007480E /* ColorExtension.swift */; };
 		4C5926191F3319E60007480E /* NameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5926181F3319E60007480E /* NameController.swift */; };
 		4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6187671F2DC237001245ED /* AppDelegate.swift */; };
@@ -45,6 +47,8 @@
 		4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SC_scanned.mp3; sourceTree = "<group>"; };
 		4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SC_SwipeToSend.m4a; sourceTree = "<group>"; };
 		4C1848E71F40EB0A001DE8F9 /* Nav.ControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nav.ControllerExt.swift; sourceTree = "<group>"; };
+		4C5163AA1F445811005A7AE9 /* EmailValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidation.swift; sourceTree = "<group>"; };
+		4C5163AC1F44581C005A7AE9 /* PhoneValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidation.swift; sourceTree = "<group>"; };
 		4C5926151F33131A0007480E /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		4C5926181F3319E60007480E /* NameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameController.swift; sourceTree = "<group>"; };
 		4C6187641F2DC237001245ED /* Snapchat Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snapchat Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +164,8 @@
 		4CF4BCF41F4268FB003CD2BB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4C5163AA1F445811005A7AE9 /* EmailValidation.swift */,
+				4C5163AC1F44581C005A7AE9 /* PhoneValidation.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -254,10 +260,12 @@
 				4CB7E4181F43DF7C00681327 /* PhoneController.swift in Sources */,
 				4C61876A1F2DC237001245ED /* WelcomeController.swift in Sources */,
 				4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */,
+				4C5163AD1F44581C005A7AE9 /* PhoneValidation.swift in Sources */,
 				4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */,
 				4C5926161F33131A0007480E /* ColorExtension.swift in Sources */,
 				4C1848E81F40EB0A001DE8F9 /* Nav.ControllerExt.swift in Sources */,
 				4C5926191F3319E60007480E /* NameController.swift in Sources */,
+				4C5163AB1F445811005A7AE9 /* EmailValidation.swift in Sources */,
 				4C06033D1F3ABE99001F17CC /* BirthdayController.swift in Sources */,
 				4CB7E4141F43A0C400681327 /* PasswordController.swift in Sources */,
 				4C79155B1F4010D2000729E0 /* UsernameController.swift in Sources */,

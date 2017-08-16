@@ -46,6 +46,7 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         let lightBlue = UIColor.rgb(red: 21, green: 126, blue: 251)
         button.setTitleColor(lightBlue, for: .normal)
         button.setTitle("Sign up with phone instead", for: .normal)
+        button.addTarget(self, action: #selector(phoneButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -97,13 +98,18 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         return label
     }()
     
-    //: TODO: Update for email
     //: MARK: - Button Actions
     func continueButtonTapped() {
-        guard continueButton.backgroundColor == purpleButtonColor else {
+        guard let text = emailTextField.text, !text.isEmpty, isValidEmail(email: text) else {
+            resultLabel.isHidden = false
             return
         }
-        //: If we are here then the password is valid
+        //: If we are here then the email is valid
+        self.navigationController?.pushViewController(PhoneController(), animated: false)
+    }
+    
+    func phoneButtonTapped() {
+        print("Phone button tapped")
         self.navigationController?.pushViewController(PhoneController(), animated: false)
     }
     
@@ -134,33 +140,23 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         }
     }
     
-    //: TODO: Update for email
     //: MARK: - Text Field methods
     func textFieldDidChange(textField: UITextField) {
-        guard let text = textField.text else {
+        guard let text = textField.text, !text.isEmpty else {
+            resultLabel.isHidden = true
+            continueButton.backgroundColor = grayButtonColor
             return
         }
-        if !text.isEmpty {
-            resultLabel.isHidden = true
-            if text == PasswordController.username {
-                resultLabel.isHidden = false
-                continueButton.backgroundColor = grayButtonColor
-            } else if text.characters.count >= 8 {
-                continueButton.backgroundColor = purpleButtonColor
-            } else {
-                continueButton.backgroundColor = grayButtonColor
-            }
-        } else {
-            //: The text is empty
-            continueButton.backgroundColor = grayButtonColor
-        }
+        resultLabel.isHidden = true
+        continueButton.backgroundColor = purpleButtonColor
     }
-    //: TODO: Update for email
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard continueButton.backgroundColor == purpleButtonColor else {
+        guard let text = textField.text, isValidEmail(email: text) else {
+            resultLabel.isHidden = false
             return false
         }
-        //: If we are here then the password is valid
+        //: If we are here that means the email is valid
         self.navigationController?.pushViewController(PhoneController(), animated: false)
         return true
     }

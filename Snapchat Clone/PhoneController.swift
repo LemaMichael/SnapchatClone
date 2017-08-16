@@ -14,5 +14,9 @@ class PhoneController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
+        let array = navigationController!.viewControllers
+        for i in array {
+            print("The current item in the navigation stack is: \(i)")
+        }
     }
 }
