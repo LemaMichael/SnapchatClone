@@ -69,6 +69,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         textField.autocorrectionType = .no
         textField.returnKeyType = .next
         textField.enablesReturnKeyAutomatically = true
+        textField.autocapitalizationType = UITextAutocapitalizationType.none
         textField.font = UIFont(name: "Avenir-Medium", size: 16)
         textField.setUnderlinedBorder()
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -281,6 +282,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             return false
         }
         self.navigationController?.pushViewController(PasswordController(), animated: false)
+        PasswordController.username = textField.text
         return true
     }
     
@@ -292,6 +294,8 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         print("You tapped me and you are a valid user")
         //: The user has a valid username and is ready to setup password
         self.navigationController?.pushViewController(PasswordController(), animated: false)
+        PasswordController.username = usernameTextField.text
+
     }
     
     //: MARK: - scrollViewDidScroll
