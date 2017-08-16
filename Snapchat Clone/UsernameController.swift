@@ -111,7 +111,6 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     
     //: FIXME: - Refresh Button action (find a better way to do this)
     func refreshTapped() {
-        print("Refresh button tapped")
         var count = 0
         guard let text = usernameTextField.text else {
             return
@@ -216,7 +215,6 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     
     //: MARK: - Text Field methods
     func textFieldDidChange(textField: UITextField) {
-        print("text has changed")
         guard let text = textField.text else {
             return
         }
@@ -291,7 +289,6 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         if continueButton.backgroundColor != purpleButtonColor {
             return
         }
-        print("You tapped me and you are a valid user")
         //: The user has a valid username and is ready to setup password
         self.navigationController?.pushViewController(PasswordController(), animated: false)
         PasswordController.username = usernameTextField.text
@@ -402,14 +399,12 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)][v1(40)]-15-[v2(11)]-3-[v3(35)]-5-[v4(35)]", views: pickUsernameLabel, descriptionLabel, usernamelabel, usernameTextField, resultLabel)
     }
     
-    //: MARK: -viewDidLayoutSubviews
+    //: MARK: - viewDidLayoutSubviews
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         buttonyYposition = -continueButton.frame.origin.y
         let height = self.scrollView.frame.height
         difference = height + buttonyYposition
-        print("The buttonYposition is \(buttonyYposition)")
-        print("The difference is \(difference)")
     }
     
     

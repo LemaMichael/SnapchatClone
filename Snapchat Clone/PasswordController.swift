@@ -18,6 +18,8 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     private var bottomConstraint: NSLayoutConstraint?
     private var isButtonTapped = false
+    private var buttonyYposition: CGFloat!
+    private var difference: CGFloat!
 
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -119,16 +121,14 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     
     //: MARK: - Button Actions
     func continueButtonTapped() {
-        print("Continue button tapped")
         guard continueButton.backgroundColor == purpleButtonColor else {
             return
         }
         //: If we are here then the password is valid
-        
+        self.navigationController?.pushViewController(UIViewController(), animated: false)
     }
     
     func showAndHideTapped() {
-        print("Show and hide button tapped")
         if !isButtonTapped{
             passwordTextField.isSecureTextEntry = false
             showAndHideButton.setTitle("Hide", for: .normal)
@@ -139,9 +139,36 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             isButtonTapped = false
         }
     }
+    
+    //: MARK: - scrollViewDidScroll
+    //: FIXME: Find a better way to do this
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset: CGFloat = -scrollView.contentOffset.y
+        //: ViewsWereSet must be true before fading views
+        if (difference != nil) {
+            //: For iphone 5 or below
+            if UIScreen.main.bounds.height < 667 {
+                //: The added numbers after the difference is the height, which were written for the constraints
+                let percentage: CGFloat = (offset) / (difference)
+                resultLabel.alpha = (1 - percentage)
+                passwordTextField.alpha = 1.0 - ((offset) / (difference + 45 + 50))
+                passwordlabel.alpha = 1.0 - ((offset) / (difference + 56 + 50))
+                descriptionLabel.alpha = 1.0 - ((offset) / (difference + 105 + 50))
+                setPasswordLabel.alpha = 1.0 - ((offset) / (difference + 116 + 50))
+            } else {
+                //: For iphone 6 and above
+                let percentage: CGFloat = (offset) / (2 * difference)
+                resultLabel.alpha = (1 - percentage)
+                passwordTextField.alpha = 1.0 - ((offset) / (2 * difference + 45 + 50))
+                passwordlabel.alpha = 1.0 - ((offset) / (2 * difference + 56 + 50))
+                descriptionLabel.alpha = 1.0 - ((offset) / (2 * difference + 105 + 50))
+                setPasswordLabel.alpha = 1.0 - ((offset) / (2 * difference + 116 + 50))
+            }
+        }
+    }
+    
     //: MARK: - Text Field methods
     func textFieldDidChange(textField: UITextField) {
-        print("Text has changed")
         guard let text = textField.text else {
             return
         }
@@ -163,7 +190,12 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return false
+        guard continueButton.backgroundColor == purpleButtonColor else {
+            return false
+        }
+        //: If we are here then the password is valid
+        self.navigationController?.pushViewController(UIViewController(), animated: false)
+        return true
     }
     
     //: MARK: - viewDidLoad
@@ -211,7 +243,6 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         //: Constraints for the continue button
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
         view.addConstraintsWithFormat(format: "V:[v0(44)]", views: continueButton)
-        //bottomConstraint = //NSLayoutConstraint(item: continueButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -(221 + 25) )
         bottomConstraint = NSLayoutConstraint(item: continueButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -(216 + 25))
         view.addConstraint(bottomConstraint!)
     }
@@ -220,6 +251,12 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         passwordTextField.becomeFirstResponder()
+    }
+    //: MARK: - viewDidLayoutSubviews
+    override func viewDidLayoutSubviews() {
+        buttonyYposition = -continueButton.frame.origin.y
+        let height = self.scrollView.frame.height
+        difference = height + buttonyYposition
     }
     
     //: MARK: - Handle Keyboard Notification
