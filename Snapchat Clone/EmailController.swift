@@ -117,7 +117,6 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     //: FIXME: Find a better way to do this
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset: CGFloat = -scrollView.contentOffset.y
-        //: ViewsWereSet must be true before fading views
         if (difference != nil) {
             //: For iphone 5 or below
             if UIScreen.main.bounds.height < 667 {

@@ -35,6 +35,7 @@
 		4CB7E4181F43DF7C00681327 /* PhoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7E4171F43DF7C00681327 /* PhoneController.swift */; };
 		4CB8BC801F33087900EA3F89 /* ReadMe in Resources */ = {isa = PBXBuildFile; fileRef = 4CB8BC7F1F33087900EA3F89 /* ReadMe */; };
 		4CB8BC831F330F5200EA3F89 /* ConstraintsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB8BC821F330F5200EA3F89 /* ConstraintsExtension.swift */; };
+		4CD608421F451F69003BBFFA /* ConfirmationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD608411F451F69003BBFFA /* ConfirmationController.swift */; };
 		4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		4CB7E4171F43DF7C00681327 /* PhoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneController.swift; sourceTree = "<group>"; };
 		4CB8BC7F1F33087900EA3F89 /* ReadMe */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe; sourceTree = "<group>"; };
 		4CB8BC821F330F5200EA3F89 /* ConstraintsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsExtension.swift; sourceTree = "<group>"; };
+		4CD608411F451F69003BBFFA /* ConfirmationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationController.swift; sourceTree = "<group>"; };
 		4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextFieldExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 				4CB7E4131F43A0C400681327 /* PasswordController.swift */,
 				4CB7E4151F43DF5200681327 /* EmailController.swift */,
 				4CB7E4171F43DF7C00681327 /* PhoneController.swift */,
+				4CD608411F451F69003BBFFA /* ConfirmationController.swift */,
 			);
 			name = "Sign Up";
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */,
 				4C5163AD1F44581C005A7AE9 /* PhoneValidation.swift in Sources */,
 				4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */,
+				4CD608421F451F69003BBFFA /* ConfirmationController.swift in Sources */,
 				4C5926161F33131A0007480E /* ColorExtension.swift in Sources */,
 				4C1848E81F40EB0A001DE8F9 /* Nav.ControllerExt.swift in Sources */,
 				4C5926191F3319E60007480E /* NameController.swift in Sources */,
