@@ -66,7 +66,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     lazy var numberTextField: UITextField = {
         let textField = UITextField()
         textField.keyboardType = .numberPad
-        textField.font = UIFont(name: "Avenir-Medium", size: 17)
+        textField.font = UIFont(name: "Avenir-Medium", size: 18)
         textField.setUnderlinedBorder()
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         textField.leftViewMode = UITextFieldViewMode.always
@@ -98,6 +98,24 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         return label
     }()
     
+    lazy var areaContainer: UIView = {
+        let view = UIView()
+        //: I know the height of the text field is 35 points
+        view.frame = CGRect(x: 0, y: 0, width: 65, height: 35)
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    
+    lazy var areaCodeButton: UIButton = {
+        let button = UIButton(type: .system)
+        let lightBlue = UIColor.rgb(red: 21, green: 126, blue: 251)
+        button.setTitleColor(lightBlue, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Mediumm", size: 18)
+        button.setTitle("US +1", for: .normal)
+        button.addTarget(self, action: #selector(areaButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     //: MARK: - Button Actions
     func continueButtonTapped() {
         guard let text = numberTextField.text, !text.isEmpty, continueButton.backgroundColor != grayButtonColor else {
@@ -113,10 +131,12 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
             resultLabel.textColor = faintRedColor
         }
     }
-    
     func emailButtonTapped() {
         print("Email button tapped")
         self.navigationController?.pushViewController(EmailController(), animated: false)
+    }
+    func areaButtonTapped() {
+        print("Area button was tapped")
     }
     
     //: MARK: - scrollViewDidScroll
@@ -216,6 +236,10 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         view.addSubview(continueButton)
         
         setUpViews()
+        setUpAreaContainer()
+        //: Add a container the right side of text field.
+        numberTextField.leftView = areaContainer
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
     }
     
@@ -243,6 +267,20 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         view.addConstraintsWithFormat(format: "V:[v0(44)]", views: continueButton)
         bottomConstraint = NSLayoutConstraint(item: continueButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -(216 + 25))
         view.addConstraint(bottomConstraint!)
+    }
+    
+    private func setUpAreaContainer() {
+        //: Add a right border to the area Container
+        let rightBorderView = UIView()
+        rightBorderView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        areaContainer.addSubview(rightBorderView)
+        areaContainer.addSubview(areaCodeButton)
+        
+        //: Constraints for the rightBorderView & areaCodeButton
+        areaContainer.addConstraintsWithFormat(format: "H:|[v0][v1(1.2)]-5-|", views: areaCodeButton, rightBorderView)
+        areaContainer.addConstraintsWithFormat(format: "V:[v0(20)]", views: rightBorderView)
+        areaContainer.addConstraint(NSLayoutConstraint(item: rightBorderView, attribute: .centerY, relatedBy: .equal, toItem: areaContainer, attribute: .centerY, multiplier: 1, constant: 5))
+        areaContainer.addConstraint(NSLayoutConstraint(item: areaCodeButton, attribute: .centerY, relatedBy: .equal, toItem: areaContainer, attribute: .centerY, multiplier: 1, constant: 3.5))
     }
     
     //: MARK: - viewWillAppear

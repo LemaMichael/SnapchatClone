@@ -68,7 +68,6 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         textField.font = UIFont(name: "Avenir-Medium", size: 16)
         textField.setUnderlinedBorder()
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        textField.rightViewMode = UITextFieldViewMode.whileEditing
         textField.delegate = self
         return textField
     }()
