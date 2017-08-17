@@ -18,6 +18,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     private var difference: CGFloat!
     private let defaultResult = "We'll send you an SMS verification code."
     private let errorMessage = "That's not a valid mobile number!"
+    static var areaCode = "US +1"
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -111,7 +112,8 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         let lightBlue = UIColor.rgb(red: 21, green: 126, blue: 251)
         button.setTitleColor(lightBlue, for: .normal)
         button.titleLabel?.font = UIFont(name: "Avenir-Mediumm", size: 18)
-        button.setTitle("US +1", for: .normal)
+        button.titleLabel?.sizeToFit()
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(areaButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -278,7 +280,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         areaContainer.addSubview(areaCodeButton)
         
         //: Constraints for the rightBorderView & areaCodeButton
-        areaContainer.addConstraintsWithFormat(format: "H:|[v0][v1(1.2)]-5-|", views: areaCodeButton, rightBorderView)
+        areaContainer.addConstraintsWithFormat(format: "H:|[v0]-3.4-[v1(1.2)]-5-|", views: areaCodeButton, rightBorderView)
         areaContainer.addConstraintsWithFormat(format: "V:[v0(20)]", views: rightBorderView)
         areaContainer.addConstraint(NSLayoutConstraint(item: rightBorderView, attribute: .centerY, relatedBy: .equal, toItem: areaContainer, attribute: .centerY, multiplier: 1, constant: 5))
         areaContainer.addConstraint(NSLayoutConstraint(item: areaCodeButton, attribute: .centerY, relatedBy: .equal, toItem: areaContainer, attribute: .centerY, multiplier: 1, constant: 3.5))
@@ -288,6 +290,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         numberTextField.becomeFirstResponder()
+        areaCodeButton.setTitle(PhoneController.areaCode, for: .normal)
     }
     //: MARK: - viewDidLayoutSubviews
     override func viewDidLayoutSubviews() {

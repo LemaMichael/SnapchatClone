@@ -96,7 +96,6 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         label.isHidden = true
         return label
     }()
-    
     //: MARK: - Button Actions
     func continueButtonTapped() {
         guard let text = emailTextField.text, !text.isEmpty, isValidEmail(email: text) else {
@@ -106,12 +105,10 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         //: If we are here then the email is valid
         self.navigationController?.pushViewController(PhoneController(), animated: false)
     }
-    
     func phoneButtonTapped() {
         print("Phone button tapped")
         self.navigationController?.pushViewController(PhoneController(), animated: false)
     }
-    
     //: MARK: - scrollViewDidScroll
     //: FIXME: Find a better way to do this
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -17,7 +17,13 @@ class CountryController: UITableViewController {
         super.viewDidLoad()
         adjustNavBar()
         tableView.register(countryCell.self, forCellReuseIdentifier: CountryController.cellId)
-        
+
+        //: Reading the json file will setup the countryCodes arary
+        readFile()
+    }
+    
+    //: MARK: - Read json file
+    fileprivate func readFile() {
         if let path = Bundle.main.path(forResource: "CountryCodes", ofType: "json") {
             do {
                 let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe) as Data
@@ -25,35 +31,36 @@ class CountryController: UITableViewController {
                     let areaCode = try JSONDecoder().decode([CountryCode].self, from: jsonData)
                     //print(areaCode)
                     countryCodes = areaCode.sorted { $0.name < $1.name }
-                } catch let err {
-                    print(err.localizedDescription)
+                } catch {
+                    print(error.localizedDescription)
                 }
-            } catch let err {
-                print(err.localizedDescription)
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }
     
+    //: MARK: Table View methods
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return countryCodes.count
     }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
+    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CountryController.cellId, for: indexPath) as! countryCell
         let areaCode = NSString(format:"(%@)", countryCodes[indexPath.row].dial_code) as String
         cell.countryLabel.text = countryCodes[indexPath.row].name + " " + areaCode
-
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let areaCode = countryCodes[indexPath.row].dial_code
+        let text = countryCodes[indexPath.row].code + " " + areaCode
+        PhoneController.areaCode = text
         popCurrentView()
     }
     
