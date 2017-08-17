@@ -17,26 +17,27 @@ class CountryController: UITableViewController {
         super.viewDidLoad()
         adjustNavBar()
         tableView.register(countryCell.self, forCellReuseIdentifier: CountryController.cellId)
-
+        
         //: Reading the json file will setup the countryCodes arary
         readFile()
     }
     
     //: MARK: - Read json file
     fileprivate func readFile() {
-        if let path = Bundle.main.path(forResource: "CountryCodes", ofType: "json") {
+        guard let path = Bundle.main.path(forResource: "CountryCodes", ofType: "json") else {
+            return
+        }
+        do {
+            //: Write try! before the expression to disable error propagation.
+            let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe) as Data
             do {
-                let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe) as Data
-                do {
-                    let areaCode = try JSONDecoder().decode([CountryCode].self, from: jsonData)
-                    //print(areaCode)
-                    countryCodes = areaCode.sorted { $0.name < $1.name }
-                } catch {
-                    print(error.localizedDescription)
-                }
-            } catch {
+                let areaCode = try JSONDecoder().decode([CountryCode].self, from: jsonData)
+                countryCodes = areaCode.sorted { $0.name < $1.name }
+            } catch  {
                 print(error.localizedDescription)
             }
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
