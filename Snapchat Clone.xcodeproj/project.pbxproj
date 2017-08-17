@@ -15,6 +15,7 @@
 		4C0E25911F2DD2FE00FB00B6 /* SC_scanned.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */; };
 		4C0E25921F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */; };
 		4C1848E81F40EB0A001DE8F9 /* Nav.ControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1848E71F40EB0A001DE8F9 /* Nav.ControllerExt.swift */; };
+		4C4DC50B1F4582A100928050 /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C4DC50A1F4582A100928050 /* CountryCodes.json */; };
 		4C5163AB1F445811005A7AE9 /* EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5163AA1F445811005A7AE9 /* EmailValidation.swift */; };
 		4C5163AD1F44581C005A7AE9 /* PhoneValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5163AC1F44581C005A7AE9 /* PhoneValidation.swift */; };
 		4C5926161F33131A0007480E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5926151F33131A0007480E /* ColorExtension.swift */; };
@@ -38,6 +39,7 @@
 		4CC57E3A1F45433C000F78EB /* CountryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC57E391F45433C000F78EB /* CountryController.swift */; };
 		4CD608421F451F69003BBFFA /* ConfirmationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD608411F451F69003BBFFA /* ConfirmationController.swift */; };
 		4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */; };
+		4CF664701F46184200FF77FF /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF6646F1F46184200FF77FF /* CountryCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,7 @@
 		4C0E258F1F2DD2FE00FB00B6 /* SC_scanned.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SC_scanned.mp3; sourceTree = "<group>"; };
 		4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SC_SwipeToSend.m4a; sourceTree = "<group>"; };
 		4C1848E71F40EB0A001DE8F9 /* Nav.ControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nav.ControllerExt.swift; sourceTree = "<group>"; };
+		4C4DC50A1F4582A100928050 /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
 		4C5163AA1F445811005A7AE9 /* EmailValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidation.swift; sourceTree = "<group>"; };
 		4C5163AC1F44581C005A7AE9 /* PhoneValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidation.swift; sourceTree = "<group>"; };
 		4C5926151F33131A0007480E /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 		4CC57E391F45433C000F78EB /* CountryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryController.swift; sourceTree = "<group>"; };
 		4CD608411F451F69003BBFFA /* ConfirmationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationController.swift; sourceTree = "<group>"; };
 		4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextFieldExtension.swift; sourceTree = "<group>"; };
+		4CF6646F1F46184200FF77FF /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,7 @@
 		4C6187661F2DC237001245ED /* Snapchat Clone */ = {
 			isa = PBXGroup;
 			children = (
+				4CF6646E1F46183200FF77FF /* Model */,
 				4C6187671F2DC237001245ED /* AppDelegate.swift */,
 				4C6187691F2DC237001245ED /* WelcomeController.swift */,
 				4C5926171F3319BB0007480E /* Sign Up */,
@@ -170,10 +175,19 @@
 		4CF4BCF41F4268FB003CD2BB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4C4DC50A1F4582A100928050 /* CountryCodes.json */,
 				4C5163AA1F445811005A7AE9 /* EmailValidation.swift */,
 				4C5163AC1F44581C005A7AE9 /* PhoneValidation.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		4CF6646E1F46183200FF77FF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4CF6646F1F46184200FF77FF /* CountryCode.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +261,7 @@
 				4C6187831F2DCEA1001245ED /* hang_up.m4a in Resources */,
 				4C61877F1F2DC8C8001245ED /* chat_sent.m4a in Resources */,
 				4CB8BC801F33087900EA3F89 /* ReadMe in Resources */,
+				4C4DC50B1F4582A100928050 /* CountryCodes.json in Resources */,
 				4C61876D1F2DC237001245ED /* Main.storyboard in Resources */,
 				4C0E258E1F2DD2F100FB00B6 /* ringtone_outgoing.m4a in Resources */,
 				4C0E258D1F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a in Resources */,
@@ -269,6 +284,7 @@
 				4C5163AD1F44581C005A7AE9 /* PhoneValidation.swift in Sources */,
 				4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */,
 				4CD608421F451F69003BBFFA /* ConfirmationController.swift in Sources */,
+				4CF664701F46184200FF77FF /* CountryCode.swift in Sources */,
 				4C5926161F33131A0007480E /* ColorExtension.swift in Sources */,
 				4C1848E81F40EB0A001DE8F9 /* Nav.ControllerExt.swift in Sources */,
 				4CC57E3A1F45433C000F78EB /* CountryController.swift in Sources */,
