@@ -23,7 +23,7 @@ extension UIViewController {
         self.navigationController?.view.backgroundColor = UIColor.clear
     }
     func popCurrentView() {
-        //: Go back to WelcomeController
+        //: Go to previous view controller
         self.navigationController?.popViewController(animated: false)
     }
 }

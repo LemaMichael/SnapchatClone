@@ -137,6 +137,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     }
     func areaButtonTapped() {
         print("Area button was tapped")
+        self.navigationController?.pushViewController(CountryController(), animated: false)
     }
     
     //: MARK: - scrollViewDidScroll
