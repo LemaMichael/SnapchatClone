@@ -251,41 +251,24 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         if text.utf16.count == 0 {
             switch textField {
             case firstTextField:
-                // resendButton.backgroundColor = purpleButtonColor
-                if resendButton.backgroundColor == grayButtonColor {
-                    //: This must mean all other textFields are empty
-                    hasTyped = false
-                } else {
-                    hasTyped = false
-                    if currentText != "Resend" {
-                     resendButton.backgroundColor = grayButtonColor
-                    }
-                }
+                //: This must mean all other textFields are empty
+                //hasTyped = false
+                hasTyped = resendButton.backgroundColor == grayButtonColor ? false : true
             case secondTextField:
                 firstTextField.becomeFirstResponder()
-                if currentText != "Resend" && currentText != "Continue" {
                     resendButton.backgroundColor = grayButtonColor
-                }
             case thirdTextField:
                 secondTextField.becomeFirstResponder()
-                if currentText != "Resend" && currentText != "Continue" {
                     resendButton.backgroundColor = grayButtonColor
-                }
             case fourthTextField:
                 thirdTextField.becomeFirstResponder()
-                if currentText != "Resend" && currentText != "Continue" {
                     resendButton.backgroundColor = grayButtonColor
-                }
             case fifthTextField:
                 fourthTextField.becomeFirstResponder()
-                if currentText != "Resend" && currentText != "Continue" {
                     resendButton.backgroundColor = grayButtonColor
-                }
             case sixthTextField:
                 fifthTextField.becomeFirstResponder()
-                if currentText != "Resend" && currentText != "Continue" {
-                    resendButton.backgroundColor = grayButtonColor
-                }
+                resendButton.backgroundColor = grayButtonColor
             default:
                 break
             }
