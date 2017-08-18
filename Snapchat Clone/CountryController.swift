@@ -71,9 +71,6 @@ class CountryController: UITableViewController {
         guard let navController = self.navigationController else {
             return
         }
-        //: Change back the shadowImage to default
-        navController.navigationBar.shadowImage = nil
-        navController.navigationBar.isTranslucent = false
         navigationItem.title = "Select Country"
         navController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 20)!]
     }
@@ -81,11 +78,15 @@ class CountryController: UITableViewController {
     //: FIXME: - Make the status bar be white
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = false
+        //: Change back the shadowImage to default
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.isTranslucent = false
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = true
+        //: Change the shadowImage to be hidden
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
     }
 }
 

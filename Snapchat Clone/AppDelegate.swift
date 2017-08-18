@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         //window?.rootViewController = UINavigationController(rootViewController: WelcomeController())
-        window?.rootViewController = UINavigationController(rootViewController: PhoneController())
+        window?.rootViewController = UINavigationController(rootViewController: EmailController())
         return true
     }
 
