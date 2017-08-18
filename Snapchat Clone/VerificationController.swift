@@ -14,6 +14,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     static let cellId = "cellId"
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
+    var ghostPose = [UIImage]()
 
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -26,10 +27,11 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         let view = UIView()
         return view
     }()
-    let ghostView: UIImageView = {
+    lazy var ghostView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Cool Ghost")?.withRenderingMode(.alwaysOriginal)
         //imageView.contentMode = .scaleAspectFit
+        imageView.animationImages = self.ghostPose
+        imageView.animationDuration = 1.5
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -107,6 +109,8 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        ghostPose.append(UIImage(named: "Cool Ghost-1")!.withRenderingMode(.alwaysOriginal))
+        ghostPose.append(UIImage(named: "Cool Ghost")!.withRenderingMode(.alwaysOriginal))
      
         setUpNavigationBar(leftImage: "BackButton")
         self.automaticallyAdjustsScrollViewInsets = false
@@ -114,8 +118,6 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
        // self.edgesForExtendedLayout = []
         //self.navigationController!.navigationBar.isTranslucent = false
 
-
-        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(ghostView)
@@ -126,9 +128,17 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         setUpViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        ghostView.startAnimating()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        ghostView.stopAnimating()
+    }
+    
     func setUpViews() {
-//        view.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: collectionView)
-//        view.addConstraintsWithFormat(format: "V:|-100-[v0]-175-|", views: collectionView)
         let screenWidth = view.frame.width / 2  - 20
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)
         view.addConstraintsWithFormat(format: "V:|[v0]|", views: scrollView)
