@@ -116,7 +116,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         button.setTitle("Resend", for: .normal)
         button.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 14)
         button.backgroundColor = self.grayButtonColor
-        button.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(resendButtonTapped), for: .touchUpInside)
         //: Make button round
         button.layer.cornerRadius = 22
         button.layer.masksToBounds = true
@@ -148,7 +148,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
     }
     
     //: MARK: - Button Actions
-    func continueButtonTapped() {
+    func resendButtonTapped() {
 //        guard let text = numberTextField.text, !text.isEmpty, resendButton.backgroundColor != grayButtonColor else {
 //            //: Don't do anything if the text is empty and continueButton is a grayButtonColor
 //            return
@@ -212,15 +212,59 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
     //: MARK: - Text Field methods
     func textFieldDidChange(textField: UITextField) {
         guard let text = textField.text else {
-            resendButton.backgroundColor = grayButtonColor
+            //resendButton.backgroundColor = grayButtonColor
             return
         }
+        
+        print("Text did change being called \(text)")
+        if text.utf16.count == 1 {
+            switch textField {
+            case firstTextField:
+                print("Lol")
+                resendButton.backgroundColor = purpleButtonColor
+                secondTextField.becomeFirstResponder()
+            case secondTextField:
+                print("Lol2")
+                thirdTextField.becomeFirstResponder()
+            case thirdTextField:
+                print("Lol3")
+                fourthTextField.becomeFirstResponder()
+            case fourthTextField:
+                print("Lol4")
+                fifthTextField.becomeFirstResponder()
+            case fifthTextField:
+                print("Lol5")
+                sixthTextField.becomeFirstResponder()
+                
+            case sixthTextField:
+                print("Lol6")
+                sixthTextField.resignFirstResponder()
+                resendButton.backgroundColor = purpleButtonColor
+            default:
+                break
+            }
+        }
+        
 //        if resultLabel.text == errorMessage {
 //            resultLabel.text = defaultResult
 //            resultLabel.textColor = UIColor.rgb(red: 21, green: 25, blue: 28)
 //        }
         
-        resendButton.backgroundColor = getLength(number: text) >= 8 ? purpleButtonColor : grayButtonColor
+//        resendButton.backgroundColor = getLength(number: text) >= 8 ? purpleButtonColor : grayButtonColor
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else {
+            return false
+        }
+        let validSet = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        let futureText = text + string
+
+        guard  futureText.utf16.count <= 1 && validSet.isSuperset(of: characterSet) else {
+            //: Don't change anything
+            return false
+        }
+        return true
     }
     
     //: MARK: - viewDidLoad
@@ -271,7 +315,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         
         contentView.addConstraintsWithFormat(format: "V:|-\(screenCenter)-[v0(30)]-5-[v1(45)]-15-[v2(11)]-12-[v3(25)]-5-[v4(35)]-5-[v5(35)]", views: confirmationLabel, descriptionLabel, callButton, codeLabel, stackView, resultLabel)
         
-        //: Constraints for the continue button
+        //: Constraints for the resend button
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: resendButton)
         view.addConstraintsWithFormat(format: "V:[v0(44)]", views: resendButton)
         bottomConstraint = NSLayoutConstraint(item: resendButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -(216 + 25))
@@ -302,10 +346,8 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
             bottomConstraint?.constant = -(keyboardFrame!.height + 25)
         }
     }
-    
     //: Hide the status Bar
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
 }
