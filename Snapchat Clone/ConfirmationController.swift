@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate {
-    
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     private let faintRedColor = UIColor.rgb(red: 239, green: 63, blue: 90)
@@ -18,10 +17,11 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
     private var buttonyYposition: CGFloat!
     private var difference: CGFloat!
     static var phoneNumber: String?
-    private var tagNumber = 0
     private var textFields = [UITextField]()
+    private var tagNumber = 0
+    private var hasTyped = false
 
-    var seconds = 5
+    var seconds = 60
     var timer = Timer()
     
     func runTimer() {
@@ -29,16 +29,19 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
     }
     
     func updateTimer() {
-        if seconds > 0 {
-            resendButton.setTitle("Resend \(seconds)", for: .normal) //This will update the label.
+        if seconds > 0  {
             seconds -= 1
         } else {
             resendButton.backgroundColor = purpleButtonColor
             timer.invalidate()
             resendButton.setTitle("Resend", for: .normal)
-            seconds = 4
+            seconds = 60
+        }
+        if !hasTyped && seconds != 60 {
+            resendButton.setTitle("Resend \(seconds)", for: .normal)
         }
     }
+ 
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -113,7 +116,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
     lazy var resendButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("Resend", for: .normal)
+        button.setTitle("Resend 60", for: .normal)
         button.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 14)
         button.backgroundColor = self.grayButtonColor
         button.addTarget(self, action: #selector(resendButtonTapped), for: .touchUpInside)
@@ -131,6 +134,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         //: Faint red color
         label.textColor = UIColor.rgb(red: 239, green: 63, blue: 90)
         label.text = "That's not the right code!"
+        label.isHidden = true
         return label
     }()
     //: MARK: This function will create 6 text fields
@@ -149,26 +153,21 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
     
     //: MARK: - Button Actions
     func resendButtonTapped() {
-//        guard let text = numberTextField.text, !text.isEmpty, resendButton.backgroundColor != grayButtonColor else {
-//            //: Don't do anything if the text is empty and continueButton is a grayButtonColor
-//            return
-//        }
-//        if isValidNumber(number: checkNumber(phoneNumber: text)) {
-//            print("We are good to go: Probably do some animation here later")
-//            //: If we are here then the phone number is valid
-//            self.navigationController?.pushViewController(ConfirmationController(), animated: false)
-//        } else {
-//            //resultLabel.text = errorMessage
-//            //resultLabel.textColor = faintRedColor
-//        }
+        guard let text = resendButton.titleLabel?.text, resendButton.backgroundColor == purpleButtonColor else {
+            //: Don't do anything if the resendButton is a grayButtonColor
+            return
+        }
+        if text == "Continue" &&  resendButton.backgroundColor == grayButtonColor  {
+            return
+        }
+        resultLabel.isHidden = false
         if !timer.isValid {
             resendButton.backgroundColor = grayButtonColor
-            resendButton.setTitle("Resend 5", for: .normal)
             runTimer()
         }
     }
+    
     func callButtonTapped() {
-        print("Call button tapped")
         //: This will display an alert, that's all
         guard let number = ConfirmationController.phoneNumber else {
             return
@@ -209,49 +208,90 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         }
     }
     
+    //: FIXME: There has to be a better way to do this
     //: MARK: - Text Field methods
     func textFieldDidChange(textField: UITextField) {
         guard let text = textField.text else {
             //resendButton.backgroundColor = grayButtonColor
             return
         }
+        resultLabel.isHidden = true
         
-        print("Text did change being called \(text)")
+        guard let currentText = resendButton.titleLabel?.text else {
+            return
+        }
         if text.utf16.count == 1 {
             switch textField {
             case firstTextField:
-                print("Lol")
-                resendButton.backgroundColor = purpleButtonColor
+                hasTyped = true
+                if currentText != "Resend" {
+                    resendButton.setTitle("Continue", for: .normal)
+                    resendButton.backgroundColor = grayButtonColor
+                }
                 secondTextField.becomeFirstResponder()
             case secondTextField:
-                print("Lol2")
                 thirdTextField.becomeFirstResponder()
             case thirdTextField:
-                print("Lol3")
                 fourthTextField.becomeFirstResponder()
             case fourthTextField:
-                print("Lol4")
                 fifthTextField.becomeFirstResponder()
             case fifthTextField:
-                print("Lol5")
                 sixthTextField.becomeFirstResponder()
-                
             case sixthTextField:
-                print("Lol6")
-                sixthTextField.resignFirstResponder()
+                if currentText == "Resend" {
+                    resendButton.setTitle("Continue", for: .normal)
+                }
                 resendButton.backgroundColor = purpleButtonColor
+                sixthTextField.resignFirstResponder()
             default:
                 break
             }
         }
         
-//        if resultLabel.text == errorMessage {
-//            resultLabel.text = defaultResult
-//            resultLabel.textColor = UIColor.rgb(red: 21, green: 25, blue: 28)
-//        }
-        
-//        resendButton.backgroundColor = getLength(number: text) >= 8 ? purpleButtonColor : grayButtonColor
+        if text.utf16.count == 0 {
+            switch textField {
+            case firstTextField:
+                // resendButton.backgroundColor = purpleButtonColor
+                if resendButton.backgroundColor == grayButtonColor {
+                    //: This must mean all other textFields are empty
+                    hasTyped = false
+                } else {
+                    hasTyped = false
+                    if currentText != "Resend" {
+                     resendButton.backgroundColor = grayButtonColor
+                    }
+                }
+            case secondTextField:
+                firstTextField.becomeFirstResponder()
+                if currentText != "Resend" && currentText != "Continue" {
+                    resendButton.backgroundColor = grayButtonColor
+                }
+            case thirdTextField:
+                secondTextField.becomeFirstResponder()
+                if currentText != "Resend" && currentText != "Continue" {
+                    resendButton.backgroundColor = grayButtonColor
+                }
+            case fourthTextField:
+                thirdTextField.becomeFirstResponder()
+                if currentText != "Resend" && currentText != "Continue" {
+                    resendButton.backgroundColor = grayButtonColor
+                }
+            case fifthTextField:
+                fourthTextField.becomeFirstResponder()
+                if currentText != "Resend" && currentText != "Continue" {
+                    resendButton.backgroundColor = grayButtonColor
+                }
+            case sixthTextField:
+                fifthTextField.becomeFirstResponder()
+                if currentText != "Resend" && currentText != "Continue" {
+                    resendButton.backgroundColor = grayButtonColor
+                }
+            default:
+                break
+            }
+        }
     }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else {
             return false
@@ -259,7 +299,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         let validSet = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
         let futureText = text + string
-
+        //: TextField can only habe 1 character and it must be a digit.
         guard  futureText.utf16.count <= 1 && validSet.isSuperset(of: characterSet) else {
             //: Don't change anything
             return false
@@ -293,6 +333,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         
         setUpViews()
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillHide, object: nil)
     }
     
     //: MARK: - Adjust views
@@ -343,7 +384,9 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
     func handleKeyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect
-            bottomConstraint?.constant = -(keyboardFrame!.height + 25)
+            let isKeyboardShowing = notification.name == .UIKeyboardWillChangeFrame
+            bottomConstraint?.constant = isKeyboardShowing ? -(keyboardFrame!.height + 25) : -25
+            
         }
     }
     //: Hide the status Bar
