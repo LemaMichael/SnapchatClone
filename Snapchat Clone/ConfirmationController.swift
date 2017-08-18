@@ -20,6 +20,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
     private var textFields = [UITextField]()
     private var tagNumber = 0
     private var hasTyped = false
+    private var hasTappedCallButton = false
 
     var seconds = 60
     var timer = Timer()
@@ -172,14 +173,35 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         guard let number = ConfirmationController.phoneNumber else {
             return
         }
-        let message = "We'll call you at " + number + "."
-        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
-        let cancelAcetion = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        cancelAcetion.setValue(purpleButtonColor, forKey: "titleTextColor")
-        alert.addAction(cancelAcetion)
-        alert.addAction(defaultAction)
-        self.present(alert, animated: true, completion: nil)
+        if !hasTappedCallButton {
+            let message = "We'll call you at " + number + "."
+            let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: { (_) in
+                //: Change the button message
+                self.callButton.setTitle("Send code via SMS", for: .normal)
+                self.hasTappedCallButton = true
+            })
+            let cancelAcetion = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            cancelAcetion.setValue(purpleButtonColor, forKey: "titleTextColor")
+            alert.addAction(cancelAcetion)
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
+           
+        } else {
+            //: If we are here, the call button has already been tapped
+            let message = "We'll send you an SMS code at " + number + "."
+            let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+            //let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+            let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: { (_) in
+                self.callButton.setTitle("Call me instead", for: .normal)
+                self.hasTappedCallButton = false
+            })
+            let cancelAcetion = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            cancelAcetion.setValue(purpleButtonColor, forKey: "titleTextColor")
+            alert.addAction(cancelAcetion)
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     //: MARK: - scrollViewDidScroll
@@ -215,11 +237,11 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
             //resendButton.backgroundColor = grayButtonColor
             return
         }
-        resultLabel.isHidden = true
-        
         guard let currentText = resendButton.titleLabel?.text else {
             return
         }
+        resultLabel.isHidden = true
+
         if text.utf16.count == 1 {
             switch textField {
             case firstTextField:
