@@ -121,13 +121,14 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     //: MARK: - Button Actions
     func continueButtonTapped() {
         guard let text = numberTextField.text, !text.isEmpty, continueButton.backgroundColor != grayButtonColor else {
-            print("Leaving now")
+            //: Don't do anything if the text is empty and continueButton is a grayButtonColor
             return
         }
         if isValidNumber(number: checkNumber(phoneNumber: text)) {
             print("We are good to go: Probably do some animation here later")
             //: If we are here then the phone number is valid
-            // self.navigationController?.pushViewController(PhoneController(), animated: false)
+            ConfirmationController.phoneNumber = text
+            self.navigationController?.pushViewController(ConfirmationController(), animated: false)
         } else {
             resultLabel.text = errorMessage
             resultLabel.textColor = faintRedColor
@@ -135,10 +136,10 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     }
     func emailButtonTapped() {
         print("Email button tapped")
-        self.navigationController?.pushViewController(EmailController(), animated: false)
+        //: Leaving back to the emailController
+        popCurrentView()
     }
     func areaButtonTapped() {
-        print("Area button was tapped")
         self.navigationController?.pushViewController(CountryController(), animated: false)
     }
     
