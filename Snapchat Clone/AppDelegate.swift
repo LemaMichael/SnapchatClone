@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         //window?.rootViewController = UINavigationController(rootViewController: WelcomeController())
-        window?.rootViewController = UINavigationController(rootViewController: BirthdayController())
+        window?.rootViewController = UINavigationController(rootViewController: VerificationController())
         return true
     }
 

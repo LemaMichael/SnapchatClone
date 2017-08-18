@@ -103,6 +103,7 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
             return
         }
         //: If we are here then the email is valid
+        PhoneController.hasValidEmail = true
         self.navigationController?.pushViewController(PhoneController(), animated: false)
     }
     func phoneButtonTapped() {
@@ -152,6 +153,7 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
             return false
         }
         //: If we are here that means the email is valid
+        PhoneController.hasValidEmail = true
         self.navigationController?.pushViewController(PhoneController(), animated: false)
         return true
     }

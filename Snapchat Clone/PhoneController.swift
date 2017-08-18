@@ -19,6 +19,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     private let defaultResult = "We'll send you an SMS verification code."
     private let errorMessage = "That's not a valid mobile number!"
     static var areaCode = "US +1"
+    static var hasValidEmail = false
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -218,12 +219,15 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
             print("The current item in the navigation stack is: \(i)")
         }
         
-        //self.navigationController?.viewControllers.remove(at: 0)
-        /*
-         var viewControllers = navigationController?.viewControllers
-         viewControllers?.removeFirst(2) //here 2 views to pop index numbers of views
-         navigationController?.setViewControllers(viewControllers!, animated: true)
-         */
+        //: This is only if the user has prefered using email first
+        if PhoneController.hasValidEmail {
+            emailButton.isHidden = true
+            let rightBarButton = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: #selector(robotVerification))
+            rightBarButton.tintColor = UIColor.rgb(red: 206, green: 212, blue: 218)
+            rightBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir-Heavy", size: 15)!], for: .normal)
+            self.navigationItem.rightBarButtonItem = rightBarButton
+        }
+        
         //: Hide the back bar button item
         setUpNavigationBar(leftImage: nil)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(), style: .plain, target: self, action: nil)
@@ -245,6 +249,11 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         numberTextField.leftView = areaContainer
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
+    }
+    
+    //: MARK: - Skip Action
+    func robotVerification() {
+        self.navigationController?.pushViewController(VerificationController(), animated: false)
     }
     
     //: MARK: - Adjust views
