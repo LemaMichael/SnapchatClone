@@ -108,17 +108,21 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
         guard let age = ageComponents.year else { return }
         
         if age < 13 {
-            let sorryMessage = "Sorry, looks like you're not eligible for Snapchat Clone... but thanks for checking this app out!"
-            let alert = UIAlertController(title: "", message: sorryMessage, preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (_) in
-                //: NavigationController manages a stack of UIViewControllers. This will remove some controllers from the top.
-                self.navigationController?.popToRootViewController(animated: false)
+            if continueButton.backgroundColor == purpleButtonColor {
+                let sorryMessage = "Sorry, looks like you're not eligible for Snapchat Clone... but thanks for checking this app out!"
+                let alert = UIAlertController(title: "", message: sorryMessage, preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (_) in
+                    //: NavigationController manages a stack of UIViewControllers. This will remove some controllers from the top.
+                    self.navigationController?.popToRootViewController(animated: false)
+                }
+                alert.addAction(defaultAction)
+                self.present(alert, animated: true, completion: nil)
             }
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true, completion: nil)
         } else {
-            //: Lets go to the next view! (
-            self.navigationController?.pushViewController(UsernameController(), animated: false)
+            if continueButton.backgroundColor != grayButtonColor {
+                //: Lets go to the next view! (
+                self.navigationController?.pushViewController(UsernameController(), animated: false)
+            }
         }
     }
 
