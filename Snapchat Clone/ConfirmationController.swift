@@ -42,7 +42,6 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
             resendButton.setTitle("Resend \(seconds)", for: .normal)
         }
     }
- 
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()

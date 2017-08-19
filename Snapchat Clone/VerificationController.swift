@@ -15,6 +15,8 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     var ghostPose = [UIImage]()
+    var notGhostImage = 0
+    
     let colorArray = [
         UIColor.rgb(red: 223, green: 221, blue: 55),
         UIColor.rgb(red: 254, green: 197, blue: 51),
@@ -25,6 +27,14 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         UIColor.rgb(red: 40, green: 50, blue: 116),
         UIColor.rgb(red: 238, green: 96, blue: 126),
         UIColor.rgb(red: 181, green: 209, blue: 66)
+    ]
+    
+    let imageDict: [UIImage: Bool] = [
+        UIImage(named: "Cool Ghost")! : true,
+        UIImage(named: "Happy Ghost")!: true,
+        UIImage(named: "Cooler Ghost")!: true,
+        UIImage(named: "Empty Ghost")!: true,
+        UIImage(named: "Worried Ghost")!: false
     ]
     
     let scrollView: UIScrollView = {
@@ -90,14 +100,53 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     
     //: Button actions
     func continueButtonTapped() {
-        print("Button was tapped")
+        /*
+         - validPass will be false only if there was an image found that had a false value in imageDict
+         - SelectedIndexpaths is used to help determine the cell's image that was selected.
+         - count is used to track how many images have a value of true
+         - Succes will only happen if:
+                 * all images selected have a value of true in the imageDict
+                 * the items selected and the amount of notGhostImage's are equal to 9
+         */
+        print("Button was tapped-----------------------------------")
+        var validPass = true
+        var count = 0
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
+        print("The selected item count is : \(selectedIndexPaths.count)")
+        for index in selectedIndexPaths {
+            let cell = collectionView.cellForItem(at: index) as! GhostCell
+            let keys =  Array(imageDict.keys)
+            for image in keys {
+                if cell.imageView.image == image {
+                    let result = imageDict[image]!
+                    if result {
+                        count += 1
+                        print("This image is good to go \(result)")
+                    } else {
+                        print("Wohoo we found an error \(result)")
+                        validPass = false
+                    }
+                }
+            }
+        }
+        print("The total success result is \(count)")
+        //: TODO: REMOVE  && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count
+        if validPass && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count && notGhostImage + selectedIndexPaths.count == 9 {
+            print("we are allowed to leave!")
+        } else {
+            print("Nope try again")
+        }
     }
+    
     //: MARK: - Functions that return random numbers
     func randomDegree() -> CGFloat {
         return CGFloat(arc4random_uniform(UInt32(360)))
     }
-    func randomDigit() -> Int {
+    func randomNum() -> Int {
         return Int(arc4random_uniform(UInt32(colorArray.count)))
+    }
+    func randomImage() -> Int {
+        return Int(arc4random_uniform(UInt32(imageDict.count)))
     }
     
     //: CollectionView methods
@@ -109,7 +158,15 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VerificationController.cellId, for: indexPath) as! GhostCell
-        cell.contentView.backgroundColor = colorArray[randomDigit()]
+        //: This is where the magic happens.
+        cell.contentView.backgroundColor = colorArray[randomNum()]
+        let image = Array(imageDict.keys)[randomImage()]
+        let val = imageDict[image]!
+        if !val {
+            notGhostImage += 1
+        }
+        
+        cell.imageView.image = image
         cell.imageView.transform = CGAffineTransform(rotationAngle: randomDegree() *  .pi / 180)
         switch indexPath.row {
         case 0:
@@ -231,7 +288,7 @@ class GhostCell: UICollectionViewCell {
     }
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Cool Ghost")!.withRenderingMode(.alwaysOriginal)
+        //imageView.image = UIImage(named: "Cool Ghost")!.withRenderingMode(.alwaysOriginal)
         imageView.contentMode = .scaleAspectFit
         //imageView.backgroundColor = UIColor.darkGray
         return imageView
