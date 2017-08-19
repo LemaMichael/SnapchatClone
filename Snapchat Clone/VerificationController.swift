@@ -15,6 +15,17 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     private let grayButtonColor = UIColor.rgb(red: 185, green: 192, blue: 199)
     var ghostPose = [UIImage]()
+    let colorArray = [
+        UIColor.rgb(red: 223, green: 221, blue: 55),
+        UIColor.rgb(red: 254, green: 197, blue: 51),
+        UIColor.rgb(red: 223, green: 221, blue: 55),
+        UIColor.rgb(red: 40, green: 50, blue: 116),
+        UIColor.rgb(red: 238, green: 96, blue: 126),
+        UIColor.rgb(red: 141, green: 196, blue: 75),
+        UIColor.rgb(red: 40, green: 50, blue: 116),
+        UIColor.rgb(red: 238, green: 96, blue: 126),
+        UIColor.rgb(red: 181, green: 209, blue: 66)
+    ]
 
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -82,9 +93,13 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         print("Button was tapped")
     }
     //: MARK: - Functions to adjust imageView
-    func randomNumber(_ maxNumber: CGFloat) -> CGFloat {
-        return CGFloat(arc4random_uniform(UInt32(maxNumber)))
+    func randomDegree() -> CGFloat {
+        return CGFloat(arc4random_uniform(UInt32(360)))
     }
+    func randomDigit() -> Int {
+        return Int(arc4random_uniform(UInt32(colorArray.count)))
+    }
+    
     
     //: CollectionView methods
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -94,12 +109,21 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         return 9
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print(indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VerificationController.cellId, for: indexPath) as! GhostCell
-        cell.backgroundView = UIImageView(image: UIImage(named: "Background3"))
-    
-        let angleInDegree = randomNumber(360)
-        cell.imageView.transform = CGAffineTransform(rotationAngle: angleInDegree *  .pi / 180)
-        
+        cell.contentView.backgroundColor = colorArray[randomDigit()]
+        cell.imageView.transform = CGAffineTransform(rotationAngle: randomDegree() *  .pi / 180)
+        switch indexPath.row {
+        case 0:
+            cell.contentView.roundedCorder(corner: .topLeft)
+        case 2:
+            cell.contentView.roundedCorder(corner: .topRight)
+        case 6:
+            cell.contentView.roundedCorder(corner: .bottomLeft)
+        case 8:
+            cell.contentView.roundedCorder(corner: .bottomRight)
+        default: break
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -115,19 +139,14 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! GhostCell
-        print("You got me!")
-        print("row: \(indexPath.row)")
-        
         if cell.checkMark.isHidden {
-            cell.layer.borderColor = purpleButtonColor.cgColor
-            cell.layer.borderWidth = 6
-            //cell.layer.cornerRadius = 5
             cell.checkMark.isHidden = false
+            cell.contentView.layer.borderColor = purpleButtonColor.cgColor
+            cell.contentView.layer.borderWidth = 5.5
         } else {
-            cell.layer.borderColor = nil
-            cell.layer.borderWidth = 0
-            //cell.layer.cornerRadius = 5
             cell.checkMark.isHidden = true
+            cell.contentView.layer.borderColor = nil
+            cell.contentView.layer.borderWidth = 0
         }
     }
     
@@ -137,7 +156,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         view.backgroundColor = .white
         ghostPose.append(UIImage(named: "Cool Ghost-1")!.withRenderingMode(.alwaysOriginal))
         ghostPose.append(UIImage(named: "Cool Ghost")!.withRenderingMode(.alwaysOriginal))
-     
+        
         setUpNavigationBar(leftImage: "BackButton")
         self.automaticallyAdjustsScrollViewInsets = false
         self.extendedLayoutIncludesOpaqueBars = false
@@ -177,8 +196,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: robotLabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: descriptionLabel)
         contentView.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: collectionView)
- 
-        contentView.addConstraintsWithFormat(format: "V:|[v0(50)][v1(40)]-1-[v2(20)]-20-[v3]-140-|", views: ghostView, robotLabel, descriptionLabel, collectionView)
+        contentView.addConstraintsWithFormat(format: "V:|-40-[v0(50)][v1(40)]-1-[v2(20)]-20-[v3]-120-|", views: ghostView, robotLabel, descriptionLabel, collectionView)
         
         //: Constraints for the continue button
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
@@ -201,17 +219,16 @@ class GhostCell: UICollectionViewCell {
     }
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Cool Ghost")?.withRenderingMode(.alwaysOriginal)
+        imageView.image = UIImage(named: "Cool Ghost")!.withRenderingMode(.alwaysOriginal)
         imageView.contentMode = .scaleAspectFit
         //imageView.backgroundColor = UIColor.darkGray
         return imageView
     }()
     let checkMark: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Checkmark")?.withRenderingMode(.alwaysOriginal)
-        imageView.tintColor = UIColor.rgb(red: 153, green: 87, blue: 159)
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.masksToBounds = true
+        imageView.image = UIImage(named: "Checkmark")
+        imageView.contentMode = .scaleToFill
+        imageView.clipsToBounds = true
         imageView.isHidden = true
         return imageView
     }()
@@ -220,7 +237,7 @@ class GhostCell: UICollectionViewCell {
         addSubview(checkMark)
         addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: imageView)
         addConstraintsWithFormat(format: "V:|-35-[v0]-35-|", views: imageView)
-        addConstraintsWithFormat(format: "H:|-8-[v0(25)]", views: checkMark)
-        addConstraintsWithFormat(format: "V:|-8-[v0(25)]", views: checkMark)
+        addConstraintsWithFormat(format: "H:|-8-[v0(30)]", views: checkMark)
+        addConstraintsWithFormat(format: "V:|-8-[v0(30)]", views: checkMark)
     }
 }
