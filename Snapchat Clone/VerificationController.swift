@@ -33,8 +33,8 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         UIImage(named: "Cool Ghost")! : true,
         UIImage(named: "Happy Ghost")!: true,
         UIImage(named: "Cooler Ghost")!: true,
-        UIImage(named: "Empty Ghost")!: true,
-        UIImage(named: "Worried Ghost")!: false
+        UIImage(named: "Droid-1")!: false,
+        UIImage(named: "Droid")!: false
     ]
     
     let scrollView: UIScrollView = {
