@@ -135,6 +135,17 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
             print("we are allowed to leave!")
         } else {
             print("Nope try again")
+            //: Reload the collectionView again for the user to try again!
+            for index in selectedIndexPaths {
+                notGhostImage = 0
+                collectionView.deselectItem(at: index, animated: false)
+                let cell = collectionView.cellForItem(at: index) as! GhostCell
+                cell.checkMark.isHidden = true
+                cell.contentView.layer.borderColor = nil
+                cell.contentView.layer.borderWidth = 0
+                continueButton.backgroundColor = grayButtonColor
+            }
+            collectionView.reloadData()
         }
     }
     
