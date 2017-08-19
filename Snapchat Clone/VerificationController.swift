@@ -208,9 +208,10 @@ class GhostCell: UICollectionViewCell {
     }()
     let checkMark: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Checkmark")?.withRenderingMode(.alwaysTemplate)
+        imageView.image = UIImage(named: "Checkmark")?.withRenderingMode(.alwaysOriginal)
         imageView.tintColor = UIColor.rgb(red: 153, green: 87, blue: 159)
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
         imageView.isHidden = true
         return imageView
     }()
@@ -219,7 +220,7 @@ class GhostCell: UICollectionViewCell {
         addSubview(checkMark)
         addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: imageView)
         addConstraintsWithFormat(format: "V:|-35-[v0]-35-|", views: imageView)
-        addConstraintsWithFormat(format: "H:|-8-[v0(26)]", views: checkMark)
-        addConstraintsWithFormat(format: "V:|-8-[v0(26)]", views: checkMark)
+        addConstraintsWithFormat(format: "H:|-8-[v0(25)]", views: checkMark)
+        addConstraintsWithFormat(format: "V:|-8-[v0(25)]", views: checkMark)
     }
 }
