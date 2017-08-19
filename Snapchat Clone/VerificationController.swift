@@ -56,7 +56,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.red
+        cv.backgroundColor = .clear
         cv.delegate = self
         cv.dataSource = self
         cv.isScrollEnabled = false
@@ -81,6 +81,10 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     func continueButtonTapped() {
         print("Button was tapped")
     }
+    //: MARK: - Functions to adjust imageView
+    func randomNumber(_ maxNumber: CGFloat) -> CGFloat {
+        return CGFloat(arc4random_uniform(UInt32(maxNumber)))
+    }
     
     //: CollectionView methods
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -91,18 +95,40 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VerificationController.cellId, for: indexPath) as! GhostCell
+        cell.backgroundView = UIImageView(image: UIImage(named: "Background3"))
+    
+        let angleInDegree = randomNumber(360)
+        cell.imageView.transform = CGAffineTransform(rotationAngle: angleInDegree *  .pi / 180)
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.size.width / 3
         let height = collectionView.frame.size.height / 3
-        return CGSize(width: width - 5, height: height)
+        return CGSize(width: width - 5, height: height - 5)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! GhostCell
+        print("You got me!")
+        print("row: \(indexPath.row)")
+        
+        if cell.checkMark.isHidden {
+            cell.layer.borderColor = purpleButtonColor.cgColor
+            cell.layer.borderWidth = 6
+            //cell.layer.cornerRadius = 5
+            cell.checkMark.isHidden = false
+        } else {
+            cell.layer.borderColor = nil
+            cell.layer.borderWidth = 0
+            //cell.layer.cornerRadius = 5
+            cell.checkMark.isHidden = true
+        }
     }
     
     //: MARK: - viewDidLoad
@@ -127,17 +153,17 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         view.addSubview(continueButton)
         setUpViews()
     }
-    
+    //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         ghostView.startAnimating()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    //: MARK: - viewWillDisappear
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         ghostView.stopAnimating()
     }
-    
+    //: MARK: - setUpViews
     func setUpViews() {
         let screenWidth = view.frame.width / 2  - 20
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)
@@ -152,13 +178,11 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: descriptionLabel)
         contentView.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: collectionView)
  
-        contentView.addConstraintsWithFormat(format: "V:|[v0(50)][v1(40)]-2-[v2(20)]-20-[v3]-140-|", views: ghostView, robotLabel, descriptionLabel, collectionView)
+        contentView.addConstraintsWithFormat(format: "V:|[v0(50)][v1(40)]-1-[v2(20)]-20-[v3]-140-|", views: ghostView, robotLabel, descriptionLabel, collectionView)
         
         //: Constraints for the continue button
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
         view.addConstraintsWithFormat(format: "V:[v0(44)]-25-|", views: continueButton)
-        
-        
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -179,16 +203,23 @@ class GhostCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Cool Ghost")?.withRenderingMode(.alwaysOriginal)
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = UIColor.darkGray
+        //imageView.backgroundColor = UIColor.darkGray
         return imageView
     }()
-    
+    let checkMark: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Checkmark")?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = UIColor.rgb(red: 153, green: 87, blue: 159)
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
+        return imageView
+    }()
     func setUpCell() {
         addSubview(imageView)
-        addConstraintsWithFormat(format: "H:|[v0]|", views: imageView)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: imageView)
+        addSubview(checkMark)
+        addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: imageView)
+        addConstraintsWithFormat(format: "V:|-35-[v0]-35-|", views: imageView)
+        addConstraintsWithFormat(format: "H:|-8-[v0(26)]", views: checkMark)
+        addConstraintsWithFormat(format: "V:|-8-[v0(26)]", views: checkMark)
     }
 }
-
-
-
