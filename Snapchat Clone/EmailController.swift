@@ -107,7 +107,6 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         self.navigationController?.pushViewController(PhoneController(), animated: false)
     }
     func phoneButtonTapped() {
-        print("Phone button tapped")
         self.navigationController?.pushViewController(PhoneController(), animated: false)
     }
     //: MARK: - scrollViewDidScroll

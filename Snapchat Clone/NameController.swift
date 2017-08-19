@@ -220,8 +220,6 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     //: FIXME: Fix the repetitive code or find a better way to do this.
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset: CGFloat = -scrollView.contentOffset.y
-        //print("The current offset is \(offset)")
-        
         if (difference != nil) {
             //: For iphone 5 or below
             if UIScreen.main.bounds.height < 667 {

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIView {
-    func roundedCorder(corner: UIRectCorner) {
+    func roundedCorder(_ corner: UIRectCorner) {
         let cornerRadii = CGSize(width: 9.0, height: 9.0)
         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corner, cornerRadii: cornerRadii)
         let shapeLayer = CAShapeLayer()

@@ -136,7 +136,6 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         }
     }
     func emailButtonTapped() {
-        print("Email button tapped")
         //: Leaving back to the emailController
         popCurrentView()
     }

@@ -115,7 +115,6 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         guard let text = usernameTextField.text else {
             return
         }
-        
         var isLessthan3 = isLessThan3Char(text: text)
         var isFirstCharNumber = isFirstCharANumber(text: text)
         var containsSpecialChar = containsInvalidChar(text: text)

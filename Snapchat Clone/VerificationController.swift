@@ -26,7 +26,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         UIColor.rgb(red: 238, green: 96, blue: 126),
         UIColor.rgb(red: 181, green: 209, blue: 66)
     ]
-
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor.white
@@ -63,7 +63,6 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         label.text = "Select all images containing a ghost."
         return label
     }()
-    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -71,6 +70,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         cv.delegate = self
         cv.dataSource = self
         cv.isScrollEnabled = false
+        cv.allowsMultipleSelection = true
         cv.register(GhostCell.self, forCellWithReuseIdentifier: VerificationController.cellId)
         return cv
     }()
@@ -92,14 +92,13 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     func continueButtonTapped() {
         print("Button was tapped")
     }
-    //: MARK: - Functions to adjust imageView
+    //: MARK: - Functions that return random numbers
     func randomDegree() -> CGFloat {
         return CGFloat(arc4random_uniform(UInt32(360)))
     }
     func randomDigit() -> Int {
         return Int(arc4random_uniform(UInt32(colorArray.count)))
     }
-    
     
     //: CollectionView methods
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -109,19 +108,18 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         return 9
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VerificationController.cellId, for: indexPath) as! GhostCell
         cell.contentView.backgroundColor = colorArray[randomDigit()]
         cell.imageView.transform = CGAffineTransform(rotationAngle: randomDegree() *  .pi / 180)
         switch indexPath.row {
         case 0:
-            cell.contentView.roundedCorder(corner: .topLeft)
+            cell.contentView.roundedCorder(.topLeft)
         case 2:
-            cell.contentView.roundedCorder(corner: .topRight)
+            cell.contentView.roundedCorder(.topRight)
         case 6:
-            cell.contentView.roundedCorder(corner: .bottomLeft)
+            cell.contentView.roundedCorder(.bottomLeft)
         case 8:
-            cell.contentView.roundedCorder(corner: .bottomRight)
+            cell.contentView.roundedCorder(.bottomRight)
         default: break
         }
         return cell
@@ -139,14 +137,28 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! GhostCell
-        if cell.checkMark.isHidden {
+        print("I selected cell \(indexPath.item)")
             cell.checkMark.isHidden = false
             cell.contentView.layer.borderColor = purpleButtonColor.cgColor
             cell.contentView.layer.borderWidth = 5.5
-        } else {
-            cell.checkMark.isHidden = true
-            cell.contentView.layer.borderColor = nil
-            cell.contentView.layer.borderWidth = 0
+        
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
+        print("The current count of items selected are \(selectedIndexPaths.count)")
+        if selectedIndexPaths.count == 1 {
+            continueButton.backgroundColor = purpleButtonColor
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! GhostCell
+        print("I deselected \(indexPath.item)")
+        cell.checkMark.isHidden = true
+        cell.contentView.layer.borderColor = nil
+        cell.contentView.layer.borderWidth = 0
+        
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
+        print("The current count of items left selected are \(selectedIndexPaths.count)")
+        if selectedIndexPaths.count == 0 {
+            continueButton.backgroundColor = grayButtonColor
         }
     }
     
