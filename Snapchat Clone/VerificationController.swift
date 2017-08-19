@@ -133,8 +133,9 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         //: TODO: REMOVE  && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count
         if validPass && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count && notGhostImage + selectedIndexPaths.count == 9 {
             print("we are allowed to leave!")
-        } else {
+        }  else if selectedIndexPaths.count != 0 {
             print("Nope try again")
+            notGhostImage = 0
             //: Reload the collectionView again for the user to try again!
             for index in selectedIndexPaths {
                 notGhostImage = 0
