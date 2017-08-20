@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Contacts
 
 class FindFriendsController: UIViewController {
     
@@ -111,8 +112,20 @@ class FindFriendsController: UIViewController {
     }
     func continueButtonTapped() {
         print("Continue button was tapped!")
+        // Creating a mutable object to add to the contact
+        let store = CNContactStore()
+        store.requestAccess(for: CNEntityType.contacts) { (isAccessed, error) in
+            print(isAccessed)
+            if isAccessed {
+                print("We have access, do something now.")
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                    self.present(ContactsController(), animated: false, completion: nil)
+                }
+            }
+            print(error as Any)
+        }
     }
-    
     //: MARK: -viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,7 +148,7 @@ class FindFriendsController: UIViewController {
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
         view.addConstraint(NSLayoutConstraint(item: stackView, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
         
-        view.addConstraintsWithFormat(format: "V:[v0]-[v1]-4-[v2]-5-[v3(30)]-65-[v4(44)]-25-|", views: imagesStackView, friendsLabel, descriptionLabel, stackView, continueButton)
+        view.addConstraintsWithFormat(format: "V:[v0(55)]-[v1]-4-[v2]-5-[v3(30)]-65-[v4(44)]-25-|", views: imagesStackView, friendsLabel, descriptionLabel, stackView, continueButton)
         
     }
     override func viewDidAppear(_ animated: Bool) {

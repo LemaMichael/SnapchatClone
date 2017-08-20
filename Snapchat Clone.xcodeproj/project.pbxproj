@@ -43,6 +43,7 @@
 		4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */; };
 		4CF664701F46184200FF77FF /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF6646F1F46184200FF77FF /* CountryCode.swift */; };
 		4CF69CB01F49332D00F9B081 /* FindFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF69CAF1F49332D00F9B081 /* FindFriendsController.swift */; };
+		4CF69CB21F49758100F9B081 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF69CB11F49758100F9B081 /* ContactsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextFieldExtension.swift; sourceTree = "<group>"; };
 		4CF6646F1F46184200FF77FF /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		4CF69CAF1F49332D00F9B081 /* FindFriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendsController.swift; sourceTree = "<group>"; };
+		4CF69CB11F49758100F9B081 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				4CD608411F451F69003BBFFA /* ConfirmationController.swift */,
 				4CB82D021F46DBC700658718 /* VerificationController.swift */,
 				4CF69CAF1F49332D00F9B081 /* FindFriendsController.swift */,
+				4CF69CB11F49758100F9B081 /* ContactsController.swift */,
 			);
 			name = "Sign Up";
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */,
 				4C5163AD1F44581C005A7AE9 /* PhoneValidation.swift in Sources */,
 				4CB82D031F46DBC700658718 /* VerificationController.swift in Sources */,
+				4CF69CB21F49758100F9B081 /* ContactsController.swift in Sources */,
 				4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */,
 				4CD608421F451F69003BBFFA /* ConfirmationController.swift in Sources */,
 				4CF664701F46184200FF77FF /* CountryCode.swift in Sources */,
