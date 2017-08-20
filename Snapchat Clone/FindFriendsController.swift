@@ -140,10 +140,15 @@ class FindFriendsController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         print("----------BEGIN THE ANIMATION!----------")
-        UIView.animate(withDuration: 2.5, delay: 0.5, options: [.curveEaseOut, .repeat, .autoreverse], animations: {
+        UIView.animate(withDuration: 2.0, delay: 1.0, options: [.curveEaseOut], animations: {
             self.imagesStackView.transform = CGAffineTransform(scaleX: 0.80, y: 0.80)
             self.imagesStackView.frame.origin.y = +self.view.frame.height / 2
-        }, completion: nil)
+        }) { (_) in
+            UIView.animate(withDuration: 2.0, animations: {
+                self.imagesStackView.transform = CGAffineTransform.identity
+                self.imagesStackView.frame.origin.y = -self.view.frame.height / 2
+            })
+        }
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
