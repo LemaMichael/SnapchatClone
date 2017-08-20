@@ -10,6 +10,14 @@ import Foundation
 import UIKit
 
 class FindFriendsController: UIViewController {
+    
+    let images = [
+        UIImageView(image: UIImage(named: "Cool Ghost")),
+        UIImageView(image: UIImage(named:"Happy Ghost")),
+        UIImageView(image: UIImage(named: "Cooler Ghost")),
+        UIImageView(image: UIImage(named: "Tongue Ghost"))
+    ]
+    
     lazy var skipButton: UIButton = {
        let button = UIButton(type: .system)
         button.setTitle("Skip", for: .normal)
@@ -77,6 +85,15 @@ class FindFriendsController: UIViewController {
         return button
     }()
     
+    lazy var imagesStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: self.images)
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        return stackView
+    }()
+    
     //: MARK: - Button actions
     func skipTapped() {
         print("skip button tapped")
@@ -101,6 +118,7 @@ class FindFriendsController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         view.addSubview(skipButton)
+        view.addSubview(imagesStackView)
         view.addSubview(friendsLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(stackView)
@@ -110,17 +128,29 @@ class FindFriendsController: UIViewController {
     func setUpViews() {
         view.addConstraintsWithFormat(format: "H:[v0]-16-|", views: skipButton)
         view.addConstraintsWithFormat(format: "V:|-12-[v0]", views: skipButton)
+        
+        view.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: imagesStackView)
         view.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: friendsLabel)
         view.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: descriptionLabel)
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
         view.addConstraint(NSLayoutConstraint(item: stackView, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
         
-        view.addConstraintsWithFormat(format: "V:[v0]-4-[v1]-5-[v2(30)]-65-[v3(44)]-25-|", views: friendsLabel, descriptionLabel, stackView, continueButton)
+        view.addConstraintsWithFormat(format: "V:[v0]-[v1]-4-[v2]-5-[v3(30)]-65-[v4(44)]-25-|", views: imagesStackView, friendsLabel, descriptionLabel, stackView, continueButton)
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        print("--------------------")
+        print("----------BEGIN THE ANIMATION!----------")
+        UIView.animate(withDuration: 2.5, delay: 0.5, options: [.curveEaseOut, .repeat, .autoreverse], animations: {
+            self.imagesStackView.transform = CGAffineTransform(scaleX: 0.80, y: 0.80)
+            self.imagesStackView.frame.origin.y = +self.view.frame.height / 2
+        }, completion: nil)
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        //: Stop the animation!
+        self.imagesStackView.layer.removeAllAnimations()
+    }
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
