@@ -77,11 +77,11 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     lazy var errorLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir-Medium", size: 10.5)
+        label.font = UIFont(name: "Avenir-Medium", size: 11.5)
         //: Faint red color
         label.textColor =  UIColor.rgb(red: 239, green: 63, blue: 90)
         label.text = "You didn't identify all of the images"
-        label.isHidden = false
+        label.isHidden = true
         return label
     }()
     
@@ -159,6 +159,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
             continueButton.backgroundColor = grayButtonColor
             UIView.transition(with: collectionView, duration: 0.40, options: .transitionCrossDissolve, animations: {
                 self.collectionView.reloadData()
+                self.errorLabel.isHidden = false
             })
         }
     }
@@ -223,6 +224,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         print("The current count of items selected are \(selectedIndexPaths.count)")
         if selectedIndexPaths.count == 1 {
             continueButton.backgroundColor = purpleButtonColor
+            errorLabel.isHidden = true
         }
         print("I selected cell \(indexPath.item)")
         UIView.animate(withDuration: 0.2, animations: {
@@ -307,7 +309,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         contentView.addConstraintsWithFormat(format: "H:|-40-[v0]-40-|", views: descriptionLabel)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: errorLabel)
         contentView.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: collectionView)
-        contentView.addConstraintsWithFormat(format: "V:|-25-[v0(50)][v1(30)][v2(20)]-4-[v3(14)]-8-[v4]-130-|", views: ghostView, robotLabel, descriptionLabel, errorLabel, collectionView)
+        contentView.addConstraintsWithFormat(format: "V:|-25-[v0(50)][v1(30)][v2(20)]-5-[v3(14)]-9-[v4]-130-|", views: ghostView, robotLabel, descriptionLabel, errorLabel, collectionView)
         
         //: Constraints for the continue button
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
