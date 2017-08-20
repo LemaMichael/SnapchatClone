@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class VerificationController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     static let cellId = "cellId"
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
@@ -73,7 +72,6 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         label.text = "Select all images containing a ghost."
         return label
     }()
-    
     lazy var errorLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -175,7 +173,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         return Int(arc4random_uniform(UInt32(imageDict.count)))
     }
     
-    //: CollectionView methods
+    //: MARK: - CollectionView methods
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
