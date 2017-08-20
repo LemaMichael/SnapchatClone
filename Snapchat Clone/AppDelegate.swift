@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //window?.rootViewController = UINavigationController(rootViewController: WelcomeController())
         //window?.rootViewController = UINavigationController(rootViewController: VerificationController())
-        window?.rootViewController = FindFriendsController()
+        window?.rootViewController = ContactsController()
         return true
     }
 

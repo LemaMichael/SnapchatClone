@@ -119,7 +119,7 @@ class FindFriendsController: UIViewController {
             if isAccessed {
                 print("We have access, do something now.")
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: false, completion: nil)
                     self.present(ContactsController(), animated: false, completion: nil)
                 }
             }
@@ -151,6 +151,7 @@ class FindFriendsController: UIViewController {
         view.addConstraintsWithFormat(format: "V:[v0(55)]-[v1]-4-[v2]-5-[v3(30)]-65-[v4(44)]-25-|", views: imagesStackView, friendsLabel, descriptionLabel, stackView, continueButton)
         
     }
+    //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         print("----------BEGIN THE ANIMATION!----------")
         UIView.animate(withDuration: 2.0, delay: 1.0, options: [.curveEaseOut], animations: {
@@ -163,12 +164,23 @@ class FindFriendsController: UIViewController {
             })
         }
     }
+    //: MARK: - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         //: Stop the animation!
         self.imagesStackView.layer.removeAllAnimations()
     }
-    
+    //: MARK: - viewWillDisappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isBeingDismissed {
+            print("isBeingDismissed")
+        } else if self.isMovingToParentViewController {
+            print("isMovingToParentViewController")
+        } else if self.isMovingFromParentViewController {
+            print("isMovingFromParentViewController")
+        }
+    }
     override var prefersStatusBarHidden: Bool {
         return true
     }
