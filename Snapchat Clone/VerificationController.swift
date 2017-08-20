@@ -143,6 +143,8 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         //: TODO: REMOVE  && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count
         if validPass && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count && notGhostImage + selectedIndexPaths.count == 9 {
             print("we are allowed to leave!")
+            self.navigationController?.popViewController(animated: false)
+            present(FindFriendsController(), animated: false, completion: nil)
         }  else if selectedIndexPaths.count != 0 {
             print("Nope try again")
             notGhostImage = 0
@@ -287,10 +289,17 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidAppear(animated)
         ghostView.startAnimating()
     }
-    //: MARK: - viewWillDisappear
+    //: MARK: - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         ghostView.stopAnimating()
+    }
+    //: MARK: - viewWillDisappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.isMovingFromParentViewController {
+            print("View controller was popped")
+        }
     }
     //: MARK: - setUpViews
     func setUpViews() {

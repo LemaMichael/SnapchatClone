@@ -217,7 +217,6 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         for i in array {
             print("The current item in the navigation stack is: \(i)")
         }
-        
         //: This is only if the user has prefered using email first
         if PhoneController.hasValidEmail {
             emailButton.isHidden = true
