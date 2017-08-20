@@ -73,6 +73,18 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         label.text = "Select all images containing a ghost."
         return label
     }()
+    
+    lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont(name: "Avenir-Medium", size: 10.5)
+        //: Faint red color
+        label.textColor =  UIColor.rgb(red: 239, green: 63, blue: 90)
+        label.text = "You didn't identify all of the images"
+        label.isHidden = false
+        return label
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -138,15 +150,16 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
             notGhostImage = 0
             //: Reload the collectionView again for the user to try again!
             for index in selectedIndexPaths {
-                notGhostImage = 0
                 collectionView.deselectItem(at: index, animated: false)
                 let cell = collectionView.cellForItem(at: index) as! GhostCell
                 cell.checkMark.isHidden = true
                 cell.contentView.layer.borderColor = nil
                 cell.contentView.layer.borderWidth = 0
-                continueButton.backgroundColor = grayButtonColor
             }
-            collectionView.reloadData()
+            continueButton.backgroundColor = grayButtonColor
+            UIView.transition(with: collectionView, duration: 0.40, options: .transitionCrossDissolve, animations: {
+                self.collectionView.reloadData()
+            })
         }
     }
     
@@ -206,28 +219,43 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! GhostCell
-        print("I selected cell \(indexPath.item)")
-            cell.checkMark.isHidden = false
-            cell.contentView.layer.borderColor = purpleButtonColor.cgColor
-            cell.contentView.layer.borderWidth = 5.5
-        
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
         print("The current count of items selected are \(selectedIndexPaths.count)")
         if selectedIndexPaths.count == 1 {
             continueButton.backgroundColor = purpleButtonColor
         }
+        print("I selected cell \(indexPath.item)")
+        UIView.animate(withDuration: 0.2, animations: {
+            cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            cell.contentView.layer.borderColor = self.purpleButtonColor.cgColor
+            cell.contentView.layer.borderWidth = 5.5
+            cell.checkMark.isHidden = false
+        }) { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                cell.transform = CGAffineTransform.identity
+                cell.checkMark.alpha = 1
+            })
+        }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! GhostCell
-        print("I deselected \(indexPath.item)")
-        cell.checkMark.isHidden = true
-        cell.contentView.layer.borderColor = nil
-        cell.contentView.layer.borderWidth = 0
-        
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
         print("The current count of items left selected are \(selectedIndexPaths.count)")
         if selectedIndexPaths.count == 0 {
             continueButton.backgroundColor = grayButtonColor
+        }
+        print("I deselected \(indexPath.item)")
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            cell.contentView.layer.borderColor = nil
+            cell.contentView.layer.borderWidth = 0
+            cell.checkMark.isHidden = true
+        }) { _ in
+            UIView.animate(withDuration: 0.20, animations: {
+                cell.transform = CGAffineTransform.identity
+                cell.checkMark.alpha = 0
+            })
         }
     }
     
@@ -249,6 +277,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         contentView.addSubview(ghostView)
         contentView.addSubview(robotLabel)
         contentView.addSubview(descriptionLabel)
+        contentView.addSubview(errorLabel)
         contentView.addSubview(collectionView)
         view.addSubview(continueButton)
         setUpViews()
@@ -275,9 +304,10 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         
         contentView.addConstraintsWithFormat(format: "H:|-\(screenWidth)-[v0]-\(screenWidth)-|", views: ghostView)
         contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: robotLabel)
-        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: descriptionLabel)
+        contentView.addConstraintsWithFormat(format: "H:|-40-[v0]-40-|", views: descriptionLabel)
+        contentView.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: errorLabel)
         contentView.addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: collectionView)
-        contentView.addConstraintsWithFormat(format: "V:|-40-[v0(50)][v1(40)]-1-[v2(20)]-20-[v3]-120-|", views: ghostView, robotLabel, descriptionLabel, collectionView)
+        contentView.addConstraintsWithFormat(format: "V:|-25-[v0(50)][v1(30)][v2(20)]-4-[v3(14)]-8-[v4]-130-|", views: ghostView, robotLabel, descriptionLabel, errorLabel, collectionView)
         
         //: Constraints for the continue button
         view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
@@ -311,13 +341,17 @@ class GhostCell: UICollectionViewCell {
         imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
         imageView.isHidden = true
+        imageView.alpha = 0
         return imageView
     }()
     func setUpCell() {
         addSubview(imageView)
         addSubview(checkMark)
-        addConstraintsWithFormat(format: "H:|-25-[v0]-25-|", views: imageView)
-        addConstraintsWithFormat(format: "V:|-35-[v0]-35-|", views: imageView)
+        let width = self.frame.size.width / 3.2
+        let height = self.frame.size.height / 3.2
+        
+        addConstraintsWithFormat(format: "H:|-\(width)-[v0]-\(width)-|", views: imageView)
+        addConstraintsWithFormat(format: "V:|-\(height)-[v0]-\(height)-|", views: imageView)
         addConstraintsWithFormat(format: "H:|-8-[v0(30)]", views: checkMark)
         addConstraintsWithFormat(format: "V:|-8-[v0(30)]", views: checkMark)
     }
