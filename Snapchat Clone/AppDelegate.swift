@@ -22,7 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         //window?.rootViewController = UINavigationController(rootViewController: WelcomeController())
-        window?.rootViewController = UINavigationController(rootViewController: VerificationController())
+        //window?.rootViewController = UINavigationController(rootViewController: VerificationController())
+        window?.rootViewController = FindFriendsController()
         return true
     }
 
