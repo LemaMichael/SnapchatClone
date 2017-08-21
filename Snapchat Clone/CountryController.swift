@@ -16,7 +16,7 @@ class CountryController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         adjustNavBar()
-        tableView.register(countryCell.self, forCellReuseIdentifier: CountryController.cellId)
+        tableView.register(CountryCell.self, forCellReuseIdentifier: CountryController.cellId)
         
         //: Reading the json file will setup the countryCodes arary
         readFile()
@@ -52,7 +52,7 @@ class CountryController: UITableViewController {
         return 55
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CountryController.cellId, for: indexPath) as! countryCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CountryController.cellId, for: indexPath) as! CountryCell
         let areaCode = NSString(format:"(%@)", countryCodes[indexPath.row].dial_code) as String
         cell.countryLabel.text = countryCodes[indexPath.row].name + " " + areaCode
         return cell
@@ -91,7 +91,7 @@ class CountryController: UITableViewController {
 }
 
 //: MARK: - Cell for table view
-class countryCell: UITableViewCell {
+class CountryCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpViews()
