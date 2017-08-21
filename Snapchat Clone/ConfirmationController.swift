@@ -180,9 +180,9 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
                 self.callButton.setTitle("Send code via SMS", for: .normal)
                 self.hasTappedCallButton = true
             })
-            let cancelAcetion = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-            cancelAcetion.setValue(purpleButtonColor, forKey: "titleTextColor")
-            alert.addAction(cancelAcetion)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            cancelAction.setValue(purpleButtonColor, forKey: "titleTextColor")
+            alert.addAction(cancelAction)
             alert.addAction(defaultAction)
             self.present(alert, animated: true, completion: nil)
            
@@ -195,9 +195,9 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
                 self.callButton.setTitle("Call me instead", for: .normal)
                 self.hasTappedCallButton = false
             })
-            let cancelAcetion = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-            cancelAcetion.setValue(purpleButtonColor, forKey: "titleTextColor")
-            alert.addAction(cancelAcetion)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            cancelAction.setValue(purpleButtonColor, forKey: "titleTextColor")
+            alert.addAction(cancelAction)
             alert.addAction(defaultAction)
             self.present(alert, animated: true, completion: nil)
         }

@@ -12,6 +12,7 @@ import UIKit
 class ContactsController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     static let cellId = "cellId"
+    static let footerId = "footerId"
     
     lazy var skipButton: UIButton = {
         let button = UIButton(type: .system)
@@ -58,7 +59,9 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         cv.delegate = self
         cv.dataSource = self
         cv.allowsMultipleSelection = true
+        cv.alwaysBounceVertical = true
         cv.register(ContactCell.self, forCellWithReuseIdentifier: ContactsController.cellId)
+        cv.register(FooterCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: ContactsController.footerId)
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
@@ -105,7 +108,7 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return 5
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 60)
@@ -138,10 +141,26 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.cellForItem(at: indexPath) as! ContactCell
         cellUnselected(cell)
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
+    //: MARK: Modifying the FooterCell
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ContactsController.footerId, for: indexPath) as! FooterCell
+        //: Handle taps inside the footer cell
+        let tap = UITapGestureRecognizer(target: self, action: #selector(footerTapped))
+        footer.addGestureRecognizer(tap)
+        return footer
     }
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 50)
+    }
+    func footerTapped() {
+        let alert = UIAlertController(title: "Phone Verification Required", message: "To view more Snapchatters in your contacts, please verify your phone number.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        cancelAction.setValue(purpleButtonColor, forKey: "titleTextColor")
+        let verifyAction = UIAlertAction(title: "Verify Now", style: .default, handler: nil)
+        alert.addAction(cancelAction)
+        alert.addAction(verifyAction)
+        present(alert, animated: true, completion: nil)
+    }
     //: MARK: -viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -251,5 +270,49 @@ class ContactCell: UICollectionViewCell {
         //: Setting the width & height constraints for the border
         addConstraintsWithFormat(format: "H:|[v0]|", views: borderView)
         addConstraintsWithFormat(format: "V:[v0(1)]|", views: borderView)
+    }
+}
+
+class FooterCell: UICollectionViewCell {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpCell()
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    let contactsImage: UIImageView = {
+        let imageView = UIImageView()
+        let calenderImage = UIImage(named: "Contacts")
+        imageView.image = calenderImage
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    let contactsLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Avenir-Medium", size: 13.6)
+        label.textColor = UIColor.rgb(red: 22, green: 25, blue: 28)
+        label.text = "More Snapchatters from My Contacts"
+        return label
+    }()
+    let rightArrow: UIImageView = {
+        let imageView = UIImageView()
+        let rightArrow = UIImage(named: "Right Arrow")?.withRenderingMode(.alwaysTemplate)
+        imageView.image = rightArrow
+        imageView.tintColor = UIColor.rgb(red: 142, green: 142, blue: 147)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    func setUpCell() {
+        addSubview(contactsImage)
+        addSubview(contactsLabel)
+        addSubview(rightArrow)
+        addConstraintsWithFormat(format: "H:|-12-[v0(20)]-15-[v1]-[v2(15)]-12-|", views: contactsImage, contactsLabel, rightArrow)
+        addConstraintsWithFormat(format: "V:[v0(20)]", views: contactsImage)
+        addConstraintsWithFormat(format: "V:[v0(13)]", views: rightArrow)
+        addConstraint(NSLayoutConstraint(item: contactsImage, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: contactsLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: rightArrow, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
     }
 }
