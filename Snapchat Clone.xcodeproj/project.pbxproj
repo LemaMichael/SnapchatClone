@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C046B1C1F4A6BCF0087DF37 /* TextViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C046B1B1F4A6BCF0087DF37 /* TextViewMode.swift */; };
 		4C06033D1F3ABE99001F17CC /* BirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06033C1F3ABE99001F17CC /* BirthdayController.swift */; };
 		4C0E258B1F2DD2F100FB00B6 /* ringtone_bff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */; };
 		4C0E258C1F2DD2F100FB00B6 /* ringtone_full.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C046B1B1F4A6BCF0087DF37 /* TextViewMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewMode.swift; sourceTree = "<group>"; };
 		4C06033C1F3ABE99001F17CC /* BirthdayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdayController.swift; sourceTree = "<group>"; };
 		4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone_bff.mp3; sourceTree = "<group>"; };
 		4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone_full.mp3; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */,
 				4C1848E71F40EB0A001DE8F9 /* Nav.ControllerExt.swift */,
 				4CCA9CAF1F47EA6000CAE3D8 /* RoundedCorner.swift */,
+				4C046B1B1F4A6BCF0087DF37 /* TextViewMode.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			files = (
 				4CB7E4161F43DF5200681327 /* EmailController.swift in Sources */,
 				4CB8BC831F330F5200EA3F89 /* ConstraintsExtension.swift in Sources */,
+				4C046B1C1F4A6BCF0087DF37 /* TextViewMode.swift in Sources */,
 				4CB7E4181F43DF7C00681327 /* PhoneController.swift in Sources */,
 				4C61876A1F2DC237001245ED /* WelcomeController.swift in Sources */,
 				4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */,

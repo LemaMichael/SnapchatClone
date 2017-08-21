@@ -57,6 +57,7 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         cv.backgroundColor = UIColor.white
         cv.delegate = self
         cv.dataSource = self
+        cv.allowsMultipleSelection = true
         cv.register(ContactCell.self, forCellWithReuseIdentifier: ContactsController.cellId)
         cv.showsVerticalScrollIndicator = false
         return cv
@@ -80,11 +81,35 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContactsController.cellId, for: indexPath) as! ContactCell
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
+        if selectedIndexPaths.count == 1 {
+            skipButton.isHidden = true
+        }
+        let cell = collectionView.cellForItem(at: indexPath) as! ContactCell
+        cell.addTextField.text = "Added"
+        cell.addTextField.modifyLeftImage(UIImage(named: "Added Friend")!.withRenderingMode(.alwaysTemplate), padding: 8)
+        cell.addTextField.backgroundColor = UIColor.rgb(red: 140, green: 71, blue: 191)
+        cell.addTextField.layer.borderColor = UIColor.rgb(red: 140, green: 71, blue: 191).cgColor
+        cell.addTextField.textColor = UIColor.white
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
+        if selectedIndexPaths.count == 0 {
+            skipButton.isHidden = false
+        }
+        let cell = collectionView.cellForItem(at: indexPath) as! ContactCell
+        cell.addTextField.text = "Add"
+        cell.addTextField.setLeftImage(UIImage(named: "Add Friend")!, padding: 17)
+        cell.addTextField.backgroundColor = .clear
+        cell.addTextField.layer.borderColor = UIColor.rgb(red: 227, green: 208, blue: 239).cgColor
+        cell.addTextField.textColor = UIColor.rgb(red: 140, green: 71, blue: 191)
+    }
+    
     //: MARK: -viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        
         view.addSubview(skipButton)
         view.addSubview(addFriendsLabel)
         view.addSubview(descriptionLabel)
@@ -93,11 +118,9 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(collectionView)
         setUpViews()
     }
-    
     func setUpViews() {
         view.addConstraintsWithFormat(format: "H:[v0]-16-|", views: skipButton)
         view.addConstraintsWithFormat(format: "V:|-12-[v0]", views: skipButton)
-        
         view.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: addFriendsLabel)
         view.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: descriptionLabel)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: borderView)
@@ -116,16 +139,15 @@ class ContactCell: UICollectionViewCell {
         super.init(frame: frame)
         setUpCell()
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     let fullName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Avenir-Medium", size: 16)
+        label.font = UIFont(name: "Avenir-Medium", size: 15)
         label.textColor = UIColor.rgb(red: 22, green: 25, blue: 28)
         label.textAlignment = .left
-        label.text = "Michael Lema"
+        label.text = "John Appleseed"
         return label
     }()
     let username: UILabel = {
@@ -133,35 +155,25 @@ class ContactCell: UICollectionViewCell {
         label.font = UIFont(name: "Avenir-Medium", size: 11)
         label.textColor = UIColor.rgb(red: 189, green: 195, blue: 201)
         label.textAlignment = .left
-        label.text = "mlmike1031"
+        label.text = "AppleseedJohn"
         return label
     }()
     let addTextField: UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .none
         textField.isEnabled = false
         textField.isUserInteractionEnabled = false
-        textField.font = UIFont(name: "Avenir-Heavy", size: 15)
+        textField.layer.masksToBounds = true
+        //: Making my own border
+        textField.layer.cornerRadius = 14
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.rgb(red: 227, green: 208, blue: 239).cgColor
+        textField.font = UIFont(name: "Avenir-Heavy", size: 13)
         textField.textColor = UIColor.rgb(red: 140, green: 71, blue: 191)
-        textField.text = "Add"
         textField.textAlignment = .center
+        textField.text = "Add"
+        //textField.adjustsFontSizeToFitWidth = true
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.leftViewMode = UITextFieldViewMode.always
         return textField
-    }()
-    let addImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 7, height: 7))
-        let image = UIImage(named: "Add Friend")
-        imageView.image = image
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    let addedImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 2, height: 2))
-        let image = UIImage(named: "Added Friend")
-        imageView.image = image
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
     }()
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.fullName, self.username])
@@ -180,24 +192,23 @@ class ContactCell: UICollectionViewCell {
     
     func setUpCell() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        addTextField.leftView = addImageView
+        addTextField.setLeftImage(UIImage(named: "Add Friend")!, padding: 17)
         addSubview(stackView)
         addSubview(addTextField)
         addSubview(borderView)
-        
+        //: Centering the Y position for the stackView and addTextField
         addConstraint(NSLayoutConstraint(item: stackView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: addTextField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
-        
+        //: Setting the left and right NSLayoutAttribute for the addTextField and stackView
         addConstraint(NSLayoutConstraint(item: addTextField, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -12))
         addConstraint(NSLayoutConstraint(item: stackView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 12))
-        
-        addConstraint(NSLayoutConstraint(item: addTextField, attribute: .width, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1, constant: 60))
+        //: Setting the addTextField width and height constratins
+        addConstraint(NSLayoutConstraint(item: addTextField, attribute: .width, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1, constant: 75))
         addConstraint(NSLayoutConstraint(item: addTextField, attribute: .height, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1, constant: 30))
-        
+        //: Setting the left and right NSLayoutAttribute for the addTextField and stackView
         addConstraint(NSLayoutConstraint(item: stackView, attribute: .right, relatedBy: .equal, toItem: addTextField, attribute: .left, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: addTextField, attribute: .left, relatedBy: .equal, toItem: stackView, attribute: .right, multiplier: 1, constant: 0))
-        
-        
+        //: Setting the width & height constraints for the border
         addConstraintsWithFormat(format: "H:|[v0]|", views: borderView)
         addConstraintsWithFormat(format: "V:[v0(1)]|", views: borderView)
     }

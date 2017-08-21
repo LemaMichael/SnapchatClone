@@ -9,10 +9,8 @@
 import UIKit
 
 extension UITextField {
-    
     //: Create an underlined UITextField
     func setUnderlinedBorder() {
-        
         self.borderStyle = .none
         self.layer.backgroundColor = UIColor.white.cgColor
         
@@ -24,9 +22,6 @@ extension UITextField {
         
         self.contentVerticalAlignment = UIControlContentVerticalAlignment.bottom
         //self.layer.sublayerTransform = CATransform3DMakeTranslation(0, 7.5, 0)
-        
     }
-
-    
 }
 
