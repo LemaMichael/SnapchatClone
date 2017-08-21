@@ -11,14 +11,12 @@ import UIKit
 import Contacts
 
 class FindFriendsController: UIViewController {
-    
     let images = [
         UIImageView(image: UIImage(named: "Cool Ghost")),
         UIImageView(image: UIImage(named:"Happy Ghost")),
         UIImageView(image: UIImage(named: "Cooler Ghost")),
         UIImageView(image: UIImage(named: "Tongue Ghost"))
     ]
-    
     lazy var skipButton: UIButton = {
        let button = UIButton(type: .system)
         button.setTitle("Skip", for: .normal)

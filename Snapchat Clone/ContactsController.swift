@@ -62,11 +62,44 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
+    lazy var continueButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Continue", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 14)
+        button.backgroundColor = self.purpleButtonColor
+        button.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
+        //: Make button round
+        button.layer.cornerRadius = 22
+        button.layer.masksToBounds = true
+        button.isHidden = true
+        return button
+    }()
     
     //: MARK: - Button actions
     func skipTapped() {
         print("skip button tapped")
     }
+    func continueButtonTapped() {
+        print("continuue button tapped!")
+    }
+    
+    //: MARK: - Functions for modifying the ContactCell
+    fileprivate func cellSelected(_ cell: ContactCell) {
+        cell.addTextField.text = "Added"
+        cell.addTextField.modifyLeftImage(UIImage(named: "Added Friend")!.withRenderingMode(.alwaysTemplate), padding: 8)
+        cell.addTextField.backgroundColor = UIColor.rgb(red: 140, green: 71, blue: 191)
+        cell.addTextField.layer.borderColor = UIColor.rgb(red: 140, green: 71, blue: 191).cgColor
+        cell.addTextField.textColor = UIColor.white
+    }
+    fileprivate func cellUnselected(_ cell: ContactCell) {
+        cell.addTextField.text = "Add"
+        cell.addTextField.setLeftImage(UIImage(named: "Add Friend")!, padding: 17)
+        cell.addTextField.backgroundColor = .clear
+        cell.addTextField.layer.borderColor = UIColor.rgb(red: 227, green: 208, blue: 239).cgColor
+        cell.addTextField.textColor = UIColor.rgb(red: 140, green: 71, blue: 191)
+    }
+    
     //: MARK: - Collection View functions
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -79,31 +112,34 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContactsController.cellId, for: indexPath) as! ContactCell
+        //: Added this because reused (recycled) cells were showing the incorrect labels and images
+        if cell.isSelected {
+            cellSelected(cell)
+        } else {
+            cellUnselected(cell)
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
         if selectedIndexPaths.count == 1 {
             skipButton.isHidden = true
+            continueButton.isHidden = false
         }
         let cell = collectionView.cellForItem(at: indexPath) as! ContactCell
-        cell.addTextField.text = "Added"
-        cell.addTextField.modifyLeftImage(UIImage(named: "Added Friend")!.withRenderingMode(.alwaysTemplate), padding: 8)
-        cell.addTextField.backgroundColor = UIColor.rgb(red: 140, green: 71, blue: 191)
-        cell.addTextField.layer.borderColor = UIColor.rgb(red: 140, green: 71, blue: 191).cgColor
-        cell.addTextField.textColor = UIColor.white
+        cellSelected(cell)
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
         if selectedIndexPaths.count == 0 {
             skipButton.isHidden = false
+            continueButton.isHidden = true
         }
         let cell = collectionView.cellForItem(at: indexPath) as! ContactCell
-        cell.addTextField.text = "Add"
-        cell.addTextField.setLeftImage(UIImage(named: "Add Friend")!, padding: 17)
-        cell.addTextField.backgroundColor = .clear
-        cell.addTextField.layer.borderColor = UIColor.rgb(red: 227, green: 208, blue: 239).cgColor
-        cell.addTextField.textColor = UIColor.rgb(red: 140, green: 71, blue: 191)
+        cellUnselected(cell)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
     }
     
     //: MARK: -viewDidLoad
@@ -116,6 +152,7 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(borderView)
         view.addSubview(snapchattersLabel)
         view.addSubview(collectionView)
+        view.addSubview(continueButton)
         setUpViews()
     }
     func setUpViews() {
@@ -128,6 +165,9 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         
         view.addConstraintsWithFormat(format: "V:|-35-[v0(30)][v1(40)]-[v2(1)]-4-[v3]-5-[v4]|", views: addFriendsLabel, descriptionLabel, borderView, snapchattersLabel, collectionView)
+        
+        view.addConstraintsWithFormat(format: "H:|-68-[v0]-68-|", views: continueButton)
+        view.addConstraintsWithFormat(format: "V:[v0(44)]-25-|", views: continueButton)
     }
     override var prefersStatusBarHidden: Bool {
         return true
