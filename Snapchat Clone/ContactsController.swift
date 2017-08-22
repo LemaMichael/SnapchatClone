@@ -167,7 +167,10 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         let alert = UIAlertController(title: "Phone Verification Required", message: "To view more Snapchatters in your contacts, please verify your phone number.", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         cancelAction.setValue(purpleButtonColor, forKey: "titleTextColor")
-        let verifyAction = UIAlertAction(title: "Verify Now", style: .default, handler: nil)
+        let verifyAction = UIAlertAction(title: "Verify Now", style: .default) { (_) in
+            PhoneController.isComingFromContacts = true
+            self.navigationController?.pushViewController(PhoneController(), animated: false)
+        }
         alert.addAction(cancelAction)
         alert.addAction(verifyAction)
         present(alert, animated: true, completion: nil)
@@ -201,6 +204,16 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    //: MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    //: MARK: - viewWillDisappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 

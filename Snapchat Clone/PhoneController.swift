@@ -20,6 +20,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     private let errorMessage = "That's not a valid mobile number!"
     static var areaCode = "US +1"
     static var hasValidEmail = false
+    static var isComingFromContacts = false
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -225,10 +226,16 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
             rightBarButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir-Heavy", size: 15)!], for: .normal)
             self.navigationItem.rightBarButtonItem = rightBarButton
         }
-        
-        //: Hide the back bar button item
-        setUpNavigationBar(leftImage: nil)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(), style: .plain, target: self, action: nil)
+        if PhoneController.isComingFromContacts {
+            //: Set up the nav bar if the user taps agrees to verify number
+            setUpNavigationBar(leftImage: "BackButton")
+            //: User has already entered email
+            emailButton.isHidden = true
+        } else {
+            //: Hide the back bar button item
+            setUpNavigationBar(leftImage: nil)
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(), style: .plain, target: self, action: nil)
+        }
         
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)

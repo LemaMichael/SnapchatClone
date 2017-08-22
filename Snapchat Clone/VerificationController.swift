@@ -144,8 +144,8 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         if validPass && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count && notGhostImage + selectedIndexPaths.count == 9 {
             print("we are allowed to leave!")
             self.navigationController?.popViewController(animated: false)
-            //self.navigationController?.pushViewController(FindFriendsController(), animated: false)
-            present(FindFriendsController(), animated: false, completion: nil)
+            self.navigationController?.pushViewController(FindFriendsController(), animated: false)
+            //present(FindFriendsController(), animated: false, completion: nil)
         }  else if selectedIndexPaths.count != 0 {
             print("Nope try again")
             notGhostImage = 0
@@ -285,9 +285,9 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         view.addSubview(continueButton)
         setUpViews()
     }
-    //: MARK: - viewDidAppear
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    //: MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         ghostView.startAnimating()
     }
     //: MARK: - viewDidDisappear

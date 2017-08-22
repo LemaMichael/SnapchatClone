@@ -117,8 +117,9 @@ class FindFriendsController: UIViewController {
             if isAccessed {
                 print("We have access, do something now.")
                 DispatchQueue.main.async {
-                    self.dismiss(animated: false, completion: nil)
-                    self.present(ContactsController(), animated: false, completion: nil)
+                    //self.dismiss(animated: false, completion: nil)
+                    //self.present(ContactsController(), animated: false, completion: nil)
+                    self.navigationController?.pushViewController(ContactsController(), animated: false)
                 }
             }
             print(error as Any)
@@ -162,6 +163,18 @@ class FindFriendsController: UIViewController {
             })
         }
     }
+    //: MARK: - viewDidLayoutSubviews
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        /* Put the animation here if you want the
+          GHOSTS to start at the bottom text.
+         */
+    }
+    //: MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     //: MARK: - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -171,6 +184,7 @@ class FindFriendsController: UIViewController {
     //: MARK: - viewWillDisappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         if self.isBeingDismissed {
             print("isBeingDismissed")
         } else if self.isMovingToParentViewController {
