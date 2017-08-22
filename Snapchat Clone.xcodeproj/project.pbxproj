@@ -19,6 +19,9 @@
 		4C4DC50B1F4582A100928050 /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C4DC50A1F4582A100928050 /* CountryCodes.json */; };
 		4C5163AB1F445811005A7AE9 /* EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5163AA1F445811005A7AE9 /* EmailValidation.swift */; };
 		4C5163AD1F44581C005A7AE9 /* PhoneValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5163AC1F44581C005A7AE9 /* PhoneValidation.swift */; };
+		4C56B5701F4C05F4003C8F8D /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C56B56F1F4C05F4003C8F8D /* MessagesController.swift */; };
+		4C56B5721F4C0677003C8F8D /* StoriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C56B5711F4C0677003C8F8D /* StoriesController.swift */; };
+		4C56B5741F4C06FF003C8F8D /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C56B5731F4C06FF003C8F8D /* CameraController.swift */; };
 		4C5926161F33131A0007480E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5926151F33131A0007480E /* ColorExtension.swift */; };
 		4C5926191F3319E60007480E /* NameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5926181F3319E60007480E /* NameController.swift */; };
 		4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6187671F2DC237001245ED /* AppDelegate.swift */; };
@@ -61,6 +64,9 @@
 		4C4DC50A1F4582A100928050 /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
 		4C5163AA1F445811005A7AE9 /* EmailValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidation.swift; sourceTree = "<group>"; };
 		4C5163AC1F44581C005A7AE9 /* PhoneValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidation.swift; sourceTree = "<group>"; };
+		4C56B56F1F4C05F4003C8F8D /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
+		4C56B5711F4C0677003C8F8D /* StoriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesController.swift; sourceTree = "<group>"; };
+		4C56B5731F4C06FF003C8F8D /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		4C5926151F33131A0007480E /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		4C5926181F3319E60007480E /* NameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameController.swift; sourceTree = "<group>"; };
 		4C6187641F2DC237001245ED /* Snapchat Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snapchat Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +187,9 @@
 			isa = PBXGroup;
 			children = (
 				4C62BAC51F4BC58900981909 /* MainController.swift */,
+				4C56B56F1F4C05F4003C8F8D /* MessagesController.swift */,
+				4C56B5711F4C0677003C8F8D /* StoriesController.swift */,
+				4C56B5731F4C06FF003C8F8D /* CameraController.swift */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -318,6 +327,7 @@
 				4C5926161F33131A0007480E /* ColorExtension.swift in Sources */,
 				4C1848E81F40EB0A001DE8F9 /* Nav.ControllerExt.swift in Sources */,
 				4CC57E3A1F45433C000F78EB /* CountryController.swift in Sources */,
+				4C56B5721F4C0677003C8F8D /* StoriesController.swift in Sources */,
 				4C5926191F3319E60007480E /* NameController.swift in Sources */,
 				4C5163AB1F445811005A7AE9 /* EmailValidation.swift in Sources */,
 				4C06033D1F3ABE99001F17CC /* BirthdayController.swift in Sources */,
@@ -325,6 +335,8 @@
 				4CCA9CB01F47EA6000CAE3D8 /* RoundedCorner.swift in Sources */,
 				4C79155B1F4010D2000729E0 /* UsernameController.swift in Sources */,
 				4C62BAC61F4BC58900981909 /* MainController.swift in Sources */,
+				4C56B5741F4C06FF003C8F8D /* CameraController.swift in Sources */,
+				4C56B5701F4C05F4003C8F8D /* MessagesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

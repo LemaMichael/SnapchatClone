@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         //window?.rootViewController = UINavigationController(rootViewController: WelcomeController())
-        window?.rootViewController = UINavigationController(rootViewController: VerificationController())
-        //window?.rootViewController = ContactsController()
+        //window?.rootViewController = UINavigationController(rootViewController: VerificationController())
+        window?.rootViewController = MainController()
         return true
     }
 
