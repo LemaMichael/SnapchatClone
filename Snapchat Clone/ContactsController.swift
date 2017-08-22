@@ -82,6 +82,17 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
     //: MARK: - Button actions
     func skipTapped() {
         print("skip button tapped")
+        let message = "Snapchat clone is more fun with friends! Are you sure you want to skip this step?"
+        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { (_) in
+            self.dismiss(animated: true, completion: nil)
+            self.present(MainController(), animated: false, completion: nil)
+        }
+        let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        noAction.setValue(purpleButtonColor, forKey: "titleTextColor")
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
     }
     func continueButtonTapped() {
         print("continuue button tapped!")

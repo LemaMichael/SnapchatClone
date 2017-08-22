@@ -31,6 +31,7 @@
 		4C61877F1F2DC8C8001245ED /* chat_sent.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C61877C1F2DC8C8001245ED /* chat_sent.m4a */; };
 		4C6187821F2DCEA1001245ED /* generic_push.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C6187801F2DCEA1001245ED /* generic_push.mp3 */; };
 		4C6187831F2DCEA1001245ED /* hang_up.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C6187811F2DCEA1001245ED /* hang_up.m4a */; };
+		4C62BAC61F4BC58900981909 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62BAC51F4BC58900981909 /* MainController.swift */; };
 		4C79155B1F4010D2000729E0 /* UsernameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79155A1F4010D2000729E0 /* UsernameController.swift */; };
 		4CB7E4141F43A0C400681327 /* PasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7E4131F43A0C400681327 /* PasswordController.swift */; };
 		4CB7E4161F43DF5200681327 /* EmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7E4151F43DF5200681327 /* EmailController.swift */; };
@@ -75,6 +76,7 @@
 		4C6187801F2DCEA1001245ED /* generic_push.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = generic_push.mp3; sourceTree = "<group>"; };
 		4C6187811F2DCEA1001245ED /* hang_up.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = hang_up.m4a; sourceTree = "<group>"; };
 		4C6187841F2DCED0001245ED /* left_call.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = left_call.m4a; sourceTree = "<group>"; };
+		4C62BAC51F4BC58900981909 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		4C79155A1F4010D2000729E0 /* UsernameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameController.swift; sourceTree = "<group>"; };
 		4CB7E4131F43A0C400681327 /* PasswordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordController.swift; sourceTree = "<group>"; };
 		4CB7E4151F43DF5200681327 /* EmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				4C6187671F2DC237001245ED /* AppDelegate.swift */,
 				4C6187691F2DC237001245ED /* WelcomeController.swift */,
 				4C5926171F3319BB0007480E /* Sign Up */,
+				4C62BAC41F4BC55E00981909 /* Main View */,
 				4C61876E1F2DC237001245ED /* Assets.xcassets */,
 				4C6187791F2DC8B9001245ED /* Sounds */,
 				4C6187701F2DC237001245ED /* LaunchScreen.storyboard */,
@@ -172,6 +175,14 @@
 				4C0E25901F2DD2FE00FB00B6 /* SC_SwipeToSend.m4a */,
 			);
 			name = Sounds;
+			sourceTree = "<group>";
+		};
+		4C62BAC41F4BC55E00981909 /* Main View */ = {
+			isa = PBXGroup;
+			children = (
+				4C62BAC51F4BC58900981909 /* MainController.swift */,
+			);
+			name = "Main View";
 			sourceTree = "<group>";
 		};
 		4CB8BC811F330F3600EA3F89 /* Extensions */ = {
@@ -313,6 +324,7 @@
 				4CB7E4141F43A0C400681327 /* PasswordController.swift in Sources */,
 				4CCA9CB01F47EA6000CAE3D8 /* RoundedCorner.swift in Sources */,
 				4C79155B1F4010D2000729E0 /* UsernameController.swift in Sources */,
+				4C62BAC61F4BC58900981909 /* MainController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
