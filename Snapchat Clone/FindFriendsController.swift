@@ -101,7 +101,10 @@ class FindFriendsController: UIViewController {
             self.continueButtonTapped()
         }
         let yesAction = UIAlertAction(title: "Yes, Skip", style: .default) { (_) in
-            self.present(MainController(), animated: false, completion: nil)
+            //self.present(MainController(), animated: false, completion: nil)
+            self.present(MainController(), animated: false, completion: {
+                self.navigationController?.viewControllers = []
+            })
         }
         alert.addAction(friendsAction)
         alert.addAction(yesAction)

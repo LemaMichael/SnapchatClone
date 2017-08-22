@@ -85,8 +85,11 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         let message = "Snapchat clone is more fun with friends! Are you sure you want to skip this step?"
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (_) in
-            self.dismiss(animated: true, completion: nil)
-            self.present(MainController(), animated: false, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
+            //self.present(MainController(), animated: false, completion: nil)
+            self.present(MainController(), animated: false, completion: {
+                self.navigationController?.viewControllers = []
+            })
         }
         let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
         noAction.setValue(purpleButtonColor, forKey: "titleTextColor")
