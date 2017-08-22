@@ -96,6 +96,16 @@ class FindFriendsController: UIViewController {
     //: MARK: - Button actions
     func skipTapped() {
         print("skip button tapped")
+        let alert = UIAlertController(title: "Are you sure you want to skip finding friends?", message: "Snapchat clone is more fun with friends and your contacts are the fastest way to find friends. We'll never spam or auto-add your contacts.", preferredStyle: .alert)
+        let friendsAction = UIAlertAction(title: "Find Friends", style: UIAlertActionStyle.default) { (_) in
+            self.continueButtonTapped()
+        }
+        let yesAction = UIAlertAction(title: "Yes, Skip", style: .default) { (_) in
+            self.present(MainController(), animated: false, completion: nil)
+        }
+        alert.addAction(friendsAction)
+        alert.addAction(yesAction)
+        present(alert, animated: true, completion: nil)
     }
     func goToLink() {
         guard let url = URL(string: "https://en.wikipedia.org/wiki/Privacy_policy") else {
@@ -153,7 +163,7 @@ class FindFriendsController: UIViewController {
     //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         print("----------BEGIN THE ANIMATION!----------")
-        UIView.animate(withDuration: 2.0, delay: 1.0, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: 2.0, delay: 0.8, options: [.curveEaseOut], animations: {
             self.imagesStackView.transform = CGAffineTransform(scaleX: 0.80, y: 0.80)
             self.imagesStackView.frame.origin.y = +self.view.frame.height / 2
         }) { (_) in

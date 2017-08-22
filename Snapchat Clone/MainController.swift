@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class MainController: UIViewController {
-    
     override func viewDidLoad() {
         view.backgroundColor = UIColor.red
     }

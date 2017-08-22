@@ -83,7 +83,7 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
     func skipTapped() {
         print("skip button tapped")
         let message = "Snapchat clone is more fun with friends! Are you sure you want to skip this step?"
-        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (_) in
             self.dismiss(animated: true, completion: nil)
             self.present(MainController(), animated: false, completion: nil)
