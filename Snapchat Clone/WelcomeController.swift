@@ -53,7 +53,7 @@ class WelcomeController: UIViewController {
         super.viewDidLoad()
         view.addSubview(loginButton)
         view.addSubview(signUpButton)
-        setUpViews()
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +68,7 @@ class WelcomeController: UIViewController {
         snapImageView.image = UIImage(named: "Icon")
         
         //: Setup the camera
-        setUpCamera()
+        setupCamera()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,7 +82,7 @@ class WelcomeController: UIViewController {
         return true
     }
     
-    func setUpViews() {
+    func setupViews() {
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: loginButton)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: signUpButton)
         view.addConstraintsWithFormat(format: "V:[v0(80)][v1(80)]|", views: loginButton, signUpButton)
@@ -101,7 +101,7 @@ class WelcomeController: UIViewController {
     }
     
     //: MARK: - Set up Camera
-    func setUpCamera() {
+    func setupCamera() {
         captureSession.sessionPreset = AVCaptureSessionPresetPhoto
         //: Find devices by device type located in the front of the system hardware
         if let availableDevices = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: AVCaptureDevicePosition.front).devices {

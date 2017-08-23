@@ -316,7 +316,7 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         super.viewDidLoad()
         view.backgroundColor = .yellow
         //: Display the back bar button item
-        setUpNavigationBar(leftImage: "BackButton")
+        setupNavigationBar(leftImage: "BackButton")
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         self.automaticallyAdjustsScrollViewInsets = false
@@ -335,13 +335,13 @@ class ConfirmationController: UIViewController, UIScrollViewDelegate, UITextFiel
         contentView.addSubview(resultLabel)
         view.addSubview(resendButton)
         
-        setUpViews()
+        setupViews()
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillHide, object: nil)
     }
     
     //: MARK: - Adjust views
-    func setUpViews() {
+    func setupViews() {
         let screenCenter = UIScreen.main.bounds.height / 8
         //: ScrollView & contentView constraints
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)

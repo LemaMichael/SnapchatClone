@@ -249,7 +249,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
-        setUpNavigationBar(leftImage: "BackButton")
+        setupNavigationBar(leftImage: "BackButton")
         
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -265,7 +265,7 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         contentView.addSubview(agreementTextField)
         view.addSubview(signUpButton) //scrollView.superview?.addSubview(signUpButton)
 
-        setUpViews()
+        setupViews()
         //: Set the delegate for each text field
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
@@ -288,8 +288,8 @@ class NameController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         difference = height + buttonYposition
     }
     
-    //: MARK: - Set up Views
-    func setUpViews() {
+    //: MARK: - Setup Views
+    func setupViews() {
         
         //: Using scroll view with auto layout in 3 steps
         //: 1 - Set the scroll view constraints

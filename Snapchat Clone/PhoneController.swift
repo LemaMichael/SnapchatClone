@@ -228,12 +228,12 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         }
         if PhoneController.isComingFromContacts {
             //: Set up the nav bar if the user taps agrees to verify number
-            setUpNavigationBar(leftImage: "BackButton")
+            setupNavigationBar(leftImage: "BackButton")
             //: User has already entered email
             emailButton.isHidden = true
         } else {
             //: Hide the back bar button item
-            setUpNavigationBar(leftImage: nil)
+            setupNavigationBar(leftImage: nil)
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(), style: .plain, target: self, action: nil)
         }
         
@@ -248,8 +248,8 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         contentView.addSubview(resultLabel)
         view.addSubview(continueButton)
         
-        setUpViews()
-        setUpAreaContainer()
+        setupViews()
+        setupAreaContainer()
         //: Add a container the right side of text field.
         numberTextField.leftView = areaContainer
         
@@ -262,7 +262,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
     }
     
     //: MARK: - Adjust views
-    func setUpViews() {
+    func setupViews() {
         let screenCenter = UIScreen.main.bounds.height / 8
         //: ScrollView & contentView constraints
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)
@@ -287,7 +287,7 @@ class PhoneController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         view.addConstraint(bottomConstraint!)
     }
     
-    private func setUpAreaContainer() {
+    private func setupAreaContainer() {
         //: Add a right border to the area Container
         let rightBorderView = UIView()
         rightBorderView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)

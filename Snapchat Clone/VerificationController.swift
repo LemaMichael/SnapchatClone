@@ -269,7 +269,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         ghostPose.append(UIImage(named: "Cool Ghost-1")!.withRenderingMode(.alwaysOriginal))
         ghostPose.append(UIImage(named: "Cool Ghost")!.withRenderingMode(.alwaysOriginal))
         
-        setUpNavigationBar(leftImage: "BackButton")
+        setupNavigationBar(leftImage: "BackButton")
         self.automaticallyAdjustsScrollViewInsets = false
         self.extendedLayoutIncludesOpaqueBars = false
        // self.edgesForExtendedLayout = []
@@ -283,7 +283,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         contentView.addSubview(errorLabel)
         contentView.addSubview(collectionView)
         view.addSubview(continueButton)
-        setUpViews()
+        setupViews()
     }
     //: MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -302,8 +302,8 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
             print("View controller was popped")
         }
     }
-    //: MARK: - setUpViews
-    func setUpViews() {
+    //: MARK: - setupViews
+    func setupViews() {
         let screenWidth = view.frame.width / 2  - 20
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)
         view.addConstraintsWithFormat(format: "V:|[v0]|", views: scrollView)
@@ -333,7 +333,7 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
 class GhostCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpCell()
+        setupCell()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -354,7 +354,7 @@ class GhostCell: UICollectionViewCell {
         imageView.alpha = 0
         return imageView
     }()
-    func setUpCell() {
+    func setupCell() {
         addSubview(imageView)
         addSubview(checkMark)
         let width = self.frame.size.width / 3.2

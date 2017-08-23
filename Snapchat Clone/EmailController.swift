@@ -169,7 +169,7 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
          navigationController?.setViewControllers(viewControllers!, animated: true)
          */
         //: Hide the back bar button item
-        setUpNavigationBar(leftImage: nil)
+        setupNavigationBar(leftImage: nil)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(), style: .plain, target: self, action: nil)
         
         self.view.addSubview(scrollView)
@@ -183,12 +183,12 @@ class EmailController: UIViewController, UIScrollViewDelegate, UITextFieldDelega
         contentView.addSubview(resultLabel)
         view.addSubview(continueButton)
         
-        setUpViews()
+        setupViews()
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
     }
     
     //: MARK: - Adjust views
-    func setUpViews() {
+    func setupViews() {
         let screenCenter = UIScreen.main.bounds.height / 8
         //: ScrollView & contentView constraints
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)

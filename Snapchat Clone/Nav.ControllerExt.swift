@@ -10,7 +10,7 @@ import UIKit
 
 extension UIViewController {
     
-    func setUpNavigationBar(leftImage: String?) {
+    func setupNavigationBar(leftImage: String?) {
         //: Change back button image in Navigation Bar
         if let backImage = leftImage {
             let backButtonImage = UIImage(named: backImage)?.withRenderingMode(.alwaysOriginal)

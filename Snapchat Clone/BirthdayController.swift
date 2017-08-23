@@ -131,13 +131,13 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         detectDataPickerSwipe()
-        setUpNavigationBar(leftImage: "BackButton")
+        setupNavigationBar(leftImage: "BackButton")
         view.addSubview(questionLabel)
         view.addSubview(birthdayLabel)
         view.addSubview(birthdayTextField)
         view.addSubview(continueButton)
         view.addSubview(datePicker)
-        setUpViews()
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -163,7 +163,7 @@ class BirthdayController : UIViewController, UIGestureRecognizerDelegate {
     }
     
     //: MARK: - Set up views
-    func setUpViews() {
+    func setupViews() {
         let space = UIScreen.main.bounds.height / 5
         view.addConstraintsWithFormat(format: "H:|-65-[v0]-65-|", views: questionLabel)
         view.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: birthdayLabel)

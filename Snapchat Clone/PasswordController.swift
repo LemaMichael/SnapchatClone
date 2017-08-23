@@ -200,7 +200,7 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setUpNavigationBar(leftImage: "BackButton")
+        setupNavigationBar(leftImage: "BackButton")
         
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -213,14 +213,14 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         contentView.addSubview(resultLabel)
         view.addSubview(continueButton)
         
-        setUpViews()
+        setupViews()
         //: Add a button to the right side of text field.
         passwordTextField.rightView = showAndHideButton
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillChangeFrame, object: nil)
     }
     
     //: MARK: - Adjust views
-    func setUpViews() {
+    func setupViews() {
         let screenCenter = UIScreen.main.bounds.height / 8
         //: ScrollView & contentView constraints
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)

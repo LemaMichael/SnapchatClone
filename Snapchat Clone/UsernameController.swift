@@ -329,7 +329,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         characterSet = CharacterSet(charactersIn: validList)
 
         view.backgroundColor = .white
-        setUpNavigationBar(leftImage: "BackButton")
+        setupNavigationBar(leftImage: "BackButton")
         
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -342,7 +342,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         contentView.addSubview(resultLabel)
         view.addSubview(continueButton)
         
-        setUpViews()
+        setupViews()
         //: Add a button to the right side of text field.
         usernameTextField.rightView = refreshButton
         
@@ -351,7 +351,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     }
     
     //: MARK: - Adjust views
-    func setUpViews() {
+    func setupViews() {
         let screenCenter = UIScreen.main.bounds.height / 3.5
         //: ScrollView & contentView constraints
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)

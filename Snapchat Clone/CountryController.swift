@@ -67,7 +67,7 @@ class CountryController: UITableViewController {
     
     //: TODO: Increase navBar height by 20 points
     func adjustNavBar() {
-        setUpNavigationBar(leftImage: "BackButton")
+        setupNavigationBar(leftImage: "BackButton")
         guard let navController = self.navigationController else {
             return
         }
@@ -94,7 +94,7 @@ class CountryController: UITableViewController {
 class CountryCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setUpViews()
+        setupViews()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -105,7 +105,7 @@ class CountryCell: UITableViewCell {
         label.font = UIFont(name: "Avenir Next-Regular", size: 14)
         return label
     }()
-    func setUpViews() {
+    func setupViews() {
         addSubview(countryLabel)
         addConstraintsWithFormat(format: "H:|-16-[v0]|", views: countryLabel)
         addConstraintsWithFormat(format: "V:|[v0]|", views: countryLabel)

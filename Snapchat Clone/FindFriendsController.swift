@@ -148,9 +148,9 @@ class FindFriendsController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(stackView)
         view.addSubview(continueButton)
-        setUpViews()
+        setupViews()
     }
-    func setUpViews() {
+    func setupViews() {
         view.addConstraintsWithFormat(format: "H:[v0]-16-|", views: skipButton)
         view.addConstraintsWithFormat(format: "V:|-12-[v0]", views: skipButton)
         

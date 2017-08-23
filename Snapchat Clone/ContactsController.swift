@@ -189,9 +189,9 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(snapchattersLabel)
         view.addSubview(collectionView)
         view.addSubview(continueButton)
-        setUpViews()
+        setupViews()
     }
-    func setUpViews() {
+    func setupViews() {
         view.addConstraintsWithFormat(format: "H:[v0]-16-|", views: skipButton)
         view.addConstraintsWithFormat(format: "V:|-12-[v0]", views: skipButton)
         view.addConstraintsWithFormat(format: "H:|-50-[v0]-50-|", views: addFriendsLabel)
@@ -223,7 +223,7 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
 class ContactCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpCell()
+        setupCell()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -276,7 +276,7 @@ class ContactCell: UICollectionViewCell {
         return view
     }()
     
-    func setUpCell() {
+    func setupCell() {
         self.translatesAutoresizingMaskIntoConstraints = false
         addTextField.setLeftImage(UIImage(named: "Add Friend")!, padding: 17)
         addSubview(stackView)
@@ -303,7 +303,7 @@ class ContactCell: UICollectionViewCell {
 class FooterCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpCell()
+        setupCell()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -331,7 +331,7 @@ class FooterCell: UICollectionViewCell {
         return imageView
     }()
     
-    func setUpCell() {
+    func setupCell() {
         addSubview(contactsImage)
         addSubview(contactsLabel)
         addSubview(rightArrow)
