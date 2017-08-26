@@ -12,6 +12,7 @@ import UIKit
 class StoriesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .purple
+        //: Purple color
+        view.backgroundColor = UIColor.rgb(red: 154, green: 87, blue: 159)
     }
 }

@@ -12,6 +12,11 @@ import UIKit
 class MessagesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue        
+        //: Light blue color
+        view.backgroundColor = UIColor.rgb(red: 60, green: 178, blue: 226)
+    }
+    
+    func setTopContainer() {
+        
     }
 }

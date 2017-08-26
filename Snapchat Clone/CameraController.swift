@@ -13,7 +13,7 @@ class CameraController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .brown
+        view.backgroundColor = .black
     }
     
 }

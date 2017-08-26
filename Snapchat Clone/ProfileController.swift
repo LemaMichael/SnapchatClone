@@ -12,7 +12,8 @@ import UIKit
 class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        //: Dark black color
+        view.backgroundColor = UIColor.rgb(red: 40, green: 44, blue: 48)
     }
 }
 

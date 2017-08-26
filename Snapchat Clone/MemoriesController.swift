@@ -12,7 +12,8 @@ import UIKit
 class MemoriesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        //: Light red color
+        view.backgroundColor = UIColor.rgb(red: 246, green: 39, blue: 78)
     }
 }
 
