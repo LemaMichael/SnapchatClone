@@ -102,9 +102,12 @@ class FindFriendsController: UIViewController {
         }
         let yesAction = UIAlertAction(title: "Yes, Skip", style: .default) { (_) in
             //self.present(MainController(), animated: false, completion: nil)
+            
+            //: TODO: Change MainController to snapContainer
+            /*
             self.present(MainController(), animated: false, completion: {
                 self.navigationController?.viewControllers = []
-            })
+            })*/
         }
         alert.addAction(friendsAction)
         alert.addAction(yesAction)
