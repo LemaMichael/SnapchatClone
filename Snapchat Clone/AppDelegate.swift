@@ -23,7 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //window?.rootViewController = UINavigationController(rootViewController: WelcomeController())
         //window?.rootViewController = UINavigationController(rootViewController: VerificationController())
-        window?.rootViewController = MainController()
+        //window?.rootViewController = MainController()
+        
+        let left = MessagesController()
+        let middle = CameraController()
+        let right = StoriesController()
+        let top = ProfileController()
+        let bottom = MemoriesController()
+        let snapContainer = SnapContainerViewController.containerViewWith(left, middleVC: middle, rightVC: right, topVC: top, bottomVC: bottom)
+        window?.rootViewController = snapContainer
+        
         return true
     }
 
