@@ -12,19 +12,7 @@ import UIKit
 class MessagesController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     static let cellId = "cellId"
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .clear
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.alwaysBounceVertical = true
-        return scrollView
-    }()
-    let contentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
-
+    
     let containerView: UIView = {
         let container = UIView()
         container.backgroundColor = .clear
@@ -89,19 +77,12 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func setupViews() {
-        self.view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(collectionView)
+    
         self.automaticallyAdjustsScrollViewInsets = false
-        //: ScrollView & contentView constraints
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: scrollView)
-        view.addConstraintsWithFormat(format: "V:|[v0]|", views: scrollView)
-        scrollView.addConstraintsWithFormat(format: "H:|[v0]|", views: contentView)
-        scrollView.addConstraintsWithFormat(format: "V:|[v0]|", views: contentView)
-        view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 0))
-        contentView.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        contentView.addConstraintsWithFormat(format: "V:|-60-[v0]|", views: collectionView)
+        //: cv constraints
+        view.addSubview(collectionView)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
+        view.addConstraintsWithFormat(format: "V:|-60-[v0]|", views: collectionView)
         setTopContainer()
     }
     
