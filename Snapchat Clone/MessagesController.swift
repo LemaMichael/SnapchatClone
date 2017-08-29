@@ -45,7 +45,7 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     
     lazy var collectionView: UICollectionView = {
        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-        cv.backgroundColor = .white
+        cv.backgroundColor = .clear
         cv.delegate = self
         cv.dataSource = self
 //        cv.showsVerticalScrollIndicator = false
@@ -77,12 +77,12 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func setupViews() {
-    
         self.automaticallyAdjustsScrollViewInsets = false
-        //: cv constraints
+        //: CollectionView constraints
         view.addSubview(collectionView)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        view.addConstraintsWithFormat(format: "V:|-60-[v0]|", views: collectionView)
+        view.addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
+        collectionView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
         setTopContainer()
     }
     
@@ -114,5 +114,4 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
-    
 }
