@@ -13,6 +13,12 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     
     static let cellId = "cellId"
     
+    lazy var statusWindow: UIWindow = {
+        let window: UIWindow = UIWindow(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 22))
+        window.isHidden = false
+        window.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        return window
+    }()
     let containerView: UIView = {
         let container = UIView()
         container.backgroundColor = .clear
@@ -44,11 +50,11 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     }()
     
     lazy var collectionView: UICollectionView = {
-       let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.backgroundColor = .clear
         cv.delegate = self
         cv.dataSource = self
-//        cv.showsVerticalScrollIndicator = false
+        //        cv.showsVerticalScrollIndicator = false
         return cv
     }()
     
@@ -74,6 +80,9 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: mojiImageView)
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: searchButton)
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: newChatButton)
+        
+        //: Cover the status bar. (If you add the statusWindow before the collectionView, collectionView will go over the status.)
+        view.addSubview(statusWindow)
     }
     
     func setupViews() {
@@ -118,5 +127,25 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    //: MARK: - scrollViewDidScroll
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        if offset >= -65 {
+            if statusWindow.backgroundColor != UIColor.black.withAlphaComponent(0.5) {
+                UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseOut], animations: {
+                    self.statusWindow.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                    self.containerView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                }, completion: nil)
+            }
+        } else {
+            if statusWindow.backgroundColor != UIColor.black.withAlphaComponent(0.0) {
+                UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseIn], animations: {
+                    self.containerView.backgroundColor = .clear
+                    self.statusWindow.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+                }, completion: nil)
+            }
+        }
     }
 }
