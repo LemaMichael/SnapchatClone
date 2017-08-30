@@ -48,6 +48,7 @@
 		4CC57E3A1F45433C000F78EB /* CountryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC57E391F45433C000F78EB /* CountryController.swift */; };
 		4CCA9CB01F47EA6000CAE3D8 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCA9CAF1F47EA6000CAE3D8 /* RoundedCorner.swift */; };
 		4CD608421F451F69003BBFFA /* ConfirmationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD608411F451F69003BBFFA /* ConfirmationController.swift */; };
+		4CE1588D1F55DDFC0037E287 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE1588C1F55DDFC0037E287 /* MessageCell.swift */; };
 		4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */; };
 		4CF664701F46184200FF77FF /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF6646F1F46184200FF77FF /* CountryCode.swift */; };
 		4CF69CB01F49332D00F9B081 /* FindFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF69CAF1F49332D00F9B081 /* FindFriendsController.swift */; };
@@ -99,6 +100,7 @@
 		4CC57E391F45433C000F78EB /* CountryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryController.swift; sourceTree = "<group>"; };
 		4CCA9CAF1F47EA6000CAE3D8 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		4CD608411F451F69003BBFFA /* ConfirmationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationController.swift; sourceTree = "<group>"; };
+		4CE1588C1F55DDFC0037E287 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		4CF1F08D1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextFieldExtension.swift; sourceTree = "<group>"; };
 		4CF6646F1F46184200FF77FF /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		4CF69CAF1F49332D00F9B081 /* FindFriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendsController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		4C6187661F2DC237001245ED /* Snapchat Clone */ = {
 			isa = PBXGroup;
 			children = (
+				4CE1588B1F55DDEE0037E287 /* Views */,
 				4CF6646E1F46183200FF77FF /* Model */,
 				4C6187671F2DC237001245ED /* AppDelegate.swift */,
 				4C6187691F2DC237001245ED /* WelcomeController.swift */,
@@ -222,6 +225,14 @@
 				4CB8D1681F51B801007E21F6 /* VerticalScrollViewController.swift */,
 			);
 			name = "Container View";
+			sourceTree = "<group>";
+		};
+		4CE1588B1F55DDEE0037E287 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4CE1588C1F55DDFC0037E287 /* MessageCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		4CF4BCF41F4268FB003CD2BB /* Helpers */ = {
@@ -339,6 +350,7 @@
 				4CF69CB21F49758100F9B081 /* ContactsController.swift in Sources */,
 				4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */,
 				4CD608421F451F69003BBFFA /* ConfirmationController.swift in Sources */,
+				4CE1588D1F55DDFC0037E287 /* MessageCell.swift in Sources */,
 				4CF664701F46184200FF77FF /* CountryCode.swift in Sources */,
 				4CF69CB01F49332D00F9B081 /* FindFriendsController.swift in Sources */,
 				4CB8D1691F51B801007E21F6 /* VerticalScrollViewController.swift in Sources */,

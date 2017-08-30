@@ -82,7 +82,7 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(collectionView)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         view.addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        collectionView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 60, left: 0, bottom: 0, right: 0)
         setTopContainer()
     }
     
@@ -92,7 +92,7 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
         //: Light blue color
         view.backgroundColor = UIColor.rgb(red: 60, green: 178, blue: 226)
         setupViews()
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: MessagesController.cellId)
+        collectionView.register(MessageCell.self, forCellWithReuseIdentifier: MessagesController.cellId)
     }
     //: MARK: - CollectionView methods
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -102,16 +102,16 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
         return 20
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MessagesController.cellId, for: indexPath)
-        cell.backgroundColor = .red
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MessagesController.cellId, for: indexPath) as! MessageCell
+        //cell.backgroundColor = .red
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 50)
+        return CGSize(width: view.frame.width, height: 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+        return 0
     }
 }
