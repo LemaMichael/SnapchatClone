@@ -67,6 +67,24 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.bounces = false
         
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.initialContentOffset = scrollView.contentOffset
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if delegate != nil && !delegate!.outerScrollViewShouldScroll() && !directionLockDisabled {
+            let newOffset = CGPoint(x: self.initialContentOffset.x, y: self.initialContentOffset.y)
+            
+            // Setting the new offset to the scrollView makes it behave like a proper
+            // directional lock, that allows you to scroll in only one direction at any given time
+            self.scrollView!.setContentOffset(newOffset, animated:  false)
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         let view = (
             x: self.view.bounds.origin.x,
             y: self.view.bounds.origin.y,
@@ -118,20 +136,6 @@ class SnapContainerViewController: UIViewController, UIScrollViewDelegate {
         
         scrollView.contentOffset.x = middleVertScrollVc.view.frame.origin.x
         scrollView.delegate = self
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.initialContentOffset = scrollView.contentOffset
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if delegate != nil && !delegate!.outerScrollViewShouldScroll() && !directionLockDisabled {
-            let newOffset = CGPoint(x: self.initialContentOffset.x, y: self.initialContentOffset.y)
-            
-            // Setting the new offset to the scrollView makes it behave like a proper
-            // directional lock, that allows you to scroll in only one direction at any given time
-            self.scrollView!.setContentOffset(newOffset, animated:  false)
-        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
