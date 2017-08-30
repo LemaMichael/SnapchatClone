@@ -197,13 +197,13 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         cell.imageView.transform = CGAffineTransform(rotationAngle: randomDegree() *  .pi / 180)
         switch indexPath.row {
         case 0:
-            cell.contentView.roundedCorder(.topLeft)
+            cell.contentView.roundedCorner(.topLeft)
         case 2:
-            cell.contentView.roundedCorder(.topRight)
+            cell.contentView.roundedCorner(.topRight)
         case 6:
-            cell.contentView.roundedCorder(.bottomLeft)
+            cell.contentView.roundedCorner(.bottomLeft)
         case 8:
-            cell.contentView.roundedCorder(.bottomRight)
+            cell.contentView.roundedCorner(.bottomRight)
         default: break
         }
         return cell

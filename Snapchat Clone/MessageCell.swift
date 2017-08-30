@@ -56,6 +56,12 @@ class MessageCell: UICollectionViewCell {
         return label
     }()
     
+    override var isHighlighted: Bool {
+        didSet {
+            self.contentView.backgroundColor = isHighlighted ? UIColor.rgb(red: 238, green: 238, blue: 238) : .white
+        }
+    }
+    
     func setupViews() {
         addSubview(statusView)
         addSubview(borderView)

@@ -103,7 +103,12 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MessagesController.cellId, for: indexPath) as! MessageCell
-        //cell.backgroundColor = .red
+        if indexPath.item == 0 {
+            cell.roundedCellCorners([.topLeft, .topRight])
+        } else {
+            //: Issue with cell recycling where other cells were rounded
+            cell.layer.mask = nil
+        }
         return cell
     }
     
