@@ -39,12 +39,12 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didTake photo: UIImage) {
         if !captureButtonTapped {
+            captureButtonTapped = true
             let newVC = PhotoViewController(image: photo)
             self.present(newVC, animated: true, completion: nil)
-            captureButtonTapped = true
         }
     }
-    
+    //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         captureButtonTapped = false
