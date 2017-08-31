@@ -20,8 +20,8 @@ class MessageCell: UICollectionViewCell {
     
     let statusView: UIImageView = {
         let statusView = UIImageView()
-        statusView.image = UIImage(named: "New Chat")?.withRenderingMode(.alwaysTemplate)
-        statusView.tintColor = .red
+        statusView.image = UIImage(named: "Opened Sent")?.withRenderingMode(.alwaysTemplate)
+        statusView.tintColor = UIColor.rgb(red: 14, green: 173, blue: 255)
         statusView.contentMode = .scaleAspectFit
         return statusView
     }()
