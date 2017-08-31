@@ -8,12 +8,20 @@
 
 import Foundation
 import UIKit
+import SwiftyCam
 
-class CameraController: UIViewController {
+class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        pinchToZoom = false
+        swipeToZoom = false
+        swipeToZoomInverted = false
+        tapToFocus = false
+        shouldUseDeviceOrientation = false
+
+
     }
     
 }

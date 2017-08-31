@@ -6,6 +6,5 @@ target 'Snapchat Clone' do
   use_frameworks!
 
   # Pods for Snapchat Clone
-pod "SwiftyCam"
 
 end

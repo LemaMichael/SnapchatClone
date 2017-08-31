@@ -7,96 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		015A8789A402F7BA75328686DC5A4576 /* Pods-Snapchat Clone-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 91D5C4B7B72EB54B284FCB7E139C4EE9 /* Pods-Snapchat Clone-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3B78CF7A0A15A27665DD826C6470529E /* SwiftyCamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1142CBED6622372D315746E5D725B1E /* SwiftyCamViewController.swift */; };
-		425F355626653E053C660F483CF8EF8F /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F787EEDE14A5EFCDCC911F70F08534F /* PreviewView.swift */; };
-		56C13968E49D48DB73DB807B7C9299BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		60C1D8B4D3EA5204B457703A207F03EF /* SwiftyCamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E29E40F6235AC4CFA8CF4A2109ADF7C /* SwiftyCamButton.swift */; };
-		6611A447BFE90C037B853AB746600331 /* SwiftyCam-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6480079F16B172BC91863C932BE8D2F7 /* SwiftyCam-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		722DEF6A022E546EBFC5F5BD42E3335B /* SwiftyCamViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CD94B353A3FC408FD1DDA00ED95410 /* SwiftyCamViewControllerDelegate.swift */; };
-		935D4F765C14CC5F2A27CF190C3CE553 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		99E3B804BFD2F6DF297E3E41EB0741A8 /* Pods-Snapchat Clone-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F413A37CD2F7D4B4A2B4338928626E97 /* Pods-Snapchat Clone-dummy.m */; };
-		A2E6A701D47EC72B3F34D224B2B1516B /* SwiftyCam-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F260082CD9E9D6306D7F71482C3CE01 /* SwiftyCam-dummy.m */; };
+		51BD35E4E20D4DA947DC9B2959A74ECF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		B4E1F36ED2EB5FE90B93AC7BBF774BDF /* Pods-Snapchat Clone-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 91D5C4B7B72EB54B284FCB7E139C4EE9 /* Pods-Snapchat Clone-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC37F317C441CC39AD2E842C114FC73D /* Pods-Snapchat Clone-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F413A37CD2F7D4B4A2B4338928626E97 /* Pods-Snapchat Clone-dummy.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C37AE199B8E6BF549F45BF62AC6A40E1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6E1EE2AB83B5FEB99E300AEDEFD12BB8;
-			remoteInfo = SwiftyCam;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		047575E10B71E41BEEAEB6D61C188FAC /* Pods_Snapchat_Clone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Snapchat_Clone.framework; path = "Pods-Snapchat Clone.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		12A52CCAF349B3131502F70E5D471684 /* Pods-Snapchat Clone-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Snapchat Clone-acknowledgements.plist"; sourceTree = "<group>"; };
-		3F260082CD9E9D6306D7F71482C3CE01 /* SwiftyCam-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyCam-dummy.m"; sourceTree = "<group>"; };
-		4A11E64F959EAA086856E03B6D50FB92 /* SwiftyCam.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyCam.xcconfig; sourceTree = "<group>"; };
 		5C8C1A6CF591DB5ADF0D2883EB1FB220 /* Pods-Snapchat Clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snapchat Clone.release.xcconfig"; sourceTree = "<group>"; };
-		6480079F16B172BC91863C932BE8D2F7 /* SwiftyCam-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyCam-umbrella.h"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		78E3C3E14E1E1029F5660ABCE10F6957 /* Pods-Snapchat Clone.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Snapchat Clone.modulemap"; sourceTree = "<group>"; };
-		7B1A3F4DB5FBFABAF5C70AF5B6B0D04C /* SwiftyCam.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftyCam.modulemap; sourceTree = "<group>"; };
 		7C396F6BFAB76222BCEFB1EF8756C48E /* Pods-Snapchat Clone-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snapchat Clone-frameworks.sh"; sourceTree = "<group>"; };
-		7E29E40F6235AC4CFA8CF4A2109ADF7C /* SwiftyCamButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyCamButton.swift; path = Source/SwiftyCamButton.swift; sourceTree = "<group>"; };
 		8305C9845598AC2A86D3594B8A4B5B2C /* Pods-Snapchat Clone-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snapchat Clone-resources.sh"; sourceTree = "<group>"; };
-		8A0C0196646E38254EDE39AADC040792 /* SwiftyCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyCam.framework; path = SwiftyCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A580282FE8C6ACB0CF326D55341D67B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C27E7DDD433B3EEAF1D464736CB018F /* Pods-Snapchat Clone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snapchat Clone.debug.xcconfig"; sourceTree = "<group>"; };
-		8F787EEDE14A5EFCDCC911F70F08534F /* PreviewView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreviewView.swift; path = Source/PreviewView.swift; sourceTree = "<group>"; };
 		91D5C4B7B72EB54B284FCB7E139C4EE9 /* Pods-Snapchat Clone-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Snapchat Clone-umbrella.h"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		99CD94B353A3FC408FD1DDA00ED95410 /* SwiftyCamViewControllerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyCamViewControllerDelegate.swift; path = Source/SwiftyCamViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9DEE3F666B35209FD028D4D9B70D8956 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B1142CBED6622372D315746E5D725B1E /* SwiftyCamViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyCamViewController.swift; path = Source/SwiftyCamViewController.swift; sourceTree = "<group>"; };
-		B2CE3DC3C379CA2D649EF17291B506A6 /* SwiftyCam-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyCam-prefix.pch"; sourceTree = "<group>"; };
+		D75DEF9D5FF6FA3524EA9505D117B16F /* Pods_Snapchat_Clone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Snapchat_Clone.framework; path = "Pods-Snapchat Clone.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F413A37CD2F7D4B4A2B4338928626E97 /* Pods-Snapchat Clone-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snapchat Clone-dummy.m"; sourceTree = "<group>"; };
 		F9B3C52E37667E227837B6792E10E66F /* Pods-Snapchat Clone-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Snapchat Clone-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		07902E346ECB4ECEB9B506C5DEB99F38 /* Frameworks */ = {
+		DE81E4233029C098B5E4024A964319B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				935D4F765C14CC5F2A27CF190C3CE553 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D99B8D980F6E58E32620F45C1D751A79 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				56C13968E49D48DB73DB807B7C9299BA /* Foundation.framework in Frameworks */,
+				51BD35E4E20D4DA947DC9B2959A74ECF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0AAB137789309075370324EFADEA4FFD /* SwiftyCam */ = {
-			isa = PBXGroup;
-			children = (
-				8F787EEDE14A5EFCDCC911F70F08534F /* PreviewView.swift */,
-				7E29E40F6235AC4CFA8CF4A2109ADF7C /* SwiftyCamButton.swift */,
-				B1142CBED6622372D315746E5D725B1E /* SwiftyCamViewController.swift */,
-				99CD94B353A3FC408FD1DDA00ED95410 /* SwiftyCamViewControllerDelegate.swift */,
-				83574DFCF9BBF7F96E7560A429B5EF23 /* Support Files */,
-			);
-			name = SwiftyCam;
-			path = SwiftyCam;
-			sourceTree = "<group>";
-		};
-		0B908D219F50293D5D6C12BD5B2B02E5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0AAB137789309075370324EFADEA4FFD /* SwiftyCam */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		2A3D44F6C8FA76CA78762E6BA5034192 /* Pods-Snapchat Clone */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,24 +63,17 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				0B908D219F50293D5D6C12BD5B2B02E5 /* Pods */,
-				FF8CF60CBCA3943878C3B190FC35B035 /* Products */,
+				A90AF49EE839D5BE1BB8F64EC1D9759D /* Products */,
 				AAEDE846AB6757C351B1A65B6180FFA1 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		83574DFCF9BBF7F96E7560A429B5EF23 /* Support Files */ = {
+		A90AF49EE839D5BE1BB8F64EC1D9759D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8A580282FE8C6ACB0CF326D55341D67B /* Info.plist */,
-				7B1A3F4DB5FBFABAF5C70AF5B6B0D04C /* SwiftyCam.modulemap */,
-				4A11E64F959EAA086856E03B6D50FB92 /* SwiftyCam.xcconfig */,
-				3F260082CD9E9D6306D7F71482C3CE01 /* SwiftyCam-dummy.m */,
-				B2CE3DC3C379CA2D649EF17291B506A6 /* SwiftyCam-prefix.pch */,
-				6480079F16B172BC91863C932BE8D2F7 /* SwiftyCam-umbrella.h */,
+				D75DEF9D5FF6FA3524EA9505D117B16F /* Pods_Snapchat_Clone.framework */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/SwiftyCam";
+			name = Products;
 			sourceTree = "<group>";
 		};
 		AAEDE846AB6757C351B1A65B6180FFA1 /* Targets Support Files */ = {
@@ -164,70 +100,35 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		FF8CF60CBCA3943878C3B190FC35B035 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				047575E10B71E41BEEAEB6D61C188FAC /* Pods_Snapchat_Clone.framework */,
-				8A0C0196646E38254EDE39AADC040792 /* SwiftyCam.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		C295AA5DACB6F1A1AA5917D8451FF20F /* Headers */ = {
+		7990620BD74EA8F025F9C9F0A720716D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				015A8789A402F7BA75328686DC5A4576 /* Pods-Snapchat Clone-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DD48FA08EF7CDFBDB5F5C7097D209D13 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6611A447BFE90C037B853AB746600331 /* SwiftyCam-umbrella.h in Headers */,
+				B4E1F36ED2EB5FE90B93AC7BBF774BDF /* Pods-Snapchat Clone-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6E1EE2AB83B5FEB99E300AEDEFD12BB8 /* SwiftyCam */ = {
+		D1CBA1F37A5E605896E0A87EDA2B57CF /* Pods-Snapchat Clone */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF15B900F6128EFAE53AB7D0F5FE4E9D /* Build configuration list for PBXNativeTarget "SwiftyCam" */;
+			buildConfigurationList = B759248072E3EF59E52778B31BEB5803 /* Build configuration list for PBXNativeTarget "Pods-Snapchat Clone" */;
 			buildPhases = (
-				4A7BA82A66ACCE3F7DA9043596699EF8 /* Sources */,
-				D99B8D980F6E58E32620F45C1D751A79 /* Frameworks */,
-				DD48FA08EF7CDFBDB5F5C7097D209D13 /* Headers */,
+				E1D7D6BFEC5D88DB75784AED660142E4 /* Sources */,
+				DE81E4233029C098B5E4024A964319B9 /* Frameworks */,
+				7990620BD74EA8F025F9C9F0A720716D /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			name = SwiftyCam;
-			productName = SwiftyCam;
-			productReference = 8A0C0196646E38254EDE39AADC040792 /* SwiftyCam.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		ABD049F857A4FF285A6B4D439520C348 /* Pods-Snapchat Clone */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A44B2DC9C598C71D658D3FFB77088DFC /* Build configuration list for PBXNativeTarget "Pods-Snapchat Clone" */;
-			buildPhases = (
-				02090B14810C64296229B5B41FF437FF /* Sources */,
-				07902E346ECB4ECEB9B506C5DEB99F38 /* Frameworks */,
-				C295AA5DACB6F1A1AA5917D8451FF20F /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8A8EE2A681B7F7154248504CD31C7070 /* PBXTargetDependency */,
 			);
 			name = "Pods-Snapchat Clone";
 			productName = "Pods-Snapchat Clone";
-			productReference = 047575E10B71E41BEEAEB6D61C188FAC /* Pods_Snapchat_Clone.framework */;
+			productReference = D75DEF9D5FF6FA3524EA9505D117B16F /* Pods_Snapchat_Clone.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -247,52 +148,30 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = FF8CF60CBCA3943878C3B190FC35B035 /* Products */;
+			productRefGroup = A90AF49EE839D5BE1BB8F64EC1D9759D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ABD049F857A4FF285A6B4D439520C348 /* Pods-Snapchat Clone */,
-				6E1EE2AB83B5FEB99E300AEDEFD12BB8 /* SwiftyCam */,
+				D1CBA1F37A5E605896E0A87EDA2B57CF /* Pods-Snapchat Clone */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		02090B14810C64296229B5B41FF437FF /* Sources */ = {
+		E1D7D6BFEC5D88DB75784AED660142E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99E3B804BFD2F6DF297E3E41EB0741A8 /* Pods-Snapchat Clone-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A7BA82A66ACCE3F7DA9043596699EF8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				425F355626653E053C660F483CF8EF8F /* PreviewView.swift in Sources */,
-				A2E6A701D47EC72B3F34D224B2B1516B /* SwiftyCam-dummy.m in Sources */,
-				60C1D8B4D3EA5204B457703A207F03EF /* SwiftyCamButton.swift in Sources */,
-				3B78CF7A0A15A27665DD826C6470529E /* SwiftyCamViewController.swift in Sources */,
-				722DEF6A022E546EBFC5F5BD42E3335B /* SwiftyCamViewControllerDelegate.swift in Sources */,
+				BC37F317C441CC39AD2E842C114FC73D /* Pods-Snapchat Clone-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		8A8EE2A681B7F7154248504CD31C7070 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftyCam;
-			target = 6E1EE2AB83B5FEB99E300AEDEFD12BB8 /* SwiftyCam */;
-			targetProxy = C37AE199B8E6BF549F45BF62AC6A40E1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		4DA451949CA703A1890B67F088B7988E /* Debug */ = {
+		257E20FC8174C4DE541FE4A9DFBDFEFA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A11E64F959EAA086856E03B6D50FB92 /* SwiftyCam.xcconfig */;
+			baseConfigurationReference = 8C27E7DDD433B3EEAF1D464736CB018F /* Pods-Snapchat Clone.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -306,26 +185,63 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyCam/SwiftyCam-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyCam/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-Snapchat Clone/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftyCam/SwiftyCam.modulemap";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Snapchat Clone/Pods-Snapchat Clone.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SwiftyCam;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Snapchat_Clone;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		643C76AA582046977B7877822ED7A258 /* Debug */ = {
+		3A55751368DE64C2F374CD9615DCA7F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C8C1A6CF591DB5ADF0D2883EB1FB220 /* Pods-Snapchat Clone.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Snapchat Clone/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Snapchat Clone/Pods-Snapchat Clone.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Snapchat_Clone;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9BFC9E4A7AAD7A607ACE06D95A401A5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -369,46 +285,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Debug;
-		};
-		710484FDC38D59E9DDACD4C53674684A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C27E7DDD433B3EEAF1D464736CB018F /* Pods-Snapchat Clone.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Snapchat Clone/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Snapchat Clone/Pods-Snapchat Clone.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Snapchat_Clone;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
@@ -456,104 +334,23 @@
 			};
 			name = Release;
 		};
-		ECD187C0D111A9D2183C0CAA5E8AFB2A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A11E64F959EAA086856E03B6D50FB92 /* SwiftyCam.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyCam/SwiftyCam-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyCam/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftyCam/SwiftyCam.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SwiftyCam;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		FD0C2DA9FEE523EE91321158D5775579 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C8C1A6CF591DB5ADF0D2883EB1FB220 /* Pods-Snapchat Clone.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Snapchat Clone/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Snapchat Clone/Pods-Snapchat Clone.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Snapchat_Clone;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				643C76AA582046977B7877822ED7A258 /* Debug */,
+				9BFC9E4A7AAD7A607ACE06D95A401A5A /* Debug */,
 				C03B8870130C98D1B02B59D003687524 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A44B2DC9C598C71D658D3FFB77088DFC /* Build configuration list for PBXNativeTarget "Pods-Snapchat Clone" */ = {
+		B759248072E3EF59E52778B31BEB5803 /* Build configuration list for PBXNativeTarget "Pods-Snapchat Clone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				710484FDC38D59E9DDACD4C53674684A /* Debug */,
-				FD0C2DA9FEE523EE91321158D5775579 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DF15B900F6128EFAE53AB7D0F5FE4E9D /* Build configuration list for PBXNativeTarget "SwiftyCam" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4DA451949CA703A1890B67F088B7988E /* Debug */,
-				ECD187C0D111A9D2183C0CAA5E8AFB2A /* Release */,
+				257E20FC8174C4DE541FE4A9DFBDFEFA /* Debug */,
+				3A55751368DE64C2F374CD9615DCA7F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
