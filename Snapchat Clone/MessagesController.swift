@@ -54,7 +54,7 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
         cv.backgroundColor = .clear
         cv.delegate = self
         cv.dataSource = self
-        //        cv.showsVerticalScrollIndicator = false
+        cv.showsVerticalScrollIndicator = false
         return cv
     }()
     
@@ -91,7 +91,7 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(collectionView)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         view.addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        collectionView.contentInset = UIEdgeInsets(top: 60, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 75, left: 0, bottom: 0, right: 0)
         setTopContainer()
     }
     
@@ -130,6 +130,7 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
+        //: TODO: Select a message and display conversation
     }
     
     //: MARK: - scrollViewDidScroll
