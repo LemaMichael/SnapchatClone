@@ -11,9 +11,10 @@ import UIKit
 import SwiftyCam
 
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate {
+    private var captureButtonTapped = false
     
     lazy var captureButton: SwiftyCamButton = {
-        let button = SwiftyCamButton(frame: .zero)
+        let button = SwiftyCamButton(frame: CGRect.zero)
         button.delegate = self
         let circleImage = UIImage(named: "Empty Circle")?.withRenderingMode(.alwaysOriginal)
         button.setImage(circleImage, for: .normal)
@@ -37,9 +38,15 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     }
     
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didTake photo: UIImage) {
-        let newVC = PhotoViewController(image: photo)
-        self.present(newVC, animated: true, completion: nil)
-        
+        if !captureButtonTapped {
+            let newVC = PhotoViewController(image: photo)
+            self.present(newVC, animated: true, completion: nil)
+            captureButtonTapped = true
+        }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        captureButtonTapped = false
+    }
 }
