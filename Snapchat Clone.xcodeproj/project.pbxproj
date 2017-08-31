@@ -58,6 +58,7 @@
 		4CF664701F46184200FF77FF /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF6646F1F46184200FF77FF /* CountryCode.swift */; };
 		4CF69CB01F49332D00F9B081 /* FindFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF69CAF1F49332D00F9B081 /* FindFriendsController.swift */; };
 		4CF69CB21F49758100F9B081 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF69CB11F49758100F9B081 /* ContactsController.swift */; };
+		4CFE904F1F58BDC500E2751F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE904E1F58BDC500E2751F /* VideoViewController.swift */; };
 		8CDD035D32555AEFA979F9EB /* Pods_Snapchat_Clone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963066B1FDC4FA12FAE03628 /* Pods_Snapchat_Clone.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +118,7 @@
 		4CF6646F1F46184200FF77FF /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		4CF69CAF1F49332D00F9B081 /* FindFriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendsController.swift; sourceTree = "<group>"; };
 		4CF69CB11F49758100F9B081 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
+		4CFE904E1F58BDC500E2751F /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		7969D78098294163B8B87251 /* Pods-Snapchat Clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapchat Clone.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snapchat Clone/Pods-Snapchat Clone.release.xcconfig"; sourceTree = "<group>"; };
 		963066B1FDC4FA12FAE03628 /* Pods_Snapchat_Clone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snapchat_Clone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -219,6 +221,7 @@
 				4CB8D16A1F51B972007E21F6 /* ProfileController.swift */,
 				4CB8D16C1F51B9B0007E21F6 /* MemoriesController.swift */,
 				4C84E5B21F57BB7100A88AE4 /* PhotoViewController.swift */,
+				4CFE904E1F58BDC500E2751F /* VideoViewController.swift */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 			files = (
 				4C84E5AB1F579F9800A88AE4 /* GhostCell.swift in Sources */,
 				4CB7E4161F43DF5200681327 /* EmailController.swift in Sources */,
+				4CFE904F1F58BDC500E2751F /* VideoViewController.swift in Sources */,
 				4CB8BC831F330F5200EA3F89 /* ConstraintsExtension.swift in Sources */,
 				4C046B1C1F4A6BCF0087DF37 /* TextViewMode.swift in Sources */,
 				4C84E5B31F57BB7100A88AE4 /* PhotoViewController.swift in Sources */,
