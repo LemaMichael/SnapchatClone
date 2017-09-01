@@ -13,6 +13,7 @@ import AVFoundation
 
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate {
     private var captureButtonTapped = false
+    static var isInitalLaunch = true
     
     let containerView: UIView = {
         let container = UIView()
@@ -56,7 +57,27 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         button.addTarget(self, action: #selector(toggleCameraSwitch), for: .touchUpInside)
         return button
     }()
-    
+    lazy var instructionsView: UIView = {
+        let instructionsView = UIView()
+        instructionsView.backgroundColor = UIColor.black.withAlphaComponent(0.65)
+        return instructionsView
+    }()
+    lazy var instructionsLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = .white
+        let message = "Tap to take a photo. Hold to\ntake a video."
+        let tapRange = (message as NSString).range(of: "Tap")
+        let holdRange = (message as NSString).range(of: "Hold")
+        let attributedString = NSMutableAttributedString(string: message)
+        let yellowColor = UIColor.rgb(red: 252, green: 177, blue: 0)
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: yellowColor, range: tapRange)
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: yellowColor, range: holdRange)
+        label.attributedText = attributedString
+        label.font = UIFont(name: "Avenir-Medium", size: 19.5)
+        return label
+    }()
     lazy var captureButton: SwiftyCamButton = {
         let button = SwiftyCamButton(frame: CGRect.zero)
         button.delegate = self
@@ -70,6 +91,7 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         button.adjustsImageWhenHighlighted = false
         return button
     }()
+    
     //: MARK: - Button actions
     func handleSearchButton() {
         print("handleSearchButton was tapped!")
@@ -97,13 +119,28 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         setupViews()
     }
     
-    func changeButtonImage(){
+    func changeButtonImage() {
         guard let currentImage = switchCameraButton.currentImage else { return }
         if currentImage.isEqual(#imageLiteral(resourceName: "Switch On")){
             switchCameraButton.setImage(#imageLiteral(resourceName: "Switch Off"), for: UIControlState())
         } else {
             switchCameraButton.setImage(#imageLiteral(resourceName: "Switch On"), for: UIControlState())
         }
+    }
+    func removeInstructionsView() {
+        guard CameraController.isInitalLaunch == true else { return }
+        CameraController.isInitalLaunch = false
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
+            self.instructionsView.transform = CGAffineTransform(scaleX: 1.08, y: 1.08)
+        }, completion: { (success) in
+            UIView.animate(withDuration: 0.20, delay: 0.5, options: .curveEaseInOut, animations: {
+                self.instructionsView.alpha = 0.0
+                self.instructionsView.transform = CGAffineTransform(translationX: 0.6, y: 0.6)
+            }, completion: { (success) in
+                //: Will remove any view in the subtree (instructionsLabel)
+                self.instructionsView.removeFromSuperview()
+            })
+        })
     }
     
     fileprivate func setupViews() {
@@ -141,23 +178,38 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         //: BottomView constraints
         containerView.addConstraintsWithFormat(format: "H:|[v0]|", views: bottomView)
         containerView.addConstraintsWithFormat(format: "V:[v0(0.25)]|", views: bottomView)
-
+        
+        if CameraController.isInitalLaunch {
+            view.addSubview(instructionsView)
+            instructionsView.addSubview(instructionsLabel)
+            //: instructionsView constraints
+            view.addConstraintsWithFormat(format: "H:|[v0]|", views: instructionsView)
+            view.addConstraintsWithFormat(format: "V:[v0(80)]", views: instructionsView)
+            view.addConstraint(NSLayoutConstraint(item: instructionsView, attribute: .bottom, relatedBy: .equal, toItem: captureButton, attribute: .top, multiplier: 1, constant: -24))
+            //: Label constraints
+            instructionsView.addConstraintsWithFormat(format: "V:|[v0]|", views: instructionsLabel)
+            instructionsView.addConstraintsWithFormat(format: "H:[v0(280)]", views: instructionsLabel)
+            instructionsView.addConstraint(NSLayoutConstraint(item: instructionsLabel, attribute: .centerX, relatedBy: .equal, toItem: instructionsView, attribute: .centerX, multiplier: 1, constant: 0))
+        }
     }
     
     //: MARK: - swiftyCam methods
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didTake photo: UIImage) {
+        print("Did take photo")
+        removeInstructionsView()
         if !captureButtonTapped {
             captureButtonTapped = true
             let newVC = PhotoViewController(image: photo)
             /*
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                self.present(newVC, animated: false, completion: nil)
-            }*/
+             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+             self.present(newVC, animated: false, completion: nil)
+             }*/
             self.present(newVC, animated: true, completion: nil)
         }
     }
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didBeginRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("Did Begin Recording")
+        removeInstructionsView()
         growButtonAnimation()
         UIView.animate(withDuration: 0.15, animations: {
             self.containerView.alpha = 0.0
@@ -204,14 +256,14 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         UIView.animate(withDuration: 0.78,
                        delay: 0,
                        //: The closer the value is to zero, the greater increase in oscillation
-                       usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 1.0,
-                       options: [.autoreverse, .repeat],
-                       animations: {
-                        self.captureButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+            usingSpringWithDamping: 0.5,
+            initialSpringVelocity: 1.0,
+            options: [.autoreverse, .repeat],
+            animations: {
+                self.captureButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
         },
-                       completion: { (success) in
-                        self.captureButton.transform = .identity
+            completion: { (success) in
+                self.captureButton.transform = .identity
         })
     }
     func stopButtonAnimation() {
