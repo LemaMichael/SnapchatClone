@@ -14,6 +14,39 @@ import AVFoundation
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate {
     private var captureButtonTapped = false
     
+    let containerView: UIView = {
+        let container = UIView()
+        container.backgroundColor = .clear
+        return container
+    }()
+    let mojiImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Emoji")?.withRenderingMode(.alwaysOriginal)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    let searchButton: UIButton = {
+        let button = UIButton(type: .system)
+        let searchImage = UIImage(named: "Search")?.withRenderingMode(.alwaysTemplate)
+        button.tintColor = UIColor.white
+        button.setImage(searchImage, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Medium", size: 20)
+        button.setTitle(" Search", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(handleSearchButton), for: .touchUpInside)
+        return button
+    }()
+    let flashButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let flashOff = #imageLiteral(resourceName: "Flash Off").withRenderingMode(.alwaysOriginal)
+        button.setImage(flashOff, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        //: Disable button highlight when tapped.
+        button.adjustsImageWhenHighlighted = false
+        button.addTarget(self, action: #selector(toggleFlashTapped), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var captureButton: SwiftyCamButton = {
         let button = SwiftyCamButton(frame: CGRect.zero)
         button.delegate = self
@@ -27,7 +60,18 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         button.adjustsImageWhenHighlighted = false
         return button
     }()
-    
+    //: MARK: - Button actions
+    func handleSearchButton() {
+        print("handleSearchButton was tapped!")
+    }
+    func toggleFlashTapped() {
+        flashEnabled = !flashEnabled
+        if flashEnabled == true {
+            flashButton.setImage(#imageLiteral(resourceName: "Flash On"), for: UIControlState())
+        } else {
+            flashButton.setImage(#imageLiteral(resourceName: "Flash Off"), for: UIControlState())
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         cameraDelegate = self
@@ -41,9 +85,35 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     
     fileprivate func setupViews() {
         view.addSubview(captureButton)
+        view.addSubview(containerView)
+        //: Capture Button Constraints
         view.addConstraintsWithFormat(format: "H:[v0(80)]", views: captureButton)
         view.addConstraintsWithFormat(format: "V:[v0(80)]-57-|", views: captureButton)
         view.addConstraint(NSLayoutConstraint(item: captureButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0))
+        //: ContainerView constraints
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: containerView)
+        view.addConstraintsWithFormat(format: "V:|-22-[v0(50)]", views: containerView)
+        
+        containerView.addSubview(mojiImageView)
+        containerView.addSubview(searchButton)
+        containerView.addSubview(flashButton)
+        
+        let bottomView = UIView()
+        bottomView.backgroundColor = UIColor(white: 0.7, alpha: 0.4)
+        containerView.addSubview(bottomView)
+        
+        containerView.addConstraintsWithFormat(format: "H:|-11-[v0(27)]-10-[v1]-[v2(21)]-11-|", views: mojiImageView, searchButton, flashButton)
+        containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: mojiImageView)
+        containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: searchButton)
+        
+        //: Flash Button vertical constraints
+        containerView.addConstraintsWithFormat(format: "V:[v0(21)]", views: flashButton)
+        containerView.addConstraint(NSLayoutConstraint(item: flashButton, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1, constant: 0))
+        
+        //: BottomView constraints
+        containerView.addConstraintsWithFormat(format: "H:|[v0]|", views: bottomView)
+        containerView.addConstraintsWithFormat(format: "V:[v0(0.25)]|", views: bottomView)
+
     }
     
     //: MARK: - swiftyCam methods
@@ -87,14 +157,12 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
             })
         })
     }
-    
     //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         captureButtonTapped = false
         print(123)
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }

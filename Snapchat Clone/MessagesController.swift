@@ -48,7 +48,6 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
         button.addTarget(self, action: #selector(handleChatButton), for: .touchUpInside)
         return button
     }()
-    
     lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.backgroundColor = .clear
