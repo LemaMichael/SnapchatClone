@@ -158,10 +158,20 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     }
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didBeginRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("Did Begin Recording")
+        UIView.animate(withDuration: 0.25, animations: {
+            self.containerView.alpha = 0.0
+            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+            statusBar?.alpha = 0.0
+        })
 
     }
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didFinishRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("Did finish Recording")
+        UIView.animate(withDuration: 0.25, animations: {
+            self.containerView.alpha = 1.0
+            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+            statusBar?.alpha = 1.0
+        })
     }
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didFinishProcessVideoAt url: URL) {
         let newVC = VideoViewController(videoURL: url)
@@ -192,7 +202,7 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         captureButtonTapped = false
-        print(123)
+        print("viewDidAppear")
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
