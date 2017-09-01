@@ -13,6 +13,7 @@ import AVFoundation
 
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate {
     private var captureButtonTapped = false
+    var isFrontCamEnabled = false
     
     let containerView: UIView = {
         let container = UIView()
@@ -46,6 +47,16 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         button.addTarget(self, action: #selector(toggleFlashTapped), for: .touchUpInside)
         return button
     }()
+    let switchCameraButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let frontCam = #imageLiteral(resourceName: "Switch Off").withRenderingMode(.alwaysOriginal)
+        button.setImage(frontCam, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        //: Disable button highlight when tapped.
+        button.adjustsImageWhenHighlighted = false
+        button.addTarget(self, action: #selector(toggleCameraSwitch), for: .touchUpInside)
+        return button
+    }()
     
     lazy var captureButton: SwiftyCamButton = {
         let button = SwiftyCamButton(frame: CGRect.zero)
@@ -72,6 +83,15 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
             flashButton.setImage(#imageLiteral(resourceName: "Flash Off"), for: UIControlState())
         }
     }
+    func toggleCameraSwitch(){
+        switchCamera()
+        isFrontCamEnabled = !isFrontCamEnabled
+        if isFrontCamEnabled {
+            switchCameraButton.setImage(#imageLiteral(resourceName: "Switch On"), for: UIControlState())
+        } else {
+            switchCameraButton.setImage(#imageLiteral(resourceName: "Switch Off"), for: UIControlState())
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         cameraDelegate = self
@@ -81,6 +101,21 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         audioEnabled = true
         
         setupViews()
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+//        tap.numberOfTapsRequired = 2
+//        view.addGestureRecognizer(tap)
+        
+    }
+    
+    func doubleTapped(){
+        print("iamhere")
+        if switchCameraButton.currentImage!.isEqual(#imageLiteral(resourceName: "Switch On")){
+            print("yeah")
+            switchCameraButton.setImage(#imageLiteral(resourceName: "Switch Off"), for: UIControlState())
+        } else {
+            print("no")
+            switchCameraButton.setImage(#imageLiteral(resourceName: "Switch On"), for: UIControlState())
+        }
     }
     
     fileprivate func setupViews() {
@@ -97,18 +132,23 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         containerView.addSubview(mojiImageView)
         containerView.addSubview(searchButton)
         containerView.addSubview(flashButton)
+        containerView.addSubview(switchCameraButton)
         
         let bottomView = UIView()
         bottomView.backgroundColor = UIColor(white: 0.7, alpha: 0.4)
         containerView.addSubview(bottomView)
         
-        containerView.addConstraintsWithFormat(format: "H:|-11-[v0(27)]-10-[v1]-[v2(21)]-11-|", views: mojiImageView, searchButton, flashButton)
+        containerView.addConstraintsWithFormat(format: "H:|-11-[v0(27)]-10-[v1]-[v2(21)]-25-[v3(24)]-11-|", views: mojiImageView, searchButton, flashButton, switchCameraButton)
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: mojiImageView)
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: searchButton)
         
         //: Flash Button vertical constraints
         containerView.addConstraintsWithFormat(format: "V:[v0(21)]", views: flashButton)
         containerView.addConstraint(NSLayoutConstraint(item: flashButton, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1, constant: 0))
+        
+        //: switchCameraButton vertical constraints
+        containerView.addConstraintsWithFormat(format: "V:[v0(24)]", views: switchCameraButton)
+        containerView.addConstraint(NSLayoutConstraint(item: switchCameraButton, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1, constant: 0))
         
         //: BottomView constraints
         containerView.addConstraintsWithFormat(format: "H:|[v0]|", views: bottomView)
