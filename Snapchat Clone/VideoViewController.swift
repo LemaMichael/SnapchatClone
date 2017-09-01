@@ -10,10 +10,8 @@ import UIKit
 import AVFoundation
 import AVKit
 
-
-
 class VideoViewController: UIViewController {
-    
+    private var hasDownloadedVideo = false
     private var videoURL: URL
     var player: AVPlayer?
     var playerController: AVPlayerViewController?
@@ -40,6 +38,7 @@ class VideoViewController: UIViewController {
         button.setImage(downloadImage, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(handleDownload), for: .touchUpInside)
+        button.adjustsImageWhenHighlighted = false
         return button
     }()
     
@@ -52,41 +51,50 @@ class VideoViewController: UIViewController {
         }
     }
     func handleDownload() {
-        UISaveVideoAtPathToSavedPhotosAlbum(videoURL.path, self, #selector(video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+        if !hasDownloadedVideo {
+            UISaveVideoAtPathToSavedPhotosAlbum(videoURL.path, self, #selector(video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+        }
     }
     
     func video(videoPath: NSString, didFinishSavingWithError error: NSError?, contextInfo info: AnyObject) {
-        var title = "Success"
-        var message = "Video was saved"
-        if let _ = error {
-            title = "Error"
-            message = "Video failed to save"
+        if let error = error {
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
+            present(alert, animated: true)
+            hasDownloadedVideo = false
+        } else {
+            //: We have a success
+            let downloadedImage = #imageLiteral(resourceName: "Downloaded")
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn, animations: {
+                self.downloadButton.transform = CGAffineTransform(scaleX: 0.50, y: 0.50)
+            }, completion: { (_) in
+                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+                    self.downloadButton.transform = .identity
+                    self.downloadButton.setImage(downloadedImage, for: .normal)
+                }, completion: nil)
+            })
         }
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
     
-    
+    //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player!.currentItem)
     }
     
     func setupViews() {
-        //: AVPLAYER
+        //: AVPlayer setup
         player = AVPlayer(url: videoURL)
         playerController = AVPlayerViewController()
         guard player != nil && playerController != nil else {
             return
         }
         playerController!.showsPlaybackControls = false
-        
         playerController!.player = player!
         self.addChildViewController(playerController!)
         self.view.addSubview(playerController!.view)
         playerController!.view.frame = view.frame
-        NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player!.currentItem)
         
         view.addSubview(cancelButton)
         view.addSubview(downloadButton)
@@ -107,6 +115,7 @@ class VideoViewController: UIViewController {
         }
     }
     
+    //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         player?.play()

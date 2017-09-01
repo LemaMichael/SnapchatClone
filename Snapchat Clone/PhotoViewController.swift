@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class PhotoViewController: UIViewController {
+    private var hasDownloadedImage = false
+    
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -30,6 +32,7 @@ class PhotoViewController: UIViewController {
         button.setImage(downloadImage, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(handleDownload), for: .touchUpInside)
+        button.adjustsImageWhenHighlighted = false
         return button
     }()
     
@@ -65,36 +68,43 @@ class PhotoViewController: UIViewController {
         //: downloadButton Constraints
         view.addConstraintsWithFormat(format: "H:|-18-[v0(35)]", views: downloadButton)
         view.addConstraintsWithFormat(format: "V:[v0(35)]-18-|", views: downloadButton)
-
-        
     }
     
     //: Button actons
     func handleCancel() {
-        UIView.animate(withDuration: 0.30, delay: 0, options: [.curveLinear], animations: {
+        UIView.animate(withDuration: 0.30, delay: 0, options: [.curveEaseOut], animations: {
             self.cancelButton.transform = CGAffineTransform(scaleX: 1.50, y: 1.50)
         }) { (_) in
             self.dismiss(animated: false, completion: nil)
         }
     }
     func handleDownload() {
-        UIImageWriteToSavedPhotosAlbum(backgroundImageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        if !hasDownloadedImage {
+            UIImageWriteToSavedPhotosAlbum(backgroundImageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            hasDownloadedImage = true
+        }
     }
     
     func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Please allow Snapchat Clone access to your photo library", style: .default))
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
             present(alert, animated: true)
+            hasDownloadedImage = false
         } else {
-            let alert = UIAlertController(title: "Saved!", message: nil, preferredStyle: .alert)
-            present(alert, animated: true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                alert.dismiss(animated: false, completion: nil)
-            }
+            //: We have a success
+            let downloadedImage = #imageLiteral(resourceName: "Downloaded")
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn, animations: {
+                self.downloadButton.transform = CGAffineTransform(scaleX: 0.50, y: 0.50)
+            }, completion: { (_) in
+                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+                    self.downloadButton.transform = .identity
+                    self.downloadButton.setImage(downloadedImage, for: .normal)
+                }, completion: nil)
+            })
         }
     }
-
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
