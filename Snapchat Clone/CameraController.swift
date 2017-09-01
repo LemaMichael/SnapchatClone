@@ -36,6 +36,10 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         allowAutoRotate = true
         audioEnabled = true
         
+        setupViews()
+    }
+    
+    fileprivate func setupViews() {
         view.addSubview(captureButton)
         view.addConstraintsWithFormat(format: "H:[v0(80)]", views: captureButton)
         view.addConstraintsWithFormat(format: "V:[v0(80)]-57-|", views: captureButton)
@@ -54,19 +58,34 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
             self.present(newVC, animated: true, completion: nil)
         }
     }
-    
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didBeginRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("Did Begin Recording")
 
     }
-    
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didFinishRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("Did finish Recording")
     }
-    
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didFinishProcessVideoAt url: URL) {
         let newVC = VideoViewController(videoURL: url)
         self.present(newVC, animated: true, completion: nil)
+    }
+    func swiftyCam(_ swiftyCam: SwiftyCamViewController, didFocusAtPoint point: CGPoint) {
+        let focusView = UIImageView(image: #imageLiteral(resourceName: "Focus"))
+        focusView.center = point
+        focusView.alpha = 0.0
+        view.addSubview(focusView)
+        
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
+            focusView.alpha = 1.0
+            focusView.transform = CGAffineTransform(scaleX: 1.30, y: 1.30)
+        }, completion: { (success) in
+            UIView.animate(withDuration: 0.15, delay: 0.5, options: .curveEaseInOut, animations: {
+                focusView.alpha = 0.0
+                focusView.transform = CGAffineTransform(translationX: 0.6, y: 0.6)
+            }, completion: { (success) in
+                focusView.removeFromSuperview()
+            })
+        })
     }
     
     //: MARK: - viewDidAppear
