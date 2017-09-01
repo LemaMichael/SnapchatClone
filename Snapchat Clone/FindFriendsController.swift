@@ -86,6 +86,7 @@ class FindFriendsController: UIViewController {
     
     lazy var imagesStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: self.images)
+        stackView.contentMode = .scaleAspectFit
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
@@ -108,6 +109,9 @@ class FindFriendsController: UIViewController {
             self.present(MainController(), animated: false, completion: {
                 self.navigationController?.viewControllers = []
             })*/
+            UserDefaults.standard.setIsLoggedIn(value: true)
+            UserDefaults.standard.setIsFirstLaunch(value: true)
+            self.perform(#selector(self.showLoginController), with: nil, afterDelay: 0.01)
         }
         alert.addAction(friendsAction)
         alert.addAction(yesAction)

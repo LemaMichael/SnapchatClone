@@ -143,7 +143,6 @@ class VerificationController: UIViewController, UICollectionViewDelegate, UIColl
         //: TODO: REMOVE  && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count
         if validPass && selectedIndexPaths.count != 0 && count == selectedIndexPaths.count && notGhostImage + selectedIndexPaths.count == 9 {
             print("we are allowed to leave!")
-            self.navigationController?.popViewController(animated: false)
             self.navigationController?.pushViewController(FindFriendsController(), animated: false)
             //present(FindFriendsController(), animated: false, completion: nil)
         }  else if selectedIndexPaths.count != 0 {

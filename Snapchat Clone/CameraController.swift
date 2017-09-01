@@ -13,7 +13,6 @@ import AVFoundation
 
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate {
     private var captureButtonTapped = false
-    static var isInitalLaunch = true
     
     let containerView: UIView = {
         let container = UIView()
@@ -118,6 +117,9 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         
         setupViews()
     }
+    fileprivate func isFirstLaunch() -> Bool {
+        return UserDefaults.standard.isFirstLaunch()
+    }
     
     func changeButtonImage() {
         guard let currentImage = switchCameraButton.currentImage else { return }
@@ -128,8 +130,8 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         }
     }
     func removeInstructionsView() {
-        guard CameraController.isInitalLaunch == true else { return }
-        CameraController.isInitalLaunch = false
+        guard isFirstLaunch() == true else { return }
+        UserDefaults.standard.setIsFirstLaunch(value: false)
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
             self.instructionsView.transform = CGAffineTransform(scaleX: 1.08, y: 1.08)
         }, completion: { (success) in
@@ -179,7 +181,7 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         containerView.addConstraintsWithFormat(format: "H:|[v0]|", views: bottomView)
         containerView.addConstraintsWithFormat(format: "V:[v0(0.25)]|", views: bottomView)
         
-        if CameraController.isInitalLaunch {
+        if isFirstLaunch() {
             view.addSubview(instructionsView)
             instructionsView.addSubview(instructionsLabel)
             //: instructionsView constraints

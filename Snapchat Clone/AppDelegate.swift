@@ -31,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let top = ProfileController()
         let bottom = MemoriesController()
         let snapContainer = SnapContainerViewController.containerViewWith(left, middleVC: middle, rightVC: right, topVC: top, bottomVC: bottom)
-        window?.rootViewController = snapContainer
-        
+       // window?.rootViewController = snapContainer
+       window?.rootViewController = MainNavigationController()
         return true
     }
 

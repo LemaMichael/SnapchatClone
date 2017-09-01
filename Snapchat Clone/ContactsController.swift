@@ -92,6 +92,9 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
             /*self.present(MainController(), animated: false, completion: {
                 self.navigationController?.viewControllers = []
             }) */
+            UserDefaults.standard.setIsLoggedIn(value: true)
+            UserDefaults.standard.setIsFirstLaunch(value: true)
+            self.perform(#selector(self.showLoginController), with: nil, afterDelay: 0.01)
         }
         let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
         noAction.setValue(purpleButtonColor, forKey: "titleTextColor")

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4C046B1C1F4A6BCF0087DF37 /* TextViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C046B1B1F4A6BCF0087DF37 /* TextViewMode.swift */; };
 		4C06033D1F3ABE99001F17CC /* BirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06033C1F3ABE99001F17CC /* BirthdayController.swift */; };
+		4C090B871F59FD23000B30C9 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C090B861F59FD23000B30C9 /* UserDefaultsExtension.swift */; };
+		4C090B891F59FFFA000B30C9 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C090B881F59FFFA000B30C9 /* MainNavigationController.swift */; };
 		4C0E258B1F2DD2F100FB00B6 /* ringtone_bff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */; };
 		4C0E258C1F2DD2F100FB00B6 /* ringtone_full.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */; };
 		4C0E258D1F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25891F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a */; };
@@ -66,6 +68,8 @@
 		4501446081FC70936DCDF0F2 /* Pods-Snapchat Clone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapchat Clone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snapchat Clone/Pods-Snapchat Clone.debug.xcconfig"; sourceTree = "<group>"; };
 		4C046B1B1F4A6BCF0087DF37 /* TextViewMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewMode.swift; sourceTree = "<group>"; };
 		4C06033C1F3ABE99001F17CC /* BirthdayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdayController.swift; sourceTree = "<group>"; };
+		4C090B861F59FD23000B30C9 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		4C090B881F59FFFA000B30C9 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone_bff.mp3; sourceTree = "<group>"; };
 		4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone_full.mp3; sourceTree = "<group>"; };
 		4C0E25891F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ringtone_outgoing_bff.m4a; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 				4CE1588B1F55DDEE0037E287 /* Views */,
 				4CF6646E1F46183200FF77FF /* Model */,
 				4C6187671F2DC237001245ED /* AppDelegate.swift */,
+				4C090B881F59FFFA000B30C9 /* MainNavigationController.swift */,
 				4C6187691F2DC237001245ED /* WelcomeController.swift */,
 				4C5926171F3319BB0007480E /* Sign Up */,
 				4C62BAC41F4BC55E00981909 /* Main View */,
@@ -235,6 +240,7 @@
 				4C1848E71F40EB0A001DE8F9 /* Nav.ControllerExt.swift */,
 				4CCA9CAF1F47EA6000CAE3D8 /* RoundedCorner.swift */,
 				4C046B1B1F4A6BCF0087DF37 /* TextViewMode.swift */,
+				4C090B861F59FD23000B30C9 /* UserDefaultsExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -442,6 +448,7 @@
 				4CB7E4161F43DF5200681327 /* EmailController.swift in Sources */,
 				4CFE904F1F58BDC500E2751F /* VideoViewController.swift in Sources */,
 				4CB8BC831F330F5200EA3F89 /* ConstraintsExtension.swift in Sources */,
+				4C090B871F59FD23000B30C9 /* UserDefaultsExtension.swift in Sources */,
 				4C046B1C1F4A6BCF0087DF37 /* TextViewMode.swift in Sources */,
 				4C84E5B31F57BB7100A88AE4 /* PhotoViewController.swift in Sources */,
 				4CB7E4181F43DF7C00681327 /* PhoneController.swift in Sources */,
@@ -465,6 +472,7 @@
 				4CC57E3A1F45433C000F78EB /* CountryController.swift in Sources */,
 				4C56B5721F4C0677003C8F8D /* StoriesController.swift in Sources */,
 				4C5926191F3319E60007480E /* NameController.swift in Sources */,
+				4C090B891F59FFFA000B30C9 /* MainNavigationController.swift in Sources */,
 				4CB8D16B1F51B972007E21F6 /* ProfileController.swift in Sources */,
 				4C84E5AD1F579FC500A88AE4 /* ContactCell.swift in Sources */,
 				4C5163AB1F445811005A7AE9 /* EmailValidation.swift in Sources */,
