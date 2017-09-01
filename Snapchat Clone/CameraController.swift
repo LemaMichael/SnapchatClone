@@ -158,16 +158,17 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     }
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didBeginRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("Did Begin Recording")
-        UIView.animate(withDuration: 0.25, animations: {
+        growButtonAnimation()
+        UIView.animate(withDuration: 0.15, animations: {
             self.containerView.alpha = 0.0
             let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
             statusBar?.alpha = 0.0
         })
-
     }
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didFinishRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("Did finish Recording")
-        UIView.animate(withDuration: 0.25, animations: {
+        stopButtonAnimation()
+        UIView.animate(withDuration: 3.0, animations: {
             self.containerView.alpha = 1.0
             let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
             statusBar?.alpha = 1.0
@@ -198,6 +199,25 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didSwitchCameras camera: SwiftyCamViewController.CameraSelection) {
         changeButtonImage()
     }
+    
+    func growButtonAnimation() {
+        UIView.animate(withDuration: 0.78,
+                       delay: 0,
+                       //: The closer the value is to zero, the greater increase in oscillation
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 1.0,
+                       options: [.autoreverse, .repeat],
+                       animations: {
+                        self.captureButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+        },
+                       completion: { (success) in
+                        self.captureButton.transform = .identity
+        })
+    }
+    func stopButtonAnimation() {
+        captureButton.transform = .identity
+    }
+    
     //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
