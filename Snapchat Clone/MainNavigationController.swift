@@ -13,7 +13,6 @@ class MainNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //: Might do something here.....
         if isLoggedIn() {
             perform(#selector(showLoginController), with: nil, afterDelay: 0.01)
