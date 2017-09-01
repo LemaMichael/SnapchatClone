@@ -12,6 +12,7 @@ import AVKit
 
 class VideoViewController: UIViewController {
     private var hasDownloadedVideo = false
+    private var isMuted = false
     private var videoURL: URL
     var player: AVPlayer?
     var playerController: AVPlayerViewController?
@@ -41,6 +42,16 @@ class VideoViewController: UIViewController {
         button.adjustsImageWhenHighlighted = false
         return button
     }()
+    let muteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let muteImage = UIImage(named: "Unmute")?.withRenderingMode(.alwaysTemplate)
+        button.tintColor = .white
+        button.setImage(muteImage, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(handleSound), for: .touchUpInside)
+        button.adjustsImageWhenHighlighted = false
+        return button
+    }()
     
     //: MARK: - button Actions
     func handleCancel() {
@@ -51,8 +62,28 @@ class VideoViewController: UIViewController {
         }
     }
     func handleDownload() {
+        //: TODO: Add image animation for when tapped
         if !hasDownloadedVideo {
-            UISaveVideoAtPathToSavedPhotosAlbum(videoURL.path, self, #selector(video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+            if !isMuted {
+                UISaveVideoAtPathToSavedPhotosAlbum(videoURL.path, self, #selector(video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+            } else {
+                //: Save the video without audio
+                removeAudioFromVideo(videoURL.path)
+            }
+        }
+    }
+    func handleSound() {
+        hasDownloadedVideo = false
+        if !isMuted {
+            isMuted = true
+            self.player?.isMuted = true
+            let muteImage = UIImage(named: "Mute")?.withRenderingMode(.alwaysTemplate)
+            self.muteButton.setImage(muteImage, for: .normal)
+        } else {
+            isMuted = false
+            self.player?.isMuted = false
+            let unmuteImage = UIImage(named: "Unmute")?.withRenderingMode(.alwaysTemplate)
+            self.muteButton.setImage(unmuteImage, for: .normal)
         }
     }
     
@@ -73,14 +104,56 @@ class VideoViewController: UIViewController {
                     self.downloadButton.setImage(downloadedImage, for: .normal)
                 }, completion: nil)
             })
+            hasDownloadedVideo = true
         }
+        
     }
+    
+    func removeAudioFromVideo(_ videoPath: String) {
+        let path: String = videoPath
+        let mutableComposition = AVMutableComposition()
+        let inputVideoPath: String = path
+        let urlAsset = AVURLAsset(url: URL(fileURLWithPath: inputVideoPath), options: nil)
+        //: Grab the composition video track from AVMutableComposition already made.
+        let compositionVideoTrack: AVMutableCompositionTrack? = mutableComposition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
+        //: Grab the source track from AVURLAsset
+        let sourceVideoTrack: AVAssetTrack? = urlAsset.tracks(withMediaType: AVMediaTypeVideo)[0]
+        let timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, urlAsset.duration)
+        _ = try? compositionVideoTrack!.insertTimeRange(timeRange, of: sourceVideoTrack!, at: kCMTimeZero)
+        //: Apply the original transform.
+        if (sourceVideoTrack != nil) && (compositionVideoTrack != nil) {
+            compositionVideoTrack!.preferredTransform = sourceVideoTrack!.preferredTransform
+        }
+        //: A new path is needed for the saved file. A unique file name (based upon the current date) will point to a file in the documents folder
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        let date = dateFormatter.string(from: Date())
+        let savePath = (documentDirectory as NSString).appendingPathComponent("muteVideo-\(date).mov")
+        let url = URL(fileURLWithPath: savePath)
+        //: Create Exporter (render and export the merged video)
+        guard let exportSession = AVAssetExportSession(asset: mutableComposition, presetName: AVAssetExportPresetHighestQuality) else { return }
+        exportSession.outputURL = url
+        exportSession.outputFileType = "com.apple.quicktime-movie"
+        //: Perform the Export (Because the code performs the export asynchronously, this method returns immediately)
+        exportSession.exportAsynchronously(completionHandler: {() -> Void in
+            //: Save Final Video File
+            let url = exportSession.outputURL!
+            UISaveVideoAtPathToSavedPhotosAlbum(url.path, self, #selector(self.video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+        })
+    }
+    
     
     //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player!.currentItem)
+        //: App moved to background
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationState), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        //: App is active
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationState), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     func setupViews() {
@@ -98,13 +171,16 @@ class VideoViewController: UIViewController {
         
         view.addSubview(cancelButton)
         view.addSubview(downloadButton)
+        view.addSubview(muteButton)
         //: cancelButton Constraints
         view.addConstraintsWithFormat(format: "H:|-17-[v0(35)]", views: cancelButton)
         view.addConstraintsWithFormat(format: "V:|-21-[v0(35)]", views: cancelButton)
         
-        //: downloadButton Constraints
-        view.addConstraintsWithFormat(format: "H:|-18-[v0(35)]", views: downloadButton)
+        //: muteButton and downloadButton Constraints
+        view.addConstraintsWithFormat(format: "H:|-18-[v0(35)]-20-[v1(35)]", views: muteButton, downloadButton)
         view.addConstraintsWithFormat(format: "V:[v0(35)]-18-|", views: downloadButton)
+        view.addConstraintsWithFormat(format: "V:[v0(35)]-18-|", views: muteButton)
+        
         
     }
     
@@ -119,6 +195,16 @@ class VideoViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         player?.play()
+    }
+    //: MARK: - respond to Notifications
+    func applicationState(notification: Notification) {
+        if notification.name == .UIApplicationWillResignActive {
+            print("App moved to background!")
+            player?.pause()
+        } else if notification.name == .UIApplicationDidBecomeActive {
+            print("app is active!")
+            player?.play()
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
