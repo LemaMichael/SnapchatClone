@@ -62,8 +62,8 @@ class VideoViewController: UIViewController {
         }
     }
     func handleDownload() {
-        //: TODO: Add image animation for when tapped
         if !hasDownloadedVideo {
+            downloadingAnimation()
             if !isMuted {
                 UISaveVideoAtPathToSavedPhotosAlbum(videoURL.path, self, #selector(video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
             } else {
@@ -72,8 +72,9 @@ class VideoViewController: UIViewController {
             }
         }
     }
+    
     func handleSound() {
-        hasDownloadedVideo = false
+        changeDownloadButtonImage()
         if !isMuted {
             isMuted = true
             self.player?.isMuted = true
@@ -92,21 +93,11 @@ class VideoViewController: UIViewController {
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
             present(alert, animated: true)
-            hasDownloadedVideo = false
+            changeDownloadButtonImage()
         } else {
             //: We have a success
-            let downloadedImage = #imageLiteral(resourceName: "Downloaded")
-            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn, animations: {
-                self.downloadButton.transform = CGAffineTransform(scaleX: 0.50, y: 0.50)
-            }, completion: { (_) in
-                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
-                    self.downloadButton.transform = .identity
-                    self.downloadButton.setImage(downloadedImage, for: .normal)
-                }, completion: nil)
-            })
-            hasDownloadedVideo = true
+            downloadButtonFinishedAnimation()
         }
-        
     }
     
     func removeAudioFromVideo(_ videoPath: String) {
@@ -144,7 +135,6 @@ class VideoViewController: UIViewController {
         })
     }
     
-    
     //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,15 +170,6 @@ class VideoViewController: UIViewController {
         view.addConstraintsWithFormat(format: "H:|-18-[v0(35)]-20-[v1(35)]", views: muteButton, downloadButton)
         view.addConstraintsWithFormat(format: "V:[v0(35)]-18-|", views: downloadButton)
         view.addConstraintsWithFormat(format: "V:[v0(35)]-18-|", views: muteButton)
-        
-        
-    }
-    
-    @objc fileprivate func playerItemDidReachEnd(_ notification: Notification) {
-        if self.player != nil {
-            self.player!.seek(to: kCMTimeZero)
-            self.player!.play()
-        }
     }
     
     //: MARK: - viewDidAppear
@@ -205,6 +186,39 @@ class VideoViewController: UIViewController {
             print("app is active!")
             player?.play()
         }
+    }
+    
+    @objc fileprivate func playerItemDidReachEnd(_ notification: Notification) {
+        if self.player != nil {
+            self.player!.seek(to: kCMTimeZero)
+            self.player!.play()
+        }
+    }
+    
+    fileprivate func downloadingAnimation() {
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: [.autoreverse, .repeat], animations: {
+            self.downloadButton.frame.origin.y -= 12
+        }, completion: nil)
+    }
+    fileprivate func downloadButtonFinishedAnimation() {
+        //: Put the downloadButton back to its original position
+        downloadButton.layer.removeAllAnimations()
+        self.downloadButton.frame.origin.y += 12
+        let downloadedImage = #imageLiteral(resourceName: "Downloaded")
+        UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn, animations: {
+            self.downloadButton.transform = CGAffineTransform(scaleX: 0.50, y: 0.50)
+        }, completion: { (_) in
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+                self.downloadButton.transform = .identity
+                self.downloadButton.setImage(downloadedImage, for: .normal)
+            }, completion: nil)
+        })
+        hasDownloadedVideo = true
+    }
+    fileprivate func changeDownloadButtonImage() {
+        hasDownloadedVideo = false
+        let downloadImage = UIImage(named: "Download")?.withRenderingMode(.alwaysOriginal)
+        self.downloadButton.setImage(downloadImage, for: .normal)
     }
     
     override var prefersStatusBarHidden: Bool {
