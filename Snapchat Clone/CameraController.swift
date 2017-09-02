@@ -12,8 +12,6 @@ import SwiftyCam
 import AVFoundation
 
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate {
-    private var captureButtonTapped = false
-    
     let containerView: UIView = {
         let container = UIView()
         container.backgroundColor = .clear
@@ -114,7 +112,6 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         shouldUseDeviceOrientation = true
         allowAutoRotate = true
         audioEnabled = true
-        
         setupViews()
     }
     fileprivate func isFirstLaunch() -> Bool {
@@ -194,19 +191,15 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
             instructionsView.addConstraint(NSLayoutConstraint(item: instructionsLabel, attribute: .centerX, relatedBy: .equal, toItem: instructionsView, attribute: .centerX, multiplier: 1, constant: 0))
         }
     }
-    
     //: MARK: - swiftyCam methods
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didTake photo: UIImage) {
         print("Did take photo")
         removeInstructionsView()
-        if !captureButtonTapped {
-            captureButtonTapped = true
-            let newVC = PhotoViewController(image: photo)
-            /*
-             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-             self.present(newVC, animated: false, completion: nil)
-             }*/
-            self.present(newVC, animated: true, completion: nil)
+        let newVC = PhotoViewController(image: photo)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            self.present(newVC, animated: false, completion: {
+                //: What is there to do?
+            })
         }
     }
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didBeginRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
@@ -275,10 +268,16 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     //: MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        captureButtonTapped = false
         print("viewDidAppear")
+        SwiftyCamButton.isTapped = false
+        view.superview?.isUserInteractionEnabled = false
+        view.isUserInteractionEnabled = false
+        perform(#selector(enableUserInteraction), with: nil, afterDelay: 0.5)
+        
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    func enableUserInteraction() {
+        view.superview?.isUserInteractionEnabled = true
+        view.isUserInteractionEnabled = true
     }
 }
