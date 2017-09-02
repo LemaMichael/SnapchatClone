@@ -49,7 +49,7 @@ public protocol SwiftyCamButtonDelegate: class {
 /// UIButton Subclass for Capturing Photo and Video with SwiftyCamViewController
 
 open class SwiftyCamButton: UIButton {
-    
+    open static var isTapped = false
     /// Delegate variable
     
     public weak var delegate: SwiftyCamButtonDelegate?
@@ -76,7 +76,11 @@ open class SwiftyCamButton: UIButton {
     /// UITapGestureRecognizer Function
     
     @objc fileprivate func Tap() {
-       delegate?.buttonWasTapped()
+        guard !SwiftyCamButton.isTapped else {
+            return
+        }
+        SwiftyCamButton.isTapped = true
+        delegate?.buttonWasTapped()
     }
     
     /// UILongPressGestureRecognizer Function
