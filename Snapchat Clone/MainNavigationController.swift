@@ -15,7 +15,7 @@ class MainNavigationController: UINavigationController {
         super.viewDidLoad()
         //: Might do something here.....
         if isLoggedIn() {
-            perform(#selector(showLoginController), with: nil, afterDelay: 0.01)
+            perform(#selector(showLoginController), with: nil, afterDelay: 0.5)
         } else {
             let welcomeController = WelcomeController()
             viewControllers = [welcomeController]
