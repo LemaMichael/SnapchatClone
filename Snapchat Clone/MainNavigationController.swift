@@ -10,19 +10,35 @@ import Foundation
 import UIKit
 
 class MainNavigationController: UINavigationController {
-    
+    let backgroundImage: UIImageView = {
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "Loading Screen")
+        backgroundImage.contentMode = .scaleAspectFit
+        return backgroundImage
+    }()
+    //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        //: Might do something here.....
+        self.view.insertSubview(backgroundImage, at: 0)
+        
         if isLoggedIn() {
-            perform(#selector(showLoginController), with: nil, afterDelay: 0.5)
+            perform(#selector(showLoginController), with: nil, afterDelay: 0.70)
         } else {
             let welcomeController = WelcomeController()
             viewControllers = [welcomeController]
         }
     }
+    
     fileprivate func isLoggedIn() -> Bool {
         return UserDefaults.standard.isLoggedIn()
+    }
+    //: MARK: - viewDidDisappear
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        backgroundImage.removeFromSuperview()
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }
 
