@@ -26,7 +26,7 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
     }()
     let mojiImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Emoji")?.withRenderingMode(.alwaysOriginal)
+        imageView.image = UIImage(named: "White Icon")?.withRenderingMode(.alwaysOriginal)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -75,8 +75,12 @@ class MessagesController: UIViewController, UICollectionViewDelegate, UICollecti
         containerView.addSubview(searchButton)
         containerView.addSubview(newChatButton)
         
-        containerView.addConstraintsWithFormat(format: "H:|-11-[v0(27)]-10-[v1][v2(25)]-11-|", views: mojiImageView, searchButton, newChatButton)
-        containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: mojiImageView)
+        containerView.addConstraintsWithFormat(format: "H:|-11-[v0(23.5)]-10-[v1][v2(25)]-11-|", views: mojiImageView, searchButton, newChatButton)
+        
+        //: MojiImageView constraints
+        containerView.addConstraintsWithFormat(format: "V:[v0(23.5)]", views: mojiImageView)
+        containerView.addConstraint(NSLayoutConstraint(item: mojiImageView, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1, constant: 0))
+        
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: searchButton)
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: newChatButton)
         

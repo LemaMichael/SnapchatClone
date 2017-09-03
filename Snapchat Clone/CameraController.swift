@@ -6,10 +6,8 @@
 //  Copyright © 2017 Michael Lema. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import SwiftyCam
-import AVFoundation
 
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate {
     let containerView: UIView = {
@@ -19,7 +17,7 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     }()
     let mojiImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Emoji")?.withRenderingMode(.alwaysOriginal)
+        imageView.image = UIImage(named: "White Icon")?.withRenderingMode(.alwaysOriginal)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -162,9 +160,12 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         bottomView.backgroundColor = UIColor(white: 0.7, alpha: 0.4)
         containerView.addSubview(bottomView)
         
-        containerView.addConstraintsWithFormat(format: "H:|-11-[v0(27)]-10-[v1]-[v2(21.5)]-25-[v3(25)]-11-|", views: mojiImageView, searchButton, flashButton, switchCameraButton)
-        containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: mojiImageView)
+        containerView.addConstraintsWithFormat(format: "H:|-11-[v0(23.5)]-10-[v1]-[v2(21.5)]-25-[v3(25)]-11-|", views: mojiImageView, searchButton, flashButton, switchCameraButton)
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: searchButton)
+        
+        //: MojiImageView constraints
+        containerView.addConstraintsWithFormat(format: "V:[v0(23.5)]", views: mojiImageView)
+        containerView.addConstraint(NSLayoutConstraint(item: mojiImageView, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1, constant: 0))
         
         //: Flash Button vertical constraints
         containerView.addConstraintsWithFormat(format: "V:[v0(21.5)]", views: flashButton)
