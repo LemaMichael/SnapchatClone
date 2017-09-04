@@ -17,7 +17,7 @@ class ContactCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    let fullName: UILabel = {
+    var fullName: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Medium", size: 15)
         label.textColor = UIColor.rgb(red: 22, green: 25, blue: 28)
@@ -25,7 +25,7 @@ class ContactCell: UICollectionViewCell {
         label.text = "John Appleseed"
         return label
     }()
-    let username: UILabel = {
+    var username: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Medium", size: 11)
         label.textColor = UIColor.rgb(red: 189, green: 195, blue: 201)

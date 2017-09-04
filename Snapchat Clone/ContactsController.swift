@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import Contacts
 
 class ContactsController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private let purpleButtonColor =  UIColor.rgb(red: 153, green: 87, blue: 159)
     static let cellId = "cellId"
     static let footerId = "footerId"
+    var contacts = [CNContact]()
     
     lazy var skipButton: UIButton = {
         let button = UIButton(type: .system)
@@ -103,7 +105,7 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         present(alert, animated: true, completion: nil)
     }
     func continueButtonTapped() {
-        print("continuue button tapped!")
+        print("continue button tapped!")
     }
     
     //: MARK: - Functions for modifying the ContactCell
@@ -127,7 +129,7 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return contacts.count
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 60)
@@ -140,6 +142,12 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         } else {
             cellUnselected(cell)
         }
+        let currentContact = contacts[indexPath.item]
+        cell.fullName.text = currentContact.givenName + " " + currentContact.familyName
+        //: Set the username's text with the contact's number if set, if not use their email as an alternative.
+        let validNumber = (currentContact.phoneNumbers.first?.value)?.stringValue
+        let email = (currentContact.emailAddresses.first?.value) as String?
+        cell.username.text = validNumber ?? email
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -93,6 +93,34 @@ class FindFriendsController: UIViewController {
         stackView.spacing = 5
         return stackView
     }()
+    lazy var contacts: [CNContact] = {
+        //: https://stackoverflow.com/questions/32669612/how-to-fetch-all-contacts-record-in-ios-9-using-contacts-framework
+        let contactStore = CNContactStore()
+        let keysToFetch = [
+            CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
+            CNContactEmailAddressesKey,
+            CNContactPhoneNumbersKey] as! [CNKeyDescriptor]
+        
+        //: Get all the containers
+        var containers = [CNContainer]()
+        do {
+            containers = try contactStore.containers(matching: nil)
+        } catch {
+            print("Error fetching containers")
+        }
+        var contacts = [CNContact]()
+        //: Iterate all containers and append their contacts to our results array
+        for container in containers {
+            let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
+            do {
+                let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch)
+                contacts.append(contentsOf: containerResults)
+            } catch {
+                print("Error fetching results for container")
+            }
+        }
+        return contacts
+    }()
     
     //: MARK: - Button actions
     func skipTapped() {
@@ -129,20 +157,25 @@ class FindFriendsController: UIViewController {
         }
     }
     func continueButtonTapped() {
-        print("Continue button was tapped!")
-        // Creating a mutable object to add to the contact
         let store = CNContactStore()
         store.requestAccess(for: CNEntityType.contacts) { (isAccessed, error) in
-            print(isAccessed)
-            if isAccessed {
-                print("We have access, do something now.")
-                DispatchQueue.main.async {
+            //: I put both conditional statements inside DispatchQueue.main.async because if there was an error and the user double tapped the home button, an error/warning displayed stating "This application is modifying the autolayout engine from a background thread, which can lead to engine corruption and weird crashes."
+            DispatchQueue.main.async {
+                if isAccessed {
+                    print("We have access, do something now.")
                     //self.dismiss(animated: false, completion: nil)
                     //self.present(ContactsController(), animated: false, completion: nil)
-                    self.navigationController?.pushViewController(ContactsController(), animated: false)
+                    let contactsController = ContactsController()
+                    contactsController.contacts = self.contacts.sorted { $0.givenName < $1.givenName }
+                    self.navigationController?.pushViewController(contactsController, animated: false)
+                }
+                //: If we are not granted permission, go to main view.
+                if (error != nil) {
+                    UserDefaults.standard.setIsLoggedIn(value: true)
+                    UserDefaults.standard.setIsFirstLaunch(value: true)
+                    self.showLoginController()
                 }
             }
-            print(error as Any)
         }
     }
     //: MARK: -viewDidLoad
