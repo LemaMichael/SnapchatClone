@@ -105,7 +105,10 @@ class ContactsController: UIViewController, UICollectionViewDelegate, UICollecti
         present(alert, animated: true, completion: nil)
     }
     func continueButtonTapped() {
-        print("continue button tapped!")
+        //: Do something later with the contacts selected...
+        UserDefaults.standard.setIsLoggedIn(value: true)
+        UserDefaults.standard.setIsFirstLaunch(value: true)
+        self.perform(#selector(self.showLoginController), with: nil, afterDelay: 0.01)
     }
     
     //: MARK: - Functions for modifying the ContactCell
