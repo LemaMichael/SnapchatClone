@@ -103,6 +103,7 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         //: TODO: - Add button bounce animation
         switchCamera()
     }
+    //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         cameraDelegate = self
