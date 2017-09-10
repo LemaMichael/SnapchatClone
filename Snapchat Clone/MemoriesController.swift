@@ -36,10 +36,13 @@ class MemoriesController: UIViewController, UICollectionViewDelegate, UICollecti
         return button
     }()
     let selectButton: UIButton = {
-        let button = UIButton(type: .system)
-        let searchImage = UIImage(named: "New Chat")?.withRenderingMode(.alwaysOriginal)
+        let button = UIButton(type: .custom)
+        let searchImage = UIImage(named: "Select")?.withRenderingMode(.alwaysTemplate)
         button.setImage(searchImage, for: .normal)
-        button.addTarget(self, action: #selector(handleSelectButton), for: .touchUpInside)
+        button.tintColor = .white
+        button.adjustsImageWhenHighlighted = false
+        button.addTarget(self, action: #selector(enlargeSelectButton), for: .touchDown)
+        button.addTarget(self, action: #selector(shrinkSelectButton), for: .touchDragOutside)
         return button
     }()
     lazy var collectionView: UICollectionView = {
@@ -55,10 +58,21 @@ class MemoriesController: UIViewController, UICollectionViewDelegate, UICollecti
     func handleSearchButton() {
         print("Search Button Tapped")
     }
-    func handleSelectButton() {
-        print("Select Button Tapped!")
+    func enlargeSelectButton() {
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.3,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseOut,
+                       animations: {
+                        self.selectButton.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+        }, completion: { (succes: Bool) in
+            //: Do something here later
+        })
     }
-    
+    func shrinkSelectButton() {
+        selectButton.transform = .identity
+    }
     //: MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,13 +82,19 @@ class MemoriesController: UIViewController, UICollectionViewDelegate, UICollecti
         setupViews()
     }
     func setupViews() {
+        //: Add the collectionView first so the containerView can be above (on top) of collectionView
+        view.addSubview(collectionView)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
+        view.addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
+        collectionView.contentInset = UIEdgeInsets(top: 75, left: 0, bottom: 0, right: 0)
+        
         view.addSubview(containerView)
         //: ContainerView constraints
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: containerView)
         //view.addConstraintsWithFormat(format: "V:|-22-[v0(50)]", views: containerView)
         view.addConstraintsWithFormat(format: "V:[v0(50)]", views: containerView)
-
         
+        //: The containerView's top constraint will be updated when scrolling
         topConstraint = NSLayoutConstraint(item: containerView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 22)
         view.addConstraint(topConstraint!)
         
@@ -88,16 +108,13 @@ class MemoriesController: UIViewController, UICollectionViewDelegate, UICollecti
         
         containerView.addConstraintsWithFormat(format: "H:|-11-[v0(23.5)]-10-[v1][v2(25)]-11-|", views: mojiImageView, searchButton, selectButton)
         containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: searchButton)
-        containerView.addConstraintsWithFormat(format: "V:|[v0]|", views: selectButton)
         
         //: MojiImageView constraints
         containerView.addConstraintsWithFormat(format: "V:[v0(23.5)]", views: mojiImageView)
         containerView.addConstraint(NSLayoutConstraint(item: mojiImageView, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1, constant: 0))
-        
-        view.addSubview(collectionView)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        view.addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        collectionView.contentInset = UIEdgeInsets(top: 75, left: 0, bottom: 0, right: 0)
+        //: selectButton Constraints
+        containerView.addConstraintsWithFormat(format: "V:[v0(23.5)]", views: selectButton)
+        containerView.addConstraint(NSLayoutConstraint(item: selectButton, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1, constant: 0))
     }
     
     //: MARK: - CollectionView methods
