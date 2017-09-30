@@ -6,13 +6,12 @@
 //  Copyright © 2017 Michael Lema. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class MemoriesController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    let cellId = "cellId"
-    var topConstraint:  NSLayoutConstraint?
-
+class MemoriesController: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    static let snapsCellId = "cellId"
+    static let cameraRollCellId = "cameraRollCellId"
     let containerView: UIView = {
         let container = UIView()
         container.backgroundColor = .clear
@@ -45,20 +44,34 @@ class MemoriesController: UIViewController, UICollectionViewDelegate, UICollecti
         button.addTarget(self, action: #selector(shrinkSelectButton), for: .touchDragOutside)
         return button
     }()
-    lazy var collectionView: UICollectionView = {
-        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-        cv.backgroundColor = .clear
-        cv.delegate = self
-        cv.dataSource = self
-        cv.showsVerticalScrollIndicator = false
-        return cv
+    let mainContainter: UIView = {
+        let container = UIView()
+        container.backgroundColor = .white
+        return container
     }()
-    
+    lazy var menuBar: MenuBar = {
+        let mb = MenuBar()
+        mb.homeController = self
+        return mb
+    }()
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.isPagingEnabled = true
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(SnapCell.self, forCellWithReuseIdentifier: snapsCellId)
+        collectionView.register(CameraRollCell.self, forCellWithReuseIdentifier: cameraRollCellId)
+        return collectionView
+    }()
     //: MARK: - Button actions
-    func handleSearchButton() {
+    @objc func handleSearchButton() {
         print("Search Button Tapped")
     }
-    func enlargeSelectButton() {
+    @objc func enlargeSelectButton() {
         UIView.animate(withDuration: 0.3,
                        delay: 0,
                        usingSpringWithDamping: 0.3,
@@ -70,33 +83,23 @@ class MemoriesController: UIViewController, UICollectionViewDelegate, UICollecti
             //: Do something here later
         })
     }
-    func shrinkSelectButton() {
+    @objc func shrinkSelectButton() {
         selectButton.transform = .identity
     }
-    //: MARK: - viewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //: Light red color
-        view.backgroundColor = UIColor.rgb(red: 246, green: 39, blue: 78)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        view.backgroundColor = UIColor(red: 246/255, green: 39/255, blue: 78/255, alpha: 1)
+        
         setupViews()
+        setupMenuBar()
     }
     func setupViews() {
-        //: Add the collectionView first so the containerView can be above (on top) of collectionView
-        view.addSubview(collectionView)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        view.addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        collectionView.contentInset = UIEdgeInsets(top: 75, left: 0, bottom: 0, right: 0)
-        
         view.addSubview(containerView)
         //: ContainerView constraints
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: containerView)
-        //view.addConstraintsWithFormat(format: "V:|-22-[v0(50)]", views: containerView)
+        view.addConstraintsWithFormat(format: "V:|-22-[v0(50)]", views: containerView)
         view.addConstraintsWithFormat(format: "V:[v0(50)]", views: containerView)
-        
-        //: The containerView's top constraint will be updated when scrolling
-        topConstraint = NSLayoutConstraint(item: containerView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 22)
-        view.addConstraint(topConstraint!)
         
         containerView.addSubview(mojiImageView)
         containerView.addSubview(searchButton)
@@ -115,40 +118,72 @@ class MemoriesController: UIViewController, UICollectionViewDelegate, UICollecti
         //: selectButton Constraints
         containerView.addConstraintsWithFormat(format: "V:[v0(23.5)]", views: selectButton)
         containerView.addConstraint(NSLayoutConstraint(item: selectButton, attribute: .centerY, relatedBy: .equal, toItem: containerView, attribute: .centerY, multiplier: 1, constant: 0))
+        
+        view.addSubview(mainContainter)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: mainContainter)
+        view.addConstraint(NSLayoutConstraint(item: mainContainter, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 15))
+        view.addConstraintsWithFormat(format: "V:[v0]|", views: mainContainter)
+        
+        //: Add the collection View to the mainContainer
+        mainContainter.addSubview(collectionView)
+        mainContainter.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
+        mainContainter.addConstraintsWithFormat(format: "V:[v0]|", views: collectionView)
+        mainContainter.addConstraint(NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: mainContainter, attribute: .top, multiplier: 1, constant: 60))
+        
+        
     }
-    
-    //: MARK: - CollectionView methods
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    func setupMenuBar() {
+        mainContainter.addSubview(menuBar)
+        mainContainter.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
+        mainContainter.addConstraintsWithFormat(format: "V:[v0(50)]", views: menuBar)
+        //menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        mainContainter.addConstraint(NSLayoutConstraint(item: menuBar, attribute: .top, relatedBy: .equal, toItem: self.mainContainter, attribute: .top, multiplier: 1, constant: 8))
     }
+    //: MARK: - ScrollView Methods
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        menuBar.horizontalBarLeftAnchorConstraint?.constant = (scrollView.contentOffset.x / 4)
+        //: TODO: INCREASE the width when scrolling
+        //menuBar.horizontalBarWidthAnchorConstraint?.constant = (scrollView.contentOffset.x / 3)
+    }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let index = targetContentOffset.pointee.x / view.frame.width
+        
+        let indexPath = IndexPath(item: Int(index), section: 0)
+        menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
+    }
+    func scrollToMenuIndex(_ menuIndex: Int) {
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(), animated: true)
+    }
+    //: MARK: CollectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return 2
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        cell.backgroundColor = .white
-        if indexPath.item == 0 {
-            cell.roundedCellCorners([.topLeft, .topRight])
+        let identifier: String
+        if indexPath.item == 1 {
+            identifier = MemoriesController.cameraRollCellId
         } else {
-            //: Issue with cell recycling where other cells were rounded
-            cell.layer.mask = nil
+            identifier = MemoriesController.snapsCellId
         }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         return cell
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 60)
+        return CGSize(width: mainContainter.frame.width, height: collectionView.frame.height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //: The top is zero
-        let offset = scrollView.contentOffset.y
-        if -offset < 90 {
-            topConstraint?.constant = 22 - (-offset / 10)
-        }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let cornerRadii = CGSize(width: 20.0, height: 20.0)
+        let path = UIBezierPath(roundedRect: mainContainter.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: cornerRadii)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.frame = mainContainter.bounds
+        shapeLayer.path = path.cgPath
+        mainContainter.layer.mask = shapeLayer
     }
 }
-

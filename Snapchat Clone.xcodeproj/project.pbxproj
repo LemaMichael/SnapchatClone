@@ -11,6 +11,14 @@
 		4C06033D1F3ABE99001F17CC /* BirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06033C1F3ABE99001F17CC /* BirthdayController.swift */; };
 		4C090B871F59FD23000B30C9 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C090B861F59FD23000B30C9 /* UserDefaultsExtension.swift */; };
 		4C090B891F59FFFA000B30C9 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C090B881F59FFFA000B30C9 /* MainNavigationController.swift */; };
+		4C0E03DA1F7F4CA500BE0E81 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E03D91F7F4CA500BE0E81 /* MenuBar.swift */; };
+		4C0E03DC1F7F4CDF00BE0E81 /* SnapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E03DB1F7F4CDF00BE0E81 /* SnapCell.swift */; };
+		4C0E03DE1F7F4CF700BE0E81 /* CameraRollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E03DD1F7F4CF700BE0E81 /* CameraRollCell.swift */; };
+		4C0E03E01F7F4D3800BE0E81 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E03DF1F7F4D3800BE0E81 /* BaseCollectionViewCell.swift */; };
+		4C0E03E21F7F4D6600BE0E81 /* PhotoMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E03E11F7F4D6600BE0E81 /* PhotoMenuBar.swift */; };
+		4C0E03E41F7F4DDB00BE0E81 /* AllPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E03E31F7F4DDB00BE0E81 /* AllPhotosCell.swift */; };
+		4C0E03E61F7F4DF700BE0E81 /* ScreenshotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E03E51F7F4DF700BE0E81 /* ScreenshotsCell.swift */; };
+		4C0E03E81F7F4E0B00BE0E81 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0E03E71F7F4E0B00BE0E81 /* VideoCell.swift */; };
 		4C0E258B1F2DD2F100FB00B6 /* ringtone_bff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */; };
 		4C0E258C1F2DD2F100FB00B6 /* ringtone_full.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */; };
 		4C0E258D1F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 4C0E25891F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a */; };
@@ -70,6 +78,14 @@
 		4C06033C1F3ABE99001F17CC /* BirthdayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdayController.swift; sourceTree = "<group>"; };
 		4C090B861F59FD23000B30C9 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		4C090B881F59FFFA000B30C9 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		4C0E03D91F7F4CA500BE0E81 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		4C0E03DB1F7F4CDF00BE0E81 /* SnapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCell.swift; sourceTree = "<group>"; };
+		4C0E03DD1F7F4CF700BE0E81 /* CameraRollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRollCell.swift; sourceTree = "<group>"; };
+		4C0E03DF1F7F4D3800BE0E81 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		4C0E03E11F7F4D6600BE0E81 /* PhotoMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMenuBar.swift; sourceTree = "<group>"; };
+		4C0E03E31F7F4DDB00BE0E81 /* AllPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPhotosCell.swift; sourceTree = "<group>"; };
+		4C0E03E51F7F4DF700BE0E81 /* ScreenshotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsCell.swift; sourceTree = "<group>"; };
+		4C0E03E71F7F4E0B00BE0E81 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		4C0E25871F2DD2F100FB00B6 /* ringtone_bff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone_bff.mp3; sourceTree = "<group>"; };
 		4C0E25881F2DD2F100FB00B6 /* ringtone_full.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone_full.mp3; sourceTree = "<group>"; };
 		4C0E25891F2DD2F100FB00B6 /* ringtone_outgoing_bff.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ringtone_outgoing_bff.m4a; sourceTree = "<group>"; };
@@ -139,6 +155,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C0E03D81F7F4C3A00BE0E81 /* Memories Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C0E03D91F7F4CA500BE0E81 /* MenuBar.swift */,
+				4C0E03DB1F7F4CDF00BE0E81 /* SnapCell.swift */,
+				4C0E03DD1F7F4CF700BE0E81 /* CameraRollCell.swift */,
+				4C0E03DF1F7F4D3800BE0E81 /* BaseCollectionViewCell.swift */,
+				4C0E03E11F7F4D6600BE0E81 /* PhotoMenuBar.swift */,
+				4C0E03E31F7F4DDB00BE0E81 /* AllPhotosCell.swift */,
+				4C0E03E51F7F4DF700BE0E81 /* ScreenshotsCell.swift */,
+				4C0E03E71F7F4E0B00BE0E81 /* VideoCell.swift */,
+			);
+			name = "Memories Views";
+			sourceTree = "<group>";
+		};
 		4C5926171F3319BB0007480E /* Sign Up */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +288,7 @@
 		4CE1588B1F55DDEE0037E287 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C0E03D81F7F4C3A00BE0E81 /* Memories Views */,
 				4CE1588C1F55DDFC0037E287 /* MessageCell.swift */,
 				4C84E5AA1F579F9800A88AE4 /* GhostCell.swift */,
 				4C84E5AC1F579FC500A88AE4 /* ContactCell.swift */,
@@ -446,6 +478,7 @@
 			files = (
 				4C84E5AB1F579F9800A88AE4 /* GhostCell.swift in Sources */,
 				4CB7E4161F43DF5200681327 /* EmailController.swift in Sources */,
+				4C0E03E61F7F4DF700BE0E81 /* ScreenshotsCell.swift in Sources */,
 				4CFE904F1F58BDC500E2751F /* VideoViewController.swift in Sources */,
 				4CB8BC831F330F5200EA3F89 /* ConstraintsExtension.swift in Sources */,
 				4C090B871F59FD23000B30C9 /* UserDefaultsExtension.swift in Sources */,
@@ -456,6 +489,7 @@
 				4C6187681F2DC237001245ED /* AppDelegate.swift in Sources */,
 				4C5163AD1F44581C005A7AE9 /* PhoneValidation.swift in Sources */,
 				4C84E5B11F57A02500A88AE4 /* CountryCell.swift in Sources */,
+				4C0E03E81F7F4E0B00BE0E81 /* VideoCell.swift in Sources */,
 				4CB82D031F46DBC700658718 /* VerificationController.swift in Sources */,
 				4CF69CB21F49758100F9B081 /* ContactsController.swift in Sources */,
 				4CF1F08E1F383C780049ADB8 /* UnderlinedTextFieldExtension.swift in Sources */,
@@ -471,14 +505,20 @@
 				4C1848E81F40EB0A001DE8F9 /* Nav.ControllerExt.swift in Sources */,
 				4CC57E3A1F45433C000F78EB /* CountryController.swift in Sources */,
 				4C56B5721F4C0677003C8F8D /* StoriesController.swift in Sources */,
+				4C0E03DC1F7F4CDF00BE0E81 /* SnapCell.swift in Sources */,
 				4C5926191F3319E60007480E /* NameController.swift in Sources */,
+				4C0E03E01F7F4D3800BE0E81 /* BaseCollectionViewCell.swift in Sources */,
+				4C0E03E21F7F4D6600BE0E81 /* PhotoMenuBar.swift in Sources */,
 				4C090B891F59FFFA000B30C9 /* MainNavigationController.swift in Sources */,
 				4CB8D16B1F51B972007E21F6 /* ProfileController.swift in Sources */,
 				4C84E5AD1F579FC500A88AE4 /* ContactCell.swift in Sources */,
 				4C5163AB1F445811005A7AE9 /* EmailValidation.swift in Sources */,
+				4C0E03DA1F7F4CA500BE0E81 /* MenuBar.swift in Sources */,
 				4C06033D1F3ABE99001F17CC /* BirthdayController.swift in Sources */,
 				4CB7E4141F43A0C400681327 /* PasswordController.swift in Sources */,
+				4C0E03DE1F7F4CF700BE0E81 /* CameraRollCell.swift in Sources */,
 				4CCA9CB01F47EA6000CAE3D8 /* RoundedCorner.swift in Sources */,
+				4C0E03E41F7F4DDB00BE0E81 /* AllPhotosCell.swift in Sources */,
 				4C79155B1F4010D2000729E0 /* UsernameController.swift in Sources */,
 				4C56B5741F4C06FF003C8F8D /* CameraController.swift in Sources */,
 				4C56B5701F4C05F4003C8F8D /* MessagesController.swift in Sources */,
