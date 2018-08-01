@@ -23,6 +23,7 @@ class MainNavigationController: UINavigationController {
         
         if isLoggedIn() {
             perform(#selector(showLoginController), with: nil, afterDelay: 0.70)
+            //viewControllers = [MemoriesController()]
         } else {
             let welcomeController = WelcomeController()
             viewControllers = [welcomeController]
