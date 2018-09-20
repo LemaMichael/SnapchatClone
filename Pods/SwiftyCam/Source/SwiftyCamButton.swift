@@ -49,7 +49,7 @@ public protocol SwiftyCamButtonDelegate: class {
 /// UIButton Subclass for Capturing Photo and Video with SwiftyCamViewController
 
 open class SwiftyCamButton: UIButton {
-    open static var isTapped = false
+    public static var isTapped = false
     /// Delegate variable
     
     public weak var delegate: SwiftyCamButtonDelegate?

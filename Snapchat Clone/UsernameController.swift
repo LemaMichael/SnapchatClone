@@ -153,7 +153,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             if isLessthan3 {
                 let previous = currentText
                 print("I am inside isLessthan3")
-                let currentCharCount = currentText.trimmingCharacters(in: .whitespaces).characters.count
+                let currentCharCount = currentText.trimmingCharacters(in: .whitespaces).count
                 print("currentCharCount is \(currentCharCount)")
                 for _ in currentCharCount..<3 {
                     currentText += newString()
@@ -188,11 +188,11 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
     }
     //: MARK: - Functions to determine valid username
     func isLessThan3Char(text: String) -> Bool {
-        return text.trimmingCharacters(in: .whitespaces).characters.count < 3
+        return text.trimmingCharacters(in: .whitespaces).count < 3
     }
     func isFirstCharANumber(text: String) -> Bool {
         //: Will return true if first char is an int.
-        if let firstChar = text.characters.first {
+        if let firstChar = text.first {
             return Int(String(describing: firstChar)) != nil
         }
         return false
@@ -202,12 +202,12 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         return text.rangeOfCharacter(from: characterSet.inverted) != nil
     }
     func isOver15Character(text: String) -> Bool {
-        return text.characters.count > 15
+        return text.count > 15
     }
     
     func newString() -> String {
         var newString = ""
-        let randomVal = arc4random_uniform(UInt32(validList.characters.count))
+        let randomVal = arc4random_uniform(UInt32(validList.count))
         newString  += "\(validList[validList.index(validList.startIndex, offsetBy: Int(randomVal))])"
         return newString
     }
@@ -219,10 +219,10 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
         }
         if !text.isEmpty {
             refreshButton.isHidden = false
-            let firstLetter = text.characters.first!
+            let firstLetter = text.first!
             let isNumber = Int(String(describing: firstLetter))
             
-            if text.trimmingCharacters(in: .whitespaces).characters.count < 3 {
+            if text.trimmingCharacters(in: .whitespaces).count < 3 {
                 if text.rangeOfCharacter(from: invalidCharacterSet) == nil  && text.rangeOfCharacter(from: characterSet) == nil  {
                     refreshButton.isHidden = true
                     resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
@@ -234,7 +234,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
                     refreshButton.isHidden = false
                     continueButton.backgroundColor = grayButtonColor
                 }
-            } else if text.trimmingCharacters(in: .whitespaces).characters.count < 3 {
+            } else if text.trimmingCharacters(in: .whitespaces).count < 3 {
                 //: Username cannot be less than 3 characters
                 resultLabel.text = "Oops! Usernames must be at least 3 characters 📝"
                 resultLabel.textColor = faintRedColor
@@ -254,7 +254,7 @@ class UsernameController: UIViewController, UIScrollViewDelegate, UITextFieldDel
                 resultLabel.text = "Oops! Usernames can include letters, numbers, and one of -, _, or . 👌"
                 resultLabel.textColor = faintRedColor
                 continueButton.backgroundColor = grayButtonColor
-            } else if text.characters.count > 15 {
+            } else if text.count > 15 {
                 refreshButton.isHidden = false
                 resultLabel.text = "Oops! Usernames cannot be longer than 15 characters 📖"
                 resultLabel.textColor = faintRedColor

@@ -589,7 +589,8 @@ open class SwiftyCamViewController: UIViewController {
 			// remove and re-add inputs and outputs
 
 			for input in self.session.inputs {
-				self.session.removeInput(input as! AVCaptureInput)
+                guard let validInput = input as? AVCaptureInput else { return }
+				self.session.removeInput(validInput)
 			}
 
 			self.addInputs()
@@ -1050,7 +1051,7 @@ extension SwiftyCamViewController : AVCaptureFileOutputRecordingDelegate {
 			}
 		}
 		if error != nil {
-			print("[SwiftyCam]: Movie file finishing error: \(error)")
+            print("[SwiftyCam]: Movie file finishing error: \(String(describing: error))")
 		} else {
 			//Call delegate function with the URL of the outputfile
 			DispatchQueue.main.async {

@@ -37,7 +37,7 @@ class MessageCell: UICollectionViewCell {
         //: Increase spacing between lines
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 3
-        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.characters.count))
+        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.count))
         label.attributedText = attributedText
         return label
     }()

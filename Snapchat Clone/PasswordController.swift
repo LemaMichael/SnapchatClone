@@ -176,7 +176,7 @@ class PasswordController: UIViewController, UIScrollViewDelegate, UITextFieldDel
             if text == PasswordController.username {
                 resultLabel.isHidden = false
                 continueButton.backgroundColor = grayButtonColor
-            } else if text.characters.count >= 8 {
+            } else if text.count >= 8 {
                 continueButton.backgroundColor = purpleButtonColor
             } else {
                 continueButton.backgroundColor = grayButtonColor

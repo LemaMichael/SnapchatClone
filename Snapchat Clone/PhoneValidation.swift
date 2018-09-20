@@ -21,7 +21,7 @@ func formatNumber(_ phonumbneNumber: String) -> String {
     number = number.replacingOccurrences(of: " ", with: "")
     number = number.replacingOccurrences(of: "-", with: "")
     number = number.replacingOccurrences(of: "+", with: "")
-    let numberLength = Int(number.characters.count)
+    let numberLength = Int(number.count)
     if numberLength > 15 {
         let index = number.index(number.startIndex, offsetBy: 15)
         number = number.substring(to: index)
@@ -35,7 +35,7 @@ func getLength(number: String) -> Int {
     number = number.replacingOccurrences(of: " ", with: "")
     number = number.replacingOccurrences(of: "-", with: "")
     number = number.replacingOccurrences(of: "+", with: "")
-    let numberLength = Int(number.characters.count)
+    let numberLength = Int(number.count)
     return numberLength
 }
 func checkNumber(phoneNumber: String) -> String {
